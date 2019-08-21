@@ -1,0 +1,15 @@
+.bundle/
+log/*.log
+pkg/
+test/dummy/db/*.sqlite3
+test/dummy/db/*.sqlite3-journal
+test/dummy/log/*.log
+test/dummy/tmp/
+test/dummy/.sass-cache
+Gemfile.lock
+test/dummy/public/system/*
+.DS_STORE
+node_modules
+test/reports
+package.json
+yarn.lock

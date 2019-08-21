@@ -1,0 +1,25 @@
+module Workarea
+  decorate Admin::CreateCatalogProductsController, with: :package_products do
+    def index
+      if params[:product_type] == 'package'
+        redirect_to create_catalog_package_products_path
+      elsif params[:product_type] == 'standard'
+        super
+      else
+        render :select
+      end
+    end
+
+    def edit
+      if @product.package?
+        flash.keep
+        redirect_to edit_create_catalog_package_product_path(
+                      @product,
+                      continue: params[:continue]
+                    )
+      else
+        super
+      end
+    end
+  end
+end

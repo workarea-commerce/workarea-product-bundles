@@ -1,0 +1,34 @@
+- @page_title = t('workarea.admin.create_catalog_products.select.title')
+
+.view
+  .view__header
+    .view__heading
+      %h1.heading--no-margin= t('workarea.admin.create_catalog_products.select.title')
+      %p.align-center= t('workarea.admin.create_catalog_products.select.instruction')
+
+  = form_tag create_catalog_products_path, method: 'get' do
+    .section
+      .grid
+        .grid__cell.grid__cell--33
+        .grid__cell.grid__cell--33
+          .section.align-center
+            .property
+              = radio_button_tag 'product_type', 'standard', true, title: t('workarea.admin.create_catalog_products.select.standard')
+              = label_tag 'product_type_standard', t('workarea.admin.create_catalog_products.select.standard'), class: 'heading--3'
+              %p= t('workarea.admin.create_catalog_products.select.standard_description')
+            .property
+              = radio_button_tag 'product_type', 'package', false, title: t('workarea.admin.create_catalog_products.select.package')
+              = label_tag 'product_type_package', t('workarea.admin.create_catalog_products.select.package'), class: 'heading--3'
+              %p= t('workarea.admin.create_catalog_products.select.package_description')
+        .grid__cell.grid__cell--33
+
+    .workflow-bar
+      .grid.grid--middle
+        .grid__cell.grid__cell--20
+          = link_to t('workarea.admin.form.cancel'), catalog_products_path, class: 'workflow-bar__button workflow-bar__button--delete'
+
+        .grid__cell.grid__cell--60
+
+        .grid__cell.grid__cell--20
+          .grid.grid--auto.grid--right.grid--middle
+            .grid__cell= button_tag t('workarea.admin.create_catalog_products.select.button'), value: 'select_product_type', class: 'workflow-bar__button workflow-bar__button--create'

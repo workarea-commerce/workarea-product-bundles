@@ -1,0 +1,20 @@
+module Workarea
+  decorate Search::Admin::CatalogProduct, with: :package_products do
+    def search_text
+      super.tap do |text|
+        text << 'package' if model.package?
+        text << 'family' if model.family?
+      end
+    end
+
+    def issues
+      super.tap do |issues|
+        if model.package?
+          # issues << 'No Packaged Products' if model.product_ids.blank?
+          issues.delete('No Variants')
+          issues.delete('SKU missing price')
+        end
+      end
+    end
+  end
+end

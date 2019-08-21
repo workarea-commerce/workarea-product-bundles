@@ -1,0 +1,44 @@
+module Workarea
+  decorate Catalog::Product, with: :package_products do
+    decorated do
+      include FeaturedProducts
+
+      scope :packages_containing, ->(id) { where('product_ids' => id) }
+
+      # For all products that have the given SKU return an Array containing:
+      # * the matching product
+      # * the package products that contain the matching product
+      #
+      # @param sku [String]
+      # @return [Array<Catalog::Product>]
+      #
+      def self.find_for_update_by_sku(sku)
+        where('variants.sku' => sku).flat_map do |product|
+          [product] + packages_containing(product.id)
+        end
+      end
+    end
+
+    def package?
+      template == 'package' || product_ids.present?
+    end
+
+    def family?
+      template == 'family'
+    end
+
+    def active?
+      attribute = if Workarea.config.localized_active_fields
+                    read_attribute(:active)[I18n.locale.to_s]
+                  else
+                    read_attribute(:active)
+                  end
+
+      attribute && (variants.active.any? || product_ids.present?)
+    end
+
+    def purchasable?
+      super && !package?
+    end
+  end
+end

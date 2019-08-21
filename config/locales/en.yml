@@ -1,0 +1,45 @@
+en:
+  workarea:
+    admin:
+      catalog_products:
+        cards:
+          packaged_products:
+            button: Manage Products
+            description: Package products appear on the product detail page.
+            empty: No packaged products.
+            empty_button: Add Products
+            title: Packaged Products
+        index:
+          add_new_package_product: Add New Package Product
+      create_catalog_package_products:
+        flash_messages:
+          packaged_products_saved: Packaged products have been saved
+        packaged_products:
+          continue_to_images: Continue to Images
+          instruction: Click on products to add them to the package.
+          no_matching_products: No matching products found
+          page_title: Products for %{product_name}
+          start_over: Start over
+          title: "%{product_name}: Add Products"
+        setup:
+          save_and_add_products: Save and Add Products
+        steps:
+          categorization: Categorization
+          content: Content
+          details: Details
+          images: Images
+          packaged_products: Packaged Products
+          publish: Publish
+          setup: Setup
+        workflow:
+          cancel_message: Are you sure? All work on this package will be lost.
+          skip_this: or skip this
+      create_catalog_products:
+        select:
+          button: Select and Continue
+          instruction: A product can contain either variants or other products. Pick the product type you wish you continue creating.
+          package: Package
+          package_description: A product that contains other products. Can be used to bundle similar or related products together on a single detail page.
+          standard: Standard
+          standard_description: A typical product that contains variants representing the options of a single product.
+          title: Select a type of product to create

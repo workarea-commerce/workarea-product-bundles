@@ -1,0 +1,8 @@
+module Workarea
+  decorate Search::ProductEntries, with: :package_products do
+    def index_entries_for(product)
+      return Search::Storefront::PackageProduct.new(product) if product.package?
+      super
+    end
+  end
+end

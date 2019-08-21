@@ -1,0 +1,8 @@
+module Workarea
+  decorate Storefront::ProductsController, with: :package_products do
+    def show
+      super
+      render 'package_show' and return if @product.package? && !request.xhr?
+    end
+  end
+end

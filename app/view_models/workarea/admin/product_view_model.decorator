@@ -1,0 +1,35 @@
+module Workarea
+  decorate Admin::ProductViewModel, with: :package_products do
+    decorated do
+      include Admin::FeaturedProductsViewModel
+    end
+
+    def packaged_products
+      @packaged_products ||=
+        begin
+          models = Catalog::Product.find_ordered_for_display(
+            model.product_ids
+          )
+          Admin::ProductViewModel.wrap(models)
+        end
+    end
+
+    def package_templates
+      Workarea.config.package_product_templates
+        .map(&:to_s)
+        .map do |template_name|
+          [template_name.titleize, template_name.optionize]
+        end
+    end
+
+    def templates
+      return super unless model.present?
+
+      if package?
+        package_templates
+      else
+        super.reject { |o| o.in?(package_templates) }
+      end
+    end
+  end
+end

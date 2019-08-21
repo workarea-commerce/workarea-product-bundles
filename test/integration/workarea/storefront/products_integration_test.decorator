@@ -1,0 +1,19 @@
+module Workarea
+  decorate Storefront::ProductsIntegrationTest, with: :package_products do
+    def test_rendering_via_params
+      category = create_category
+      product = create_product(product_ids: [create_product.id])
+
+      Workarea.config.product_templates.each do |template|
+        next if template == :test_product
+        product.update_attributes!(template: template)
+
+        get storefront.product_path(product, via: category.to_gid_param)
+        assert_select(
+          'form.product-details__add-to-cart-form input[name="via"][value=?]',
+          category.to_gid_param
+        )
+      end
+    end
+  end
+end

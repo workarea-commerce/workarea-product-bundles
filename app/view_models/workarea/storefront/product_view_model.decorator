@@ -1,0 +1,13 @@
+module Workarea
+  decorate Storefront::ProductViewModel, with: :package_products do
+    def packaged_products
+      @packaged_products ||= begin
+        return [] if product_ids.blank?
+
+        models = Catalog::Product.find_ordered_for_display(product_ids)
+        models.map { |p| Storefront::ProductViewModel.wrap(p, options) }
+              .select { |p| p.variants.any? }
+      end
+    end
+  end
+end

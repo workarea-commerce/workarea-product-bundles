@@ -1,0 +1,53 @@
+module Workarea
+  decorate Admin::ActivitySystemTest do
+    def test_shows_a_filterable_list_of_activity_in_the_admin
+      visit admin.create_catalog_products_path
+      click_button t('workarea.admin.create_catalog_products.select.button')
+      fill_in 'product[name]', with: 'Testing Product'
+      click_button 'save_setup'
+
+      visit admin.create_releases_path
+      fill_in 'release[name]', with: 'Foo'
+      click_button 'save_setup'
+
+      visit admin.activity_path
+      assert(page.has_content?('Ben Crouse'))
+      assert(
+        page.has_content?(
+          t(
+            'workarea.admin.activities.catalog_product_create_html',
+            name: 'Testing Product'
+          )
+        )
+      )
+      assert(
+        page.has_content?(
+          t(
+            'workarea.admin.activities.release_create_html',
+            name: 'Foo'
+          )
+        )
+      )
+      select 'release', from: 'type'
+      page.execute_script("$('#activity_form').submit()") # because autosubmit control
+
+      assert(
+        page.has_no_content?(
+          t(
+            'workarea.admin.activities.catalog_product_create_html',
+            name: 'Testing Product'
+          )
+        )
+      )
+      assert(page.has_content?('Ben Crouse'))
+      assert(
+        page.has_content?(
+          t(
+            'workarea.admin.activities.release_create_html',
+            name: 'Foo'
+          )
+        )
+      )
+    end
+  end
+end

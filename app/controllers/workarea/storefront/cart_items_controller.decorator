@@ -1,0 +1,29 @@
+module Workarea
+  decorate Storefront::CartItemsController, with: :package_products do
+
+    decorated do
+      skip_before_action :verify_authenticity_token, only: [:create, :package]
+      after_action :check_inventory, except: [:create, :package]
+    end
+
+    def package
+      add_to_cart = AddPackageToCart.new(current_order, params)
+
+      if add_to_cart.save
+        check_inventory
+        Pricing.perform(current_order, current_shipping)
+
+        order_items = add_to_cart.items.map do |item|
+          current_order.items.find_existing(
+            item.item_params[:sku],
+            item.item_params[:customizations]
+          )
+        end.compact
+
+        @items = order_items.map do |item|
+          Storefront::OrderItemViewModel.wrap(item, view_model_options)
+        end
+      end
+    end
+  end
+end
