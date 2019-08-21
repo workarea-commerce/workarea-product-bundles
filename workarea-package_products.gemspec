@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Adam Clarke']
   s.email       = ['adam@revelry.co']
   s.homepage    = 'https://github.com/workarea-commerce/workarea-package-products'
-  s.summary     = 'Add support for package products to the Workarea commerce platform'
-  s.description = 'Add support for package products to the Workarea commerce platform'
+  s.summary     = 'Add support for package products to the Workarea Commerce Platform'
+  s.description = 'Add support for package products to the Workarea Commerce Platform'
 
   s.files = `git ls-files`.split("\n")
 
@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.3.0'
 
-  s.add_dependency 'workarea', '~> 3.x', '>= 3.4.x'
+  s.add_dependency 'workarea', '~> 3.x', '>= 3.5.x'
 end

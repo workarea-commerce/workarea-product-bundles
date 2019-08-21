@@ -1,21 +1,3 @@
-Workarea Package Products 3.3.2 (2019-06-25)
---------------------------------------------------------------------------------
-
-*   Omit Browse Option Products From Packaged Product Search Indexing
-
-    When a packaged product is updated in the search index, prevent an error
-    being thrown when one of the IDs given in `Catalog::Product#product_ids`
-    is a browse option of a parent product. These products already appear in
-    the index, so there's no need to throw an error if it cann't be found.
-    Instead of using a `.find` and passing an Array of IDs in, use an `$in`
-    query with `.where` to find all products matching the array of IDs,
-    omitting any that don't exist.
-
-    PACKAGEPDP-59
-    Tom Scott
-
-
-
 Workarea Package Products 3.3.1 (2019-04-16)
 --------------------------------------------------------------------------------
 

@@ -22,8 +22,11 @@
       %meta{ property: 'og:description', content: strip_tags(@product.meta_description) }
 
 - cache "#{@product.cache_key}/show", expires_in: 1.hour do
+
+  = render_schema_org(product_schema(@product, related_products: @product.recommendations))
+
   .view
-    .product-detail-container.product-detail-container--package{ itemscope: true, itemtype: 'http://schema.org/Product', data: { analytics: product_view_analytics_data(@product).to_json } }
+    .product-detail-container.product-detail-container--package{ data: { analytics: product_view_analytics_data(@product).to_json } }
 
       .product-details{ class: "product-details--#{@product.template}" }
         = render "workarea/storefront/products/templates/#{@product.template}", product: @product
@@ -31,7 +34,7 @@
       .product-detail-packaged-products{ class: "product-detail-packaged-products--#{@product.template}" }
         - @product.packaged_products.each do |product|
           .product-detail-packaged-products__container{ data: { packaged_product_id: product.id } }
-            .product-details{ class: "product-details--#{product.template}", itemprop: 'isRelatedTo', itemscope: true, itemtype: 'http://schema.org/Product', data: { analytics: product_view_analytics_data(product).to_json } }
+            .product-details{ class: "product-details--#{product.template}", data: { analytics: product_view_analytics_data(product).to_json } }
               = render "workarea/storefront/products/templates/#{product.template}", product: product
 
       - if @product.recommendations.any?
@@ -40,7 +43,7 @@
         .grid{ data: { analytics: product_list_analytics_data('Product Recommendations').to_json } }
           - @product.recommendations.each do |product|
             .grid__cell.grid__cell--50.grid__cell--33-at-medium.grid__cell--16-at-wide
-              .product-summary.product-summary--small{ itemprop: 'isRelatedTo', itemscope: true, itemtype: 'http://schema.org/Product' }
+              .product-summary.product-summary--small
                 = render 'workarea/storefront/products/summary', product: product
 
 
