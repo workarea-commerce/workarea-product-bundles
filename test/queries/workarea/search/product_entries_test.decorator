@@ -4,7 +4,7 @@ module Workarea
   decorate Search::ProductEntriesTest, with: :package_products do
     def test_package_product_entries
       products = Array.new(2) { create_product }
-      products.first.product_ids = ['ABC', '123']
+      products.first.update!(product_ids: ['ABC', '123'])
 
       entries = Search::ProductEntries.new(products).entries
       assert_equal(2, entries.size)

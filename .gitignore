@@ -11,5 +11,3 @@ test/dummy/public/system/*
 .DS_STORE
 node_modules
 test/reports
-package.json
-yarn.lock
