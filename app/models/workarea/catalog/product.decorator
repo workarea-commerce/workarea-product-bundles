@@ -27,14 +27,8 @@ module Workarea
       template == 'family'
     end
 
-    def active?
-      attribute = if Workarea.config.localized_active_fields
-                    read_attribute(:active)[I18n.locale.to_s]
-                  else
-                    read_attribute(:active)
-                  end
-
-      attribute && (variants.active.any? || product_ids.present?)
+    def active_by_relations?
+      super || self.class.in(id: product_ids).any?(&:active?)
     end
 
     def purchasable?

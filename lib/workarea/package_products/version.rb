@@ -1,5 +1,5 @@
 module Workarea
   module PackageProducts
-    VERSION = '3.3.1'.freeze
+    VERSION = '3.4.0.pre'.freeze
   end
 end
