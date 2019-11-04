@@ -53,15 +53,22 @@ module Workarea
 
       def test_active?
         @product_one.active = true
-        @product_one.variants.clear
+        assert(@product_one.active?)
 
+        @product_one.variants.clear
         refute(@product_one.active?)
 
-        @product_one.active = true
-        @product_one.product_ids = [1, 2]
-        @product_one.variants.clear
+        packaged_one = create_product(active: true)
+        packaged_two = create_product(active: false)
 
+        @product_one.product_ids = [packaged_one.id]
         assert(@product_one.active?)
+
+        @product_one.product_ids = [packaged_one.id, packaged_two.id]
+        assert(@product_one.active?)
+
+        @product_one.product_ids = [packaged_two.id]
+        refute(@product_one.active?)
       end
     end
   end
