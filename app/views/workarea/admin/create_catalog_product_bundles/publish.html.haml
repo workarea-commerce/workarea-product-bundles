@@ -1,0 +1,61 @@
+- @page_title = t('workarea.admin.create_catalog_products.publish.page_title', product_name: @product.name)
+
+.view
+  .view__header
+    .view__heading
+      %h1.heading.heading--no-margin= t('workarea.admin.create_catalog_products.publish.when_does_it_go_live', product_name: @product.name)
+      %p= link_to t('workarea.admin.create_catalog_products.publish.or_skip_this'), url_for(@product)
+
+  .view__container.view__container--narrow
+    = form_tag save_publish_create_catalog_product_bundle_path(@product), method: 'post' do
+      .section
+        .grid.grid--center
+          .grid__cell.grid__cell--40-at-medium
+            .publish-create-release{ data: { publish_create_release: '' } }
+              .property
+                = radio_button_tag t('workarea.admin.create_catalog_products.publish.activate'), 'now', current_release.blank?, title: 'Active'
+                = label_tag 'activate_now', t('workarea.admin.create_catalog_products.publish.now'), class: 'heading--4'
+
+              - release_options.each do |release|
+                .property
+                  = radio_button_tag t('workarea.admin.create_catalog_products.publish.activate'), release.id, release == current_release, title: 'Active'
+                  = label_tag "activate_#{release.id}", t('workarea.admin.create_catalog_products.publish.with_release', release_name: release.name), class: 'heading--4'
+
+              .property
+                = radio_button_tag t('workarea.admin.create_catalog_products.publish.activate'), 'new_release', params[:activate] == 'new_release', title: 'Active'
+                = label_tag 'activate_new_release', t('workarea.admin.create_catalog_products.publish.with_a_new_release'), class: 'heading--4'
+
+              .publish-create-release__fields{ class: ("hidden" unless params[:activate] == 'new_release') }
+                .property
+                  = label_tag 'release[name]', t('workarea.admin.create_catalog_products.publish.release_name'), class: 'property__name'
+                  = text_field_tag 'release[name]', nil, class: 'text-box text-box--wide', placeholder: "Mother's Day #{Time.now.year}"
+                .property
+                  = label_tag 'release[publish_at]', t('workarea.admin.create_catalog_products.publish.when_does_it_publish'), class: 'property__name'
+                  = hidden_field_tag 'release[publish_at]', nil, placeholder: 'When does it publish?', data: { datetimepicker_field: { inline: true } }
+
+      .workflow-bar
+        .grid.grid--middle
+          .grid__cell.grid__cell--20
+            = link_to t('workarea.admin.create_catalog_products.publish.cancel'), catalog_product_path(@product), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_catalog_product_bundles.workflow.cancel_message') }
+
+          .grid__cell.grid__cell--60
+            %ol.workflow-bar__steps
+              %li.workflow-bar__step
+                1) #{link_to t('workarea.admin.create_catalog_products.steps.setup'), edit_create_catalog_product_bundle_path(@product)}
+              %li.workflow-bar__step
+                2) #{link_to t('workarea.admin.create_catalog_product_bundles.steps.bundled_products'), bundled_products_create_catalog_product_bundle_path(@product)}
+              %li.workflow-bar__step
+                3) #{link_to t('workarea.admin.create_catalog_products.steps.images'), images_create_catalog_product_bundle_path(@product)}
+              %li.workflow-bar__step
+                4) #{link_to t('workarea.admin.create_catalog_products.steps.details'), details_create_catalog_product_bundle_path(@product)}
+              %li.workflow-bar__step
+                5) #{link_to t('workarea.admin.create_catalog_products.steps.content'), content_create_catalog_product_bundle_path(@product)}
+              %li.workflow-bar__step
+                6) #{link_to t('workarea.admin.create_catalog_products.steps.categorization'), categorization_create_catalog_product_bundle_path(@product)}
+              %li.workflow-bar__step
+                %strong
+                  7) #{t('workarea.admin.create_catalog_products.steps.publish')}
+
+          .grid__cell.grid__cell--20
+            .grid.grid--auto.grid--right.grid--middle
+              .grid__cell= button_tag t('workarea.admin.create_catalog_products.publish.save_and_finish'), value: 'publish', class: 'workflow-bar__button workflow-bar__button--create'

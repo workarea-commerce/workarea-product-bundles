@@ -1,0 +1,9 @@
+.property
+  %span.property__name
+    = t('workarea.admin.catalog_products.edit.show_bundled_products_label')
+    = link_to '#product-show-bundle-info', data: { tooltip: '' } do
+      = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.catalog_products.edit.show_bundle_info_title'))
+
+  =  toggle_button_for 'product[show_bundled_products]', @product.show_bundled_products?, disabled: product.product_ids.blank?, title_true: t('workarea.admin.catalog_products.edit.show_bundled_products'), title_false: t('workarea.admin.catalog_products.edit.hide_bundled_products')
+
+  #product-show-bundle-info.tooltip-content= t('workarea.admin.catalog_products.edit.show_bundle_info')

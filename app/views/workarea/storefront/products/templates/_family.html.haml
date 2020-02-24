@@ -14,9 +14,11 @@
         .product-details__description
           %p= truncated_product_description(product, t('workarea.storefront.products.read_more'))
 
-      = form_tag package_cart_items_path, method: 'post', class: 'product-details__add-to-cart-form', data: { dialog: { dialogOptions: { closeAll: true, initModules: true } }, analytics: add_to_cart_analytics_data(product).to_json } do
+      = form_tag bundle_cart_items_path, method: 'post', class: 'product-details__add-to-cart-form', data: { dialog_form: { dialogOptions: { closeAll: true, initModules: true } }, analytics: add_to_cart_analytics_data(product).to_json } do
         = hidden_field_tag :product_id, product.id, id: dom_id(product, 'product_id')
         = hidden_field_tag :via, params[:via], id: dom_id(product, 'via')
+
+        = append_partials('storefront.add_to_cart_form', product: product)
 
         %p.product-details__add-to-cart-action= button_tag t('workarea.storefront.products.add_to_cart'), value: 'add_to_cart', class: 'button button--large'
 

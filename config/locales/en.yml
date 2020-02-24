@@ -3,24 +3,42 @@ en:
     admin:
       catalog_products:
         cards:
-          packaged_products:
+          bundled_products:
             button: Manage Products
-            description: Package products appear on the product detail page.
-            empty: No packaged products.
+            description: Bundled products appear on the product detail page.
+            empty: No bundled products.
             empty_button: Add Products
-            title: Packaged Products
+            title: Bundled Products
+        edit:
+          show_bundle_info_title: Show Bundled Products Info
+          show_bundle_info: Control whether or not products included in a bundle are shown on the product detail page and when added to cart.
+          show_bundled_products_label: Show Bundled Products
+          show_bundled_products: Show Bundled Products
+          hide_bundled_products: Hide Bundled Products
         index:
-          add_new_package_product: Add New Package Product
-      create_catalog_package_products:
+          add_new_product_bundle: Add New Product Bundle
+      catalog_variants:
+        edit:
+          components:
+            label: Component SKUs
+            sku: SKU
+            quantity: Quantity
+            remove: Remove
+            remove_title: Remove component SKU %{sku}
+            new_sku: SKU
+            new_sku_placeholder: SKU
+            new_sku_quantity: Quantity
+            new_sku_quantity_placeholder: Quantity
+      create_catalog_product_bundles:
         flash_messages:
-          packaged_products_saved: Packaged products have been saved
-        packaged_products:
+          bundled_products_saved: Bundled products have been saved
+        bundled_products:
           continue_to_images: Continue to Images
-          instruction: Click on products to add them to the package.
+          instruction: Click on products to add them to the bundle.
           no_matching_products: No matching products found
-          page_title: Products for %{product_name}
+          page_title: Bundled products for %{product_name}
           start_over: Start over
-          title: "%{product_name}: Add Products"
+          title: "%{product_name}: Add Products to bundle"
         setup:
           save_and_add_products: Save and Add Products
         steps:
@@ -28,18 +46,51 @@ en:
           content: Content
           details: Details
           images: Images
-          packaged_products: Packaged Products
+          bundled_products: Bundled Products
           publish: Publish
           setup: Setup
         workflow:
-          cancel_message: Are you sure? All work on this package will be lost.
+          cancel_message: Are you sure? All work on this bundle will be lost.
+          skip_this: or skip this
+      create_catalog_product_kits:
+        flash_messages:
+          bundled_products_saved: Bundled products have been saved
+        bundled_products:
+          continue_to_variants: Continue to Variants
+          instruction: Click on products to add them to the kit.
+          no_matching_products: No matching products found
+          page_title: Bundled products for %{product_name}
+          start_over: Start over
+          title: "%{product_name}: Add Products to kit"
+        setup:
+          save_and_add_products: Save and Add Products
+        steps:
+          categorization: Categorization
+          content: Content
+          details: Details
+          images: Images
+          bundled_products: Bundled Products
+          publish: Publish
+          setup: Setup
+          variants: Variants
+        workflow:
+          cancel_message: Are you sure? All work on this kit will be lost.
           skip_this: or skip this
       create_catalog_products:
         select:
           button: Select and Continue
-          instruction: A product can contain either variants or other products. Pick the product type you wish you continue creating.
-          package: Package
-          package_description: A product that contains other products. Can be used to bundle similar or related products together on a single detail page.
+          instruction: A product can contain either variants and/or other products. Pick the product type you wish you continue creating.
+          bundle: Bundle
+          bundle_description: A product that contains other products. Can be used to bundle similar or related products together on a single detail page.
+          kit: Kit
+          kit_description: A product that contains other products but is displayed to customers as a single product with its own pricing and variants.
           standard: Standard
           standard_description: A typical product that contains variants representing the options of a single product.
           title: Select a type of product to create
+    alerts:
+      issues:
+        no_bundled_products: No Bundled Products
+    storefront:
+      carts:
+        bundle_contains: 'This item contains:'
+        bundled_item_quantity_html: '%{quantity} of %{name}'

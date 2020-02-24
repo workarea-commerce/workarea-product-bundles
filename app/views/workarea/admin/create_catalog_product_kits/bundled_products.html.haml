@@ -1,0 +1,75 @@
+- @page_title = t('workarea.admin.create_catalog_product_kits.bundled_products.page_title', product_name: @product.name)
+
+.view
+  .view__header
+    .view__heading
+      %h1.heading.heading--no-margin= t('workarea.admin.create_catalog_product_kits.bundled_products.title', product_name: @product.name)
+      %p= link_to t('workarea.admin.create_catalog_product_kits.workflow.skip_this'), content_create_catalog_product_kit_path(@product)
+
+  .view__container
+    .section
+      %p.align-center= t('workarea.admin.create_catalog_product_kits.bundled_products.instruction')
+
+      .browsing-controls.browsing-controls--with-divider.browsing-controls--center{ class: ('browsing-controls--filters-displayed' unless @search.toggle_facets?) }
+        = form_tag bundled_products_create_catalog_product_kit_path(@product), method: 'get', id: 'product_search_form' do
+          = facet_hidden_inputs(@search.facets)
+          .browsing-controls__sort
+            .property.property--inline
+              = label_tag 'sort', t('workarea.admin.search.sort_by'), class: 'property__name'
+              = select_tag :sort, options_for_select(@search.sorts, selected: @search.sort), data: { form_submitting_control: '' }
+
+          .browsing-controls__search
+            .search-form
+              = text_field_tag :q, params[:q], class: 'search-form__input', title: t('workarea.admin.search.keywords'), placeholder: t('workarea.admin.search.keywords')
+              = submit_tag 'search_products', class: 'search-form__button'
+
+          = render 'workarea/admin/shared/creation_date', search: @search, form_path: bundled_products_create_catalog_product_kit_path(@product)
+
+          - if @search.facets.present?
+            - @search.facets.each do |facet|
+              = render "workarea/admin/facets/#{facet.type}", facet: facet
+
+          -if @search.toggle_facets?
+            .browsing-controls__toggle-filters
+              %button.text-button{ type: 'button', data: { toggle_filters: '' } }= t('workarea.admin.search.show_filters')
+
+        = render 'workarea/admin/facets/applied', search: @search, reset_path: bundled_products_create_catalog_product_kit_path(@product)
+
+    - if @search.results.blank?
+      %h2
+        = t('workarea.admin.create_catalog_product_kits.bundled_products.no_matching_products')
+        = link_to t('workarea.admin.create_catalog_product_kits.bundled_products.start_over'), bundled_products_create_catalog_product_kit_path(@product)
+
+    - else
+      .grid.grid--auto.grid--flush.grid--center
+        - @search.results.each do |result|
+          .grid__cell
+            - if @product.product_ids.include?(result.id)
+              = render 'workarea/admin/featured_products/selected', featurable: @product, product: result
+            - else
+              = render 'workarea/admin/featured_products/unselected', featurable: @product, product: result
+
+      - if @search.results.total_pages > 1
+        = render 'workarea/admin/shared/pagination', collection: @search.results
+
+  .workflow-bar
+    .grid.grid--middle
+      .grid__cell.grid__cell--20
+        = link_to t('workarea.admin.form.cancel'), catalog_product_path(@product), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_catalog_product_kits.workflow.cancel_message') }
+
+      .grid__cell.grid__cell--60
+        %ol.workflow-bar__steps
+          %li.workflow-bar__step
+            1) #{link_to t('workarea.admin.create_catalog_product_kits.steps.setup'), edit_create_catalog_product_kit_path(@product)}
+          %li.workflow-bar__step
+            %strong 2) #{t('workarea.admin.create_catalog_product_kits.steps.bundled_products')}
+          %li.workflow-bar__step 3) #{t('workarea.admin.create_catalog_product_kits.steps.variants')}
+          %li.workflow-bar__step 4) #{t('workarea.admin.create_catalog_product_kits.steps.images')}
+          %li.workflow-bar__step 5) #{t('workarea.admin.create_catalog_product_kits.steps.details')}
+          %li.workflow-bar__step 6) #{t('workarea.admin.create_catalog_product_kits.steps.content')}
+          %li.workflow-bar__step 7) #{t('workarea.admin.create_catalog_product_kits.steps.categorization')}
+          %li.workflow-bar__step 8) #{t('workarea.admin.create_catalog_product_kits.steps.publish')}
+
+      .grid__cell.grid__cell--20
+        .grid.grid--auto.grid--right.grid--middle
+          .grid__cell= link_to "#{t('workarea.admin.create_catalog_product_kits.bundled_products.continue_to_variants')} →", variants_create_catalog_product_kit_path(@product), class: 'workflow-bar__button'

@@ -1,0 +1,12 @@
+module Workarea
+  decorate Inventory::Sku, with: :package_products do
+    decorated do
+      field :component_quantities, type: Hash, default: {}
+    end
+
+    def component_inventory
+      return [] unless component_quantities.present?
+      Inventory::Sku.in(id: component_quantities.keys).to_a
+    end
+  end
+end

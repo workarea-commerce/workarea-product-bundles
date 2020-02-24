@@ -1,0 +1,16 @@
+- if product.show_bundled_products?
+  .product-details-bundled-products{ class: "product-details-bundled-products--#{product.template}" }
+    - product.bundled_products.each do |bundled_product|
+      .product-details-bundled-products__container
+        - if show_bundled_product_add_to_cart?(product)
+          = form_tag cart_items_path, method: 'post', class: 'product-details__add-to-cart-form', data: { dialog_form: { dialogOptions: { closeAll: true, initModules: true } }, analytics: add_to_cart_analytics_data(product).to_json } do
+            = render 'workarea/storefront/products/bundled_product', bundle: product, product: bundled_product
+        - else
+          = render 'workarea/storefront/products/bundled_product', bundle: product, product: bundled_product
+- else
+  - product.bundled_products.each do |bundled_product|
+    = hidden_field_tag bundle_field_prefix(product, 'bundle_id'), product.id, id: nil
+    = hidden_field_tag bundle_field_prefix(product, 'product_id'), bundled_product.id, id: nil
+    = hidden_field_tag bundle_field_prefix(product, 'via'), params[:via], id: nil
+    = hidden_field_tag bundle_field_prefix(product, 'sku'), bundled_product.current_sku, id: nil
+    = hidden_field_tag bundle_field_prefix(product, 'quantity'), bundled_product.quantity, id: nil

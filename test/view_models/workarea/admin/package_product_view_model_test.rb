@@ -2,9 +2,8 @@ require 'test_helper'
 
 module Workarea
   module Admin
-    # TODO: convert to decorator after base test is converted
     class PackageProductViewModelTest < TestCase
-      def test_packaged_products
+      def test_bundled_products
         create_product(id: 'PROD1', name: 'Test Product 1')
         create_product(id: 'PROD2', name: 'Test Product 2')
         create_product(id: 'PROD3', name: 'Test Product 3')
@@ -16,7 +15,7 @@ module Workarea
         )
 
         view_model = Admin::ProductViewModel.new(product)
-        assert_equal(%w(PROD2 PROD3 PROD1), view_model.packaged_products.map(&:id))
+        assert_equal(%w(PROD2 PROD3 PROD1), view_model.bundled_products.map(&:id))
       end
 
       def test_templates

@@ -1,8 +1,10 @@
 module Workarea
   decorate Admin::CreateCatalogProductsController, with: :package_products do
     def index
-      if params[:product_type] == 'package'
-        redirect_to create_catalog_package_products_path
+      if params[:product_type] == 'bundle'
+        redirect_to create_catalog_product_bundles_path
+      elsif params[:product_type] == 'kit'
+        redirect_to create_catalog_product_kits_path
       elsif params[:product_type] == 'standard'
         super
       else
@@ -11,14 +13,24 @@ module Workarea
     end
 
     def edit
-      if @product.package?
-        flash.keep
-        redirect_to edit_create_catalog_package_product_path(
-                      @product,
-                      continue: params[:continue]
-                    )
+      return super unless @product.bundle?
+
+      flash.keep
+
+      if @product.kit?
+        redirect_to(
+          edit_create_catalog_product_kit_path(
+            @product,
+            continue: params[:continue]
+          )
+        )
       else
-        super
+        redirect_to(
+          edit_create_catalog_product_bundle_path(
+            @product,
+            continue: params[:continue]
+          )
+        )
       end
     end
   end

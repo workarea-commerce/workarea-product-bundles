@@ -1,0 +1,91 @@
+module Workarea
+  decorate Order, with: :package_products do
+    decorated do
+      embeds_many :bundled_items,
+        class_name: 'Workarea::Order::Item',
+        extend: Order::BundledItemsExtension
+
+      before_save :update_bundled_items
+      after_save :clean_bundled_items
+    end
+
+    def requires_shipping?
+      super || bundled_items.any? { |i| i.fulfilled_by?(:shipping) }
+    end
+
+    def bundled_items_for(item_id)
+      bundled_items.select { |i| i.bundle_item_id == item_id.to_s }
+    end
+
+    def add_bundled_item(params)
+      quantity = params.fetch(:quantity, 1).to_i
+
+      existing_item = bundled_items.find_existing(
+        params[:sku],
+        params[:bundle_item_id],
+        params[:customizations]
+      )
+
+      if existing_item.present?
+        update_bundled_item(
+          existing_item.id,
+          params.merge(quantity: existing_item.quantity + quantity)
+        )
+      else
+        bundled_items.build(params)
+      end
+
+      save
+    end
+
+    def update_bundled_item(id, params)
+      existing_item = bundled_items.find_existing(
+        params[:sku],
+        params[:bundle_item_id],
+        params[:customizations]
+      )
+
+      if existing_item.present? && existing_item.id.to_s != id.to_s
+        item = bundled_items.find(id)
+        existing_item.update(quantity: existing_item.quantity + (params[:quantity] || item.quantity))
+        item.delete
+      else
+        bundled_items.find(id).update(params)
+      end
+    end
+
+    def remove_bundled_item(id)
+      bundled_items.find(id).destroy
+      self
+    end
+
+    def sku_quantities
+      super.tap do |quantities|
+        bundled_items.each do |bundled_item|
+          quantities[bundled_item.sku] += bundled_item.quantity
+        end
+      end
+    end
+
+    private
+
+    def update_bundled_items
+      items.each do |item|
+        next unless item.bundle? && item.quantity_changed?
+        bundled_items.each do |bundled_item|
+          next unless bundled_item.bundle_item_id.to_s == item.id.to_s
+          bundled_item.quantity = bundled_item.bundle_quantity * item.quantity
+        end
+      end
+    end
+
+    def clean_bundled_items
+      bundled_items
+        .group_by(&:bundle_item_id)
+        .each do |bundle_item_id, bundled_items|
+          item = items.detect { |i| i.id.to_s == bundle_item_id }
+          bundled_items.each(&:destroy) if item.nil?
+        end
+    end
+  end
+end

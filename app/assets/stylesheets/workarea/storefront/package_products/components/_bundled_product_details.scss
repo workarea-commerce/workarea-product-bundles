@@ -1,0 +1,75 @@
+/*------------------------------------*\
+    #BUNDLED-PRODUCT-DETAILS
+\*------------------------------------*/
+
+$bundled-product-details-primary-image-max-width:  400px !default;
+$bundled-product-details-primary-image-ratio:      2 / 3 !default;
+
+$bundled-product-details-alt-image-selected-outline-color:  $highlight-color !default;
+
+
+/**
+ * 1. within a jQuery Dialog, set width since there is no
+ *    .bundled-product-details-container
+ */
+
+.bundled-product-details {
+    .ui-dialog & { /* [1] */
+        max-width: $dialog-content-max-width;
+    }
+}
+
+.bundled-product-details--generic {}
+
+
+    .bundled-product-details__name {}
+
+        .bundled-product-details__heading {}
+
+        .bundled-product-details__id {}
+
+
+    .bundled-product-details__description {}
+
+
+    .bundled-product-details__add-to-cart-form {}
+
+        .bundled-product-details__quantity {}
+
+        .bundled-product-details__inventory-status {}
+
+        .bundled-product-details__add-to-cart-action {}
+
+        .bundled-product-details__unavailable {}
+
+
+    /**
+     * 1. provides positioning context for loading indicator
+     */
+    .bundled-product-details__primary-image {
+        position: relative; /* [1] */
+        max-width: $bundled-product-details-primary-image-max-width;
+    }
+
+        .bundled-product-details__primary-image-link {
+            display: block;
+            padding: 0 0 ((1 / $bundled-product-details-primary-image-ratio) * 100%);
+            height: 0;
+            vertical-align: top;
+        }
+
+            .bundled-product-details__primary-image-link-image {}
+
+
+    .bundled-product-details__alt-images {}
+
+        .bundled-product-details__alt-image {}
+
+            .bundled-product-details__alt-image-link {
+                display: inline-block;
+            }
+
+            .bundled-product-details__alt-image-link--selected {
+                cursor: default;
+                outline: 1px solid $bundled-product-details-alt-image-selected-outline-color;
+            }

@@ -3,28 +3,44 @@ module Workarea
     decorated do
       include FeaturedProducts
 
-      scope :packages_containing, ->(id) { where('product_ids' => id) }
+      field :show_bundled_products, type: Boolean, default: true
 
+      scope :bundles_containing, ->(id) { where('product_ids' => id) }
+    end
+
+    class_methods do
       # For all products that have the given SKU return an Array containing:
       # * the matching product
-      # * the package products that contain the matching product
+      # * the product bundles that contain the matching product
       #
       # @param sku [String]
       # @return [Array<Catalog::Product>]
       #
-      def self.find_for_update_by_sku(sku)
+      def find_for_update_by_sku(sku)
         where('variants.sku' => sku).flat_map do |product|
-          [product] + packages_containing(product.id)
+          [product] + bundles_containing(product.id)
         end
       end
     end
 
+    def bundle?
+      product_ids.present?
+    end
+
+    def discrete_bundle?
+      package? || family?
+    end
+
     def package?
-      template == 'package' || product_ids.present?
+      bundle? && template == 'package'
     end
 
     def family?
-      template == 'family'
+      bundle? && template == 'family'
+    end
+
+    def kit?
+      bundle? && variants.present? && variants.all? { |v| v.components.present? }
     end
 
     def active_by_relations?
@@ -32,7 +48,7 @@ module Workarea
     end
 
     def purchasable?
-      super && !package?
+      super && !discrete_bundle?
     end
   end
 end

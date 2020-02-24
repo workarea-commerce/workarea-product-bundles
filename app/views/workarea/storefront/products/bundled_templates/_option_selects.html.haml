@@ -1,0 +1,8 @@
+= hidden_field_tag bundle_field_prefix(bundle, 'sku'), product.current_sku, id: dom_id(product, bundle_name_prefix(bundle, 'sku'))
+
+- product.options_for_selection.each do |option|
+  .property
+    = label_tag option.slug, nil, class: 'property__name', for: dom_id(product, bundle_name_prefix(bundle, option.slug)) do
+      %span.property__text= option.name
+    .value
+      = select_tag option.slug, options_for_select([[t('workarea.storefront.products.select_option', name: option.name), nil]] + option.selections, option.current), required: false, id: dom_id(product, bundle_name_prefix(bundle, option.slug)), data: { bundle_sku_select: product.slug }
