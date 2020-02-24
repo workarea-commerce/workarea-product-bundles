@@ -1,0 +1,28 @@
+module Workarea
+  decorate Order::Item, with: :package_products do
+    decorated do
+      field :bundle_item_id, type: String
+      field :bundle_quantity, type: Integer, default: 1
+    end
+
+    def bundled_item?
+      bundle_item_id.present?
+    end
+
+    def bundle?
+      product_attributes['product_ids'].present?
+    end
+
+    def kit?
+      bundle? &&
+        product_attributes['variants'].present? &&
+        product_attributes['variants'].all? do |variant_attributes|
+          variant_attributes['components'].present?
+        end
+    end
+
+    def show_bundled_products?
+      bundle? && product_attributes['show_bundled_products']
+    end
+  end
+end

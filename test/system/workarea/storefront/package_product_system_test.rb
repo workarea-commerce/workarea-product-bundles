@@ -6,7 +6,7 @@ module Workarea
       include Storefront::SystemTest
 
       def test_showing_package_product
-        packaged_products = [
+        bundled_products = [
           create_product(
             name: 'Packaged Product 1',
             variants: [
@@ -26,7 +26,7 @@ module Workarea
         package = create_product(
           name: 'Test Product',
           template: 'package',
-          product_ids: packaged_products.map(&:id)
+          product_ids: bundled_products.map(&:id)
         )
 
         visit storefront.product_path(package)

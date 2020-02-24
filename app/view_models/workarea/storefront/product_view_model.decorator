@@ -1,13 +1,57 @@
 module Workarea
   decorate Storefront::ProductViewModel, with: :package_products do
-    def packaged_products
-      @packaged_products ||= begin
+    def primary_image
+      product_image = super
+      return product_image unless bundle? && product_image.placeholder?
+
+      @primary_image ||=
+        bundled_products
+        .map(&:images)
+        .flatten
+        .reject(&:placeholder?)
+        .first ||
+        Catalog::ProductPlaceholderImage.cached
+    end
+
+    def bundled_products
+      return kit_products if kit?
+
+      @bundled_products ||= begin
         return [] if product_ids.blank?
 
         models = Catalog::Product.find_ordered_for_display(product_ids)
-        models.map { |p| Storefront::ProductViewModel.wrap(p, options) }
-              .select { |p| p.variants.any? }
+        Storefront::ProductViewModel
+          .wrap(models, options.except(:sku))
+          .select { |p| p.variants.any? }
       end
+    end
+
+    def kit_products
+      return [] unless current_variant_components.present?
+
+      @kit_products ||= begin
+        products = Catalog::Product.find_ordered_for_display(
+          current_variant_components.map(&:product_id)
+        )
+
+        current_variant_components.map do |component|
+          model = products.detect { |p| p.id == component.product_id }
+          next unless model.present?
+          Storefront::ProductViewModel.wrap(
+            model,
+            options.merge(sku: component.sku, quantity: component.quantity)
+          )
+        end.compact
+      end
+    end
+
+    def current_variant_components
+      variant = current_variant.presence || (variants.first if variants.one?)
+      variant&.components || []
+    end
+
+    def quantity
+      options[:quantity]
     end
   end
 end

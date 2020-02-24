@@ -1,0 +1,16 @@
+- if item.show_bundled_products? && (bundled_items = @cart.bundled_items_for(item.id)).present?
+  .product-list__bundle
+    %p.product-list__bundle-label= t('workarea.storefront.carts.bundle_contains')
+    - bundled_items.each do |bundled_item|
+      .product-list__summary
+        %p.product-list__media= link_to image_tag(product_image_url(bundled_item.image, :small_thumb), alt: bundled_item.product_name, class: 'product-list__media-image'), product_url(bundled_item.product, sku: bundled_item.sku), class: 'product-list__media-link'
+        .product-list__info
+          %p.product-list__name
+            = t('workarea.storefront.carts.bundled_item_quantity_html', quantity: bundled_item.quantity, name: link_to(bundled_item.product_name, product_path(bundled_item.product, sku: bundled_item.sku)) )
+          %p.product-list__id= bundled_item.sku_name
+          - if bundled_item.has_options?
+            .product-list__option-group
+              - bundled_item.details.each do |name, value|
+                %p.product-list__option #{name.titleize}: #{value}
+          - bundled_item.customizations.each do |name, value|
+            %p.product-list__customization #{name.titleize}: #{value}

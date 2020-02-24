@@ -1,0 +1,17 @@
+module Workarea
+  decorate Storefront::OrderViewModel, with: :package_products do
+    decorated do
+      include Storefront::ItemBundles
+    end
+
+    def items
+      @items_without_bundles ||= super.reject(&:bundle?)
+    end
+
+    def bundled_items
+      @bundled_items ||=  model.bundled_items.map do |item|
+        Storefront::OrderItemViewModel.new(item)
+      end
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module Workarea
+  decorate Catalog::Variant, with: :package_products do
+    decorated do
+      embeds_many :components, 
+        class_name: 'Workarea::Catalog::VariantComponent',
+        inverse_of: :variant
+    end
+
+    def component_quantities
+      components.each_with_object({}) do |component, qty|
+        qty[component.sku] = component.quantity
+      end
+    end
+  end
+end
