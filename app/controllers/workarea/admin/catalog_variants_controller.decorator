@@ -1,0 +1,17 @@
+module Workarea
+  decorate Admin::CatalogVariantsController, with: :package_products do
+    private
+
+    def set_details
+      set_variant_components
+      super
+    end
+
+    def set_variant_components
+      UpdateVariantComponents.new(
+        @variant,
+        params.to_unsafe_h['components']
+      ).perform
+    end
+  end
+end

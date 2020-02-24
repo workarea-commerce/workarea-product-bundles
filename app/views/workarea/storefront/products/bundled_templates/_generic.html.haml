@@ -1,0 +1,8 @@
+- if product.sku_options.one?
+  = hidden_field_tag bundle_field_prefix(bundle, 'sku'), product.sku_options.first.second, id: dom_id(product, bundle_name_prefix(bundle, 'sku'))
+- else
+  .property
+    = label_tag bundle_field_prefix(bundle, 'sku'), nil, class: 'property__name', for: dom_id(product, bundle_name_prefix(bundle, 'sku')) do
+      %span.property__text= t('workarea.storefront.products.select_options')
+    .value
+      = select_tag bundle_field_prefix(bundle, 'sku'), options_for_select(product.sku_options, product.current_sku), required: false, id: dom_id(product, bundle_name_prefix(bundle, 'sku')), data: { bundle_sku_select: product.slug }

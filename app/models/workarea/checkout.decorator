@@ -1,0 +1,8 @@
+module Workarea
+  decorate Checkout, with: :package_products do
+    def place_order_side_effects
+      ExpandBundles.new(order).perform
+      super
+    end
+  end
+end

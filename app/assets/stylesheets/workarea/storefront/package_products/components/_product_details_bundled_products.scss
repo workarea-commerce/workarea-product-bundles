@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    #PRODUCT-DETAILS--BUNDLED-PRODUCTS
+\*------------------------------------*/
+
+$product-details-bundled-products-container-border: 1px solid $light-gray;
+
+.product-details-bundled-products {
+    margin: ($spacing-unit * 5) 0;
+}
+
+.product-details-bundled-products--package {}
+
+.product-details-bundled-products--family {}
+
+    .product-details-bundled-products__container {
+        padding: $spacing-unit;
+        border-bottom: $product-details-bundled-products-container-border;
+    }

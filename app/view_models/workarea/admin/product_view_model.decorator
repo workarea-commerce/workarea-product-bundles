@@ -4,8 +4,8 @@ module Workarea
       include Admin::FeaturedProductsViewModel
     end
 
-    def packaged_products
-      @packaged_products ||=
+    def bundled_products
+      @bundled_products ||=
         begin
           models = Catalog::Product.find_ordered_for_display(
             model.product_ids
@@ -14,8 +14,8 @@ module Workarea
         end
     end
 
-    def package_templates
-      Workarea.config.package_product_templates
+    def bundle_templates
+      Workarea.config.product_bundle_templates
         .map(&:to_s)
         .map do |template_name|
           [template_name.titleize, template_name.optionize]
@@ -23,12 +23,12 @@ module Workarea
     end
 
     def templates
-      return super unless model.present?
+      return super unless model.present? # why??
 
-      if package?
-        package_templates
+      if discrete_bundle?
+        bundle_templates
       else
-        super.reject { |o| o.in?(package_templates) }
+        super.reject { |o| o.in?(bundle_templates) }
       end
     end
   end

@@ -5,13 +5,14 @@ module Workarea
     class PackageProductsSystemTest < Workarea::SystemTest
       include Admin::IntegrationTest
 
-      def test_adding_packaged_products
+      def test_adding_bundled_products
         create_product(name: 'Foo')
         create_product(name: 'Bar')
-        product = create_product(template: 'package')
+        create_product(id: 'BAZ', name: 'Baz')
+        product = create_product(template: 'package', product_ids: %w(BAZ))
         visit admin.catalog_product_path(product)
 
-        click_link t('workarea.admin.catalog_products.cards.packaged_products.title')
+        click_link t('workarea.admin.catalog_products.cards.bundled_products.title')
         assert(page.has_content?('Foo'))
         assert(page.has_content?('Bar'))
 
@@ -27,7 +28,6 @@ module Workarea
         assert(page.has_selector?('.product-summary__remove'))
         click_link 'Foo'
         assert(page.has_content?('Success'))
-        assert(page.has_no_selector?('.product-summary__remove'))
         click_link t('workarea.admin.featured_products.select.sort_link')
 
         assert(page.has_no_content?('Foo'))
@@ -43,21 +43,21 @@ module Workarea
 
         click_link 'Add New Product'
 
-        choose 'product_type_package'
+        choose 'product_type_bundle'
         click_button 'select_product_type'
 
         fill_in 'product[name]', with: 'Test Package'
         click_button 'save_setup'
 
         assert(page.has_content?('Success'))
-        assert(page.has_content?(t('workarea.admin.create_catalog_package_products.packaged_products.title', product_name: 'Test Package')))
+        assert(page.has_content?(t('workarea.admin.create_catalog_product_bundles.bundled_products.title', product_name: 'Test Package')))
 
         click_link('Foo')
         assert(page.has_content?('Success'))
         click_link('Bar')
         assert(page.has_content?('Success'))
 
-        click_link(t('workarea.admin.create_catalog_package_products.packaged_products.continue_to_images'))
+        click_link(t('workarea.admin.create_catalog_product_bundles.bundled_products.continue_to_images'))
         assert(page.has_content?(t('workarea.admin.create_catalog_products.images.add_images', product_name: 'Test Package')))
 
         attach_file 'images[][image]', product_image_file_path
@@ -94,7 +94,7 @@ module Workarea
         click_button 'publish'
 
         assert(page.has_content?('Success'))
-        assert(page.has_content?(t('workarea.admin.catalog_products.cards.packaged_products.title')))
+        assert(page.has_content?(t('workarea.admin.catalog_products.cards.bundled_products.title')))
       end
     end
   end
