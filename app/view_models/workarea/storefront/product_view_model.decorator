@@ -47,7 +47,7 @@ module Workarea
 
     def current_variant_components
       variant = current_variant.presence || (variants.first if variants.one?)
-      variant&.components
+      variant&.components || []
     end
 
     def quantity

@@ -24,7 +24,7 @@ module Workarea
       end
 
       def bundled_products
-        options = view_model_options
+        options = view_model_options.dup
         options[:q] ||= ''
         options[:q] += " -#{Workarea.config.product_bundle_templates.join(',')}"
 

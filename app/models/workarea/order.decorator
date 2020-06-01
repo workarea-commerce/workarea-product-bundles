@@ -3,7 +3,8 @@ module Workarea
     decorated do
       embeds_many :bundled_items,
         class_name: 'Workarea::Order::Item',
-        extend: Order::BundledItemsExtension
+        extend: Order::BundledItemsExtension,
+        inverse_of: :order
 
       before_save :update_bundled_items
       after_save :clean_bundled_items
