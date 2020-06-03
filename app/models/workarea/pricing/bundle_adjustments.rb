@@ -10,9 +10,7 @@ module Workarea
       end
 
       def adjust_item(item)
-        bundled_items = @order.bundled_items.select do |bundled_item|
-          bundled_item.bundle_item_id == item.id.to_s
-        end
+        bundled_items = @order.bundled_items.find_for_bundle_item_id(item.id)
 
         return unless bundled_items.present?
 

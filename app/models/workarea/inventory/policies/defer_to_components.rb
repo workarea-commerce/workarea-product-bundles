@@ -8,10 +8,13 @@ module Workarea
 
         def available_to_sell
           sets = sku.component_inventory.map do |inventory|
-            inventory.available_to_sell / sku.component_quantities[inventory.id]
+            component_quantity = sku.component_quantities[inventory.id].to_i
+            next unless component_quantity.positive?
+
+            inventory.available_to_sell / component_quantity
           end
 
-          sets.min || 0
+          sets.compact.min || 0
         end
 
         def purchase(quantity)

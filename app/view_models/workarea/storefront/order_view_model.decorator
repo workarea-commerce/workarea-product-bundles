@@ -1,5 +1,9 @@
 module Workarea
   decorate Storefront::OrderViewModel, with: :package_products do
+    decorated do
+      include Storefront::ItemBundles
+    end
+
     def items
       @items_without_bundles ||= super.reject(&:bundle?)
     end
@@ -8,10 +12,6 @@ module Workarea
       @bundled_items ||=  model.bundled_items.map do |item|
         Storefront::OrderItemViewModel.new(item)
       end
-    end
-
-    def bundled_items_for(item_id)
-      bundled_items.select { |i| i.bundle_item_id == item_id.to_s }
     end
   end
 end

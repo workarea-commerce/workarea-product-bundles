@@ -10,6 +10,10 @@ module Workarea
               item.customizations_eql?(customizations)
         end
       end
+
+      def find_for_bundle_item_id(id)
+        select { |item| item.bundle_item_id.to_s == id.to_s }
+      end
     end
   end
 end

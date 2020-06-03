@@ -8,7 +8,7 @@ module Workarea
       return unless @persisted_order.placed?
 
       order.items.select(&:bundle?).each do |item|
-        bundled_items = bundled_items_for(item)
+        bundled_items = order.bundled_items.find_for_bundle_item_id(item.id)
         next unless bundled_items.present?
 
         copy_bundled_items(bundled_items)
@@ -32,12 +32,6 @@ module Workarea
 
     def save_order
       @persisted_order.update!(order.as_document.reverse_merge(items: []))
-    end
-
-    def bundled_items_for(item)
-      order.bundled_items.select do |bundled_item|
-        bundled_item.bundle_item_id == item.id.to_s
-      end
     end
 
     def copy_bundled_items(bundled_items)

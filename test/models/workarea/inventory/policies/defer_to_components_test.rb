@@ -9,10 +9,11 @@ module Workarea
             id: 'SKU',
             policy: 'defer_to_components',
             available: 5,
-            component_quantities: { 'BSKU1' => 1, 'BSKU2' => 2 }
+            component_quantities: { 'BSKU1' => 1, 'BSKU2' => 2, 'BSKU3' => 0 }
           )
           component_sku_1 = create_inventory(id: 'BSKU1', policy: 'standard', available: 5)
           component_sku_2 = create_inventory(id: 'BSKU2', policy: 'standard', available: 5)
+          create_inventory(id: 'BSKU3', policy: 'standard', available: 5)
 
           policy = DeferToComponents.new(sku)
           assert_equal(2, policy.available_to_sell)

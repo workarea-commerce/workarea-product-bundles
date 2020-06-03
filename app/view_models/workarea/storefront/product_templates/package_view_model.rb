@@ -6,11 +6,6 @@ module Workarea
                :msrp?, :msrp, :msrp_min, :msrp_max, :sale_starts_at,
                :sale_ends_at, to: :pricing
 
-      # this isn't used, no idea why it's here.
-      def show_panel?
-        false
-      end
-
       def pricing
         @pricing ||=
           options[:pricing] ||
