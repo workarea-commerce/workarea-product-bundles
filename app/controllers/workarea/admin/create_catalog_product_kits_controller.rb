@@ -33,25 +33,32 @@ module Workarea
       end
 
       def variants
-        @variants = VariantViewModel.wrap(@product.variants)
+        @variant = @product.variants.build
+        @variants = VariantViewModel.wrap(@product.variants.select(&:persisted?))
       end
 
-      def save_variants
-        params[:variants].each do |attrs|
-          variant =
-            if attrs['id'].present?
-              @product.variants.detect { |v| v.id.to_s == attrs['id'] }
-            end
+      def save_variant
+        @variant = @product.variants.new(params[:variant])
 
-          if attrs[:sku].present?
-            save_variant_on_product(@product, variant: variant, attributes: attrs)
-          elsif variant.present?
-            variant.destroy
-          end
+        @variant.details = HashUpdate.new(
+          original: @variant.details,
+          adds: params[:new_details],
+        ).result
+
+        UpdateVariantComponents.new(
+          @variant,
+          params.to_unsafe_h['components']
+        ).perform
+
+        if @variant.save
+          flash[:success] = t('workarea.admin.catalog_variants.flash_messages.saved')
+          redirect_to variants_create_catalog_product_kit_path(@product)
+        else
+          @variants = VariantViewModel.wrap(@product.variants.select(&:persisted?))
+
+          flash[:error] = t('workarea.admin.catalog_variants.flash_messages.changes_error')
+          render :variants
         end
-
-        flash[:success] = t('workarea.admin.create_catalog_products.flash_messages.variants_saved')
-        redirect_to images_create_catalog_product_path(@product)
       end
 
       def images

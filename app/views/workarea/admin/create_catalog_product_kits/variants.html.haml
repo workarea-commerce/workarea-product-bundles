@@ -10,81 +10,114 @@
         = render_aux_navigation_for(@product, html_options: { target: @product.id })
 
   .view__container
-    = form_tag save_variants_create_catalog_product_path(@product), method: 'post' do
-      .section
-        %table
-          %thead
-            %tr
-              %th= t('workarea.admin.create_catalog_products.variants.sku')
-              %th= t('workarea.admin.create_catalog_products.variants.option_1')
-              %th= t('workarea.admin.create_catalog_products.variants.option_2')
-              %th= t('workarea.admin.create_catalog_products.variants.option_3')
-              %th= t('workarea.admin.create_catalog_products.variants.price')
-              %th= t('workarea.admin.create_catalog_products.variants.tax_code')
-              %th= t('workarea.admin.create_catalog_products.variants.inventory')
-          %tbody
-            - @variants.each do |variant|
-              %tr
-                = hidden_field_tag 'variants[][id]', variant.id
+    .grid
+      .grid__cell.grid__cell--60
+        = form_tag save_variant_create_catalog_product_kit_path(@product), method: 'post', id: 'variant_form', data: { unsaved_changes: '' } do
+          .section
+            .property.property--required
+              = label_tag 'variant[sku]', t('workarea.admin.fields.sku'), class: 'property__name'
+              = text_field_tag 'variant[sku]', @variant.sku, class: 'text-box', required: true
 
-                %td
-                  = text_field_tag 'variants[][sku]', variant.sku, placeholder: 'SKU123', class: 'text-box text-box--small', id: dom_id(variant, 'varants_sku')
-                %td
-                  = text_field_tag 'variants[][detail_1_name]', variant.detail_1_name, placeholder: 'Color', class: 'text-box text-box--small text-box--i18n'
-                  = text_field_tag 'variants[][detail_1_value]', variant.detail_1_value, placeholder: 'Blue', class: 'text-box text-box--small text-box--i18n'
-                %td
-                  = text_field_tag 'variants[][detail_2_name]', variant.detail_2_name, placeholder: 'Size', class: 'text-box text-box--small text-box--i18n'
-                  = text_field_tag 'variants[][detail_2_value]', variant.detail_2_value, placeholder: 'Large', class: 'text-box text-box--small text-box--i18n'
-                %td
-                  = text_field_tag 'variants[][detail_3_name]', variant.detail_3_name, placeholder: 'Width', class: 'text-box text-box--small text-box--i18n'
-                  = text_field_tag 'variants[][detail_3_value]', variant.detail_3_value, placeholder: 'Narrow', class: 'text-box text-box--small text-box--i18n'
-                %td
-                  = label_tag 'variants[][price]', Money.default_currency.symbol, class: 'property__name property__name--inline'
-                  = text_field_tag 'variants[][price]', variant.sell_price, placeholder: '0.00', class: 'text-box text-box--small'
-                %td
-                  = text_field_tag 'variants[][tax_code]', variant.tax_code, placeholder: 'Tax Code', class: 'text-box text-box--small', autocomplete: 'off'
-                %td
-                  = number_field_tag 'variants[][inventory]', variant.available_inventory, placeholder: '0', class: 'text-box text-box--small'
+            .property
+              = label_tag 'variant[name]', t('workarea.admin.fields.display_name'), class: 'property__name'
+              = text_field_tag 'variant[name]', @variant.name, class: 'text-box text-box--i18n'
 
-            %tr{ data: { cloneable_row: '' } }
-              %td
-                = text_field_tag 'variants[][sku]', nil, placeholder: 'SKU123', class: 'text-box text-box--small'
-              %td
-                = text_field_tag 'variants[][detail_1_name]', nil, placeholder: 'Color', class: 'text-box text-box--small text-box--i18n'
-                = text_field_tag 'variants[][detail_1_value]', nil, placeholder: 'Blue', class: 'text-box text-box--small text-box--i18n'
-              %td
-                = text_field_tag 'variants[][detail_2_name]', nil, placeholder: 'Size', class: 'text-box text-box--small text-box--i18n'
-                = text_field_tag 'variants[][detail_2_value]', nil, placeholder: 'Large', class: 'text-box text-box--small text-box--i18n'
-              %td
-                = text_field_tag 'variants[][detail_3_name]', nil, placeholder: 'Width', class: 'text-box text-box--small text-box--i18n'
-                = text_field_tag 'variants[][detail_3_value]', nil, placeholder: 'Narrow', class: 'text-box text-box--small text-box--i18n'
-              %td
-                = label_tag 'variants[][price]', Money.default_currency.symbol, class: 'property__name property__name--inline'
-                = text_field_tag 'variants[][price]', nil, placeholder: '0.00', class: 'text-box text-box--small'
-              %td
-                = text_field_tag 'variants[][tax_code]', nil, placeholder: 'Tax Code', class: 'text-box text-box--small', autocomplete: 'off'
-              %td
-                = number_field_tag 'variants[][inventory]', nil, placeholder: '0', class: 'text-box text-box--small'
+          .section
+            %h2= t('workarea.admin.catalog_variants.new.options.label')
+            %table
+              %thead
+                %tr
+                  %th= t('workarea.admin.fields.name')
+                  %th= t('workarea.admin.fields.values')
+              %tbody
+                - @variant.details.each do |name, value|
+                  %tr
+                    %td= name
+                    %td
+                      = hidden_field_tag 'details[]', name, id: nil
+                      = text_field_tag 'details[]', hash_editing_value(value), class: 'text-box text-box--i18n', id: nil
+                %tr{ data: { cloneable_row: '' } }
+                  %td
+                    .property
+                      = text_field_tag 'new_details[]', nil, id: nil, class: 'text-box text-box--i18n', title: t('workarea.admin.catalog_variants.new.options.new_attribute_name'), placeholder: t('workarea.admin.catalog_variants.new.options.new_attribute_name_placeholder')
+                      %span.property__note= t('workarea.admin.catalog_variants.new.options.new_attribute_name_note')
+                  %td
+                    .property
+                      = text_field_tag 'new_details[]', nil, id: nil, class: 'text-box text-box--i18n', title: t('workarea.admin.catalog_variants.new.options.new_attribute_value'), placeholder: t('workarea.admin.catalog_variants.new.options.new_attribute_value_placeholder')
+                      %span.property__note= t('workarea.admin.catalog_variants.new.options.new_attribute_value_note')
+                      %span.property__note
+                        = t('workarea.admin.catalog_variants.new.options.new_attribute_value_csv')
+                        = link_to '#csv-help', data: { tooltip: '' } do
+                          = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.catalog_variants.new.options.learn_more'))
+                      = render 'workarea/admin/shared/csv_formatting_tooltip'
 
-      .workflow-bar
-        .grid.grid--middle
-          .grid__cell.grid__cell--20
-            = link_to t('workarea.admin.create_catalog_products.variants.cancel'), catalog_product_path(@product), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_catalog_product_kits.workflow.cancel_message') }
+            .section
+              %h2= t('workarea.admin.catalog_variants.edit.components.label')
+              %table
+                %thead
+                  %tr
+                    %th= t('workarea.admin.fields.product')
+                    %th= t('workarea.admin.fields.sku')
+                    %th= t('workarea.admin.fields.quantity')
+                %tbody
+                  - @product.bundled_products.each do |product|
+                    %tr
+                      %td= product.name
+                      %td
+                        .property
+                          = select_tag 'components[][sku]', options_for_select(product.skus), include_blank: true, id: nil, title: t('workarea.admin.catalog_variants.edit.components.new_sku'), placeholder: t('workarea.admin.catalog_variants.edit.components.new_sku_placeholder')
+                      %td
+                        .property
+                          = text_field_tag 'components[][quantity]', nil, id: nil, class: 'text-box text-box--small', title: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity'), placeholder: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity_placeholder')
+                  %tr{ data: { cloneable_row: '' } }
+                    %td
+                      .property
+                        = select_tag 'components[][product_id]', options_from_collection_for_select(@product.bundled_products, 'id', 'name'), include_blank: true, id: nil
+                    %td
+                      .property
+                        = select_tag 'components[][sku]', options_for_select(@product.bundled_product_skus), include_blank: true, id: nil, title: t('workarea.admin.catalog_variants.edit.components.new_sku'), placeholder: t('workarea.admin.catalog_variants.edit.components.new_sku_placeholder')
+                    %td
+                      .property
+                        = text_field_tag 'components[][quantity]', nil, id: nil, class: 'text-box text-box--small', title: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity'), placeholder: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity_placeholder')
 
-          .grid__cell.grid__cell--60
-            %ol.workflow-bar__steps
-              %li.workflow-bar__step
-                1) #{link_to t('workarea.admin.create_catalog_product_kits.steps.setup'), edit_create_catalog_product_kit_path(@product)}
-              %li.workflow-bar__step
-                2) #{link_to t('workarea.admin.create_catalog_product_kits.steps.bundled_products'), bundled_products_create_catalog_product_kit_path(@product)}
-              %li.workflow-bar__step
-                %strong 3) #{t('workarea.admin.create_catalog_product_kits.steps.variants')}
-              %li.workflow-bar__step 4) #{t('workarea.admin.create_catalog_product_kits.steps.images')}
-              %li.workflow-bar__step 5) #{t('workarea.admin.create_catalog_product_kits.steps.details')}
-              %li.workflow-bar__step 6) #{t('workarea.admin.create_catalog_product_kits.steps.content')}
-              %li.workflow-bar__step 7) #{t('workarea.admin.create_catalog_product_kits.steps.categorization')}
-              %li.workflow-bar__step 8) #{t('workarea.admin.create_catalog_product_kits.steps.publish')}
 
-          .grid__cell.grid__cell--20
-            .grid.grid--auto.grid--right.grid--middle
-              .grid__cell= button_tag t('workarea.admin.create_catalog_products.variants.save_variants_and_continue'), value: 'save_variants', class: 'workflow-bar__button workflow-bar__button--create'
+          = button_tag 'Save Variant', value: 'save_variant', class: 'button button--create'
+      .grid__cell.grid__cell--40
+        - @variants.each do |variant|
+          .box
+            .box__body
+              %strong= variant.name
+              - if variant.name != variant.sku
+                %p= variant.sku
+
+              %p= format_variant_options(variant.details)
+
+              %p
+                - variant.components.each do |component|
+                  = component.quantity
+                  %strong= component.name
+                  %br
+
+
+    .workflow-bar
+      .grid.grid--middle
+        .grid__cell.grid__cell--20
+          = link_to t('workarea.admin.create_catalog_products.variants.cancel'), catalog_product_path(@product), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_catalog_product_kits.workflow.cancel_message') }
+
+        .grid__cell.grid__cell--60
+          %ol.workflow-bar__steps
+            %li.workflow-bar__step
+              1) #{link_to t('workarea.admin.create_catalog_product_kits.steps.setup'), edit_create_catalog_product_kit_path(@product)}
+            %li.workflow-bar__step
+              2) #{link_to t('workarea.admin.create_catalog_product_kits.steps.bundled_products'), bundled_products_create_catalog_product_kit_path(@product)}
+            %li.workflow-bar__step
+              %strong 3) #{t('workarea.admin.create_catalog_product_kits.steps.variants')}
+            %li.workflow-bar__step 4) #{t('workarea.admin.create_catalog_product_kits.steps.images')}
+            %li.workflow-bar__step 5) #{t('workarea.admin.create_catalog_product_kits.steps.details')}
+            %li.workflow-bar__step 6) #{t('workarea.admin.create_catalog_product_kits.steps.content')}
+            %li.workflow-bar__step 7) #{t('workarea.admin.create_catalog_product_kits.steps.categorization')}
+            %li.workflow-bar__step 8) #{t('workarea.admin.create_catalog_product_kits.steps.publish')}
+
+        .grid__cell.grid__cell--20
+          .grid.grid--auto.grid--right.grid--middle
+            .grid__cell= link_to t('workarea.admin.create_catalog_products.variants.continue_to_images'), images_create_catalog_product_kit_path(@product), value: 'continue_to_images', class: 'workflow-bar__button'

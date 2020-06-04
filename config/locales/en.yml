@@ -87,6 +87,8 @@ en:
           standard: Standard
           standard_description: A typical product that contains variants representing the options of a single product.
           title: Select a type of product to create
+      fields:
+        components: Components
     alerts:
       issues:
         no_bundled_products: No Bundled Products

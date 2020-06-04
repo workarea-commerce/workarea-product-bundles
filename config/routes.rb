@@ -26,7 +26,7 @@ Workarea::Admin::Engine.routes.draw do
         get :bundled_products
 
         get :variants
-        post :save_variants
+        post :save_variant
 
         get :details
         post :save_details
