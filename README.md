@@ -1,4 +1,4 @@
-Workarea Package Products
+Workarea Product Bundles
 ================================================================================
 
 A Workarea Commerce plugin that adds support for product bundles. A product bundle groups together other products to be displayed on a single product detail page. This enables your storefront to display related items together and offer an easy way to quickly add all the items to cart.
@@ -19,7 +19,7 @@ Add the gem to your application's Gemfile:
 
 ```ruby
 # ...
-gem 'workarea-package_products'
+gem 'workarea-product_bundles'
 # ...
 ```
 
@@ -55,4 +55,4 @@ See [https://developer.workarea.com](https://developer.workarea.com) for Workare
 License
 --------------------------------------------------------------------------------
 
-Workarea Package Products is released under the [Business Software License](LICENSE)
+Workarea Product Bundles is released under the [Business Software License](LICENSE)

@@ -1,5 +1,5 @@
 module Workarea
-  decorate Catalog::Product, with: :package_products do
+  decorate Catalog::Product, with: :product_bundles do
     decorated do
       include FeaturedProducts
 

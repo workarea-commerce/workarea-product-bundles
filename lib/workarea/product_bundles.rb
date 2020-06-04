@@ -2,9 +2,9 @@ require 'workarea'
 require 'workarea/storefront'
 require 'workarea/admin'
 
-require 'workarea/package_products/engine'
+require 'workarea/product_bundles/engine'
 
 module Workarea
-  module PackageProducts
+  module ProductBundles
   end
 end

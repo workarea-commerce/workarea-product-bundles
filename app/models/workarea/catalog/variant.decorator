@@ -1,5 +1,5 @@
 module Workarea
-  decorate Catalog::Variant, with: :package_products do
+  decorate Catalog::Variant, with: :product_bundles do
     decorated do
       embeds_many :components, 
         class_name: 'Workarea::Catalog::VariantComponent',

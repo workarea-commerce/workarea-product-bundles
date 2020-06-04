@@ -2,21 +2,21 @@
 
 Workarea.append_javascripts(
   'storefront.modules',
-  'workarea/storefront/package_products/modules/bundle_sku_selects',
-  'workarea/storefront/package_products/modules/bundle_option_buttons'
+  'workarea/storefront/product_bundles/modules/bundle_sku_selects',
+  'workarea/storefront/product_bundles/modules/bundle_option_buttons'
 )
 
 # CSS Appends
 
 Workarea.append_stylesheets(
   'storefront.components',
-  'workarea/storefront/package_products/components/product_details_bundled_products',
-  'workarea/storefront/package_products/components/bundled_product_details'
+  'workarea/storefront/product_bundles/components/product_details_bundled_products',
+  'workarea/storefront/product_bundles/components/bundled_product_details'
 )
 
 Workarea.append_stylesheets(
   'admin.components',
-  'workarea/admin/package_products/components/product_cards'
+  'workarea/admin/product_bundles/components/product_cards'
 )
 
 # Partial Appends

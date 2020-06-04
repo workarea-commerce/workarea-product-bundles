@@ -1,5 +1,5 @@
 module Workarea
-  decorate CopyOrder, with: :package_products do
+  decorate CopyOrder, with: :product_bundles do
     # When an order is copied, we don't want the bundled items in the items
     # collection yet. They will still exist in #bundled_items.
     def save_new_order

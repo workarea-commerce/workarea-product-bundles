@@ -1,5 +1,5 @@
 module Workarea
-  decorate Pricing::Request, with: :package_products do
+  decorate Pricing::Request, with: :product_bundles do
     def run
       super
       Pricing::BundleAdjustments.new(order).adjust

@@ -1,8 +1,8 @@
 module Workarea
-  module PackageProducts
+  module ProductBundles
     class Engine < ::Rails::Engine
       include Workarea::Plugin
-      isolate_namespace Workarea::PackageProducts
+      isolate_namespace Workarea::ProductBundles
 
       config.to_prepare do
         Workarea::Storefront::ApplicationController.helper(

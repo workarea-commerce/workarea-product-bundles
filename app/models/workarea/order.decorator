@@ -1,5 +1,5 @@
 module Workarea
-  decorate Order, with: :package_products do
+  decorate Order, with: :product_bundles do
     decorated do
       embeds_many :bundled_items,
         class_name: 'Workarea::Order::Item',

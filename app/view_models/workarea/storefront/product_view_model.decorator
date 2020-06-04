@@ -1,5 +1,5 @@
 module Workarea
-  decorate Storefront::ProductViewModel, with: :package_products do
+  decorate Storefront::ProductViewModel, with: :product_bundles do
     def primary_image
       product_image = super
       return product_image unless bundle? && product_image.placeholder?

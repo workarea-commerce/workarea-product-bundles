@@ -1,5 +1,5 @@
 module Workarea
-  decorate Storefront::ProductsIntegrationTest, with: :package_products do
+  decorate Storefront::ProductsIntegrationTest, with: :product_bundles do
     def test_rendering_via_params
       category = create_category
       bundled_product = create_product(id: 'BPROD1', variants: [{ sku: 'BSKU1', regular: 6.to_m }])

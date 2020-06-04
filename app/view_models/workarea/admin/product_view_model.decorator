@@ -1,5 +1,5 @@
 module Workarea
-  decorate Admin::ProductViewModel, with: :package_products do
+  decorate Admin::ProductViewModel, with: :product_bundles do
     decorated do
       include Admin::FeaturedProductsViewModel
     end

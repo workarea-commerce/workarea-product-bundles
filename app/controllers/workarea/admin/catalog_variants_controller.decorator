@@ -1,5 +1,5 @@
 module Workarea
-  decorate Admin::CatalogVariantsController, with: :package_products do
+  decorate Admin::CatalogVariantsController, with: :product_bundles do
     private
 
     def set_details

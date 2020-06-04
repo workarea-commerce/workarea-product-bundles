@@ -1,5 +1,5 @@
 module Workarea
-  decorate Storefront::ProductsController, with: :package_products do
+  decorate Storefront::ProductsController, with: :product_bundles do
     def bundle_details
       via = params[:via] || params[:bundled_items].try(:first).try(:[], :via)
       sku = params[:sku] || params[:bundled_items].try(:first).try(:[], :sku)

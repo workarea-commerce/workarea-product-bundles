@@ -5,7 +5,7 @@ require 'action_mailer/railtie'
 require 'sprockets/railtie'
 
 require 'workarea'
-require 'workarea/package_products'
+require 'workarea/product_bundles'
 
 Bundler.require(*Rails.groups)
 

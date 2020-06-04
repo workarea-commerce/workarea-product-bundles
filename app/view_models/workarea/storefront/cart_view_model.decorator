@@ -1,5 +1,5 @@
 module Workarea
-  decorate Storefront::CartViewModel, with: :package_products do
+  decorate Storefront::CartViewModel, with: :product_bundles do
     decorated do
       include Storefront::ItemBundles
     end

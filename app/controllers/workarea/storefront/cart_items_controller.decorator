@@ -1,5 +1,5 @@
 module Workarea
-  decorate Storefront::CartItemsController, with: :package_products do
+  decorate Storefront::CartItemsController, with: :product_bundles do
 
     decorated do
       skip_before_action :verify_authenticity_token, only: [:create, :bundle]

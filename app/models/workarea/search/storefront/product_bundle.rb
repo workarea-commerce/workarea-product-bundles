@@ -31,7 +31,7 @@ module Workarea
         end
 
         def bundled_products_variants
-          @package_products_variants ||=
+          @product_bundles_variants ||=
             bundled_products.map(&:model).flat_map { |p| p.variants.select(&:active?) }
         end
       end

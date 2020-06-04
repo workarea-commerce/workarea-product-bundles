@@ -1,5 +1,5 @@
 module Workarea
-  decorate Checkout, with: :package_products do
+  decorate Checkout, with: :product_bundles do
     def place_order_side_effects
       ExpandBundles.new(order).perform
       super

@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Workarea
   module Admin
-    class PackageProductsSystemTest < Workarea::SystemTest
+    class ProductBundlesSystemTest < Workarea::SystemTest
       include Admin::IntegrationTest
 
       def test_adding_bundled_products

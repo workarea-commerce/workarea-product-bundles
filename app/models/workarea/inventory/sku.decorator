@@ -1,5 +1,5 @@
 module Workarea
-  decorate Inventory::Sku, with: :package_products do
+  decorate Inventory::Sku, with: :product_bundles do
     decorated do
       field :component_quantities, type: Hash, default: {}
     end

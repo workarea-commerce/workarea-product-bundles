@@ -1,5 +1,5 @@
 module Workarea
-  decorate Search::Admin::CatalogProduct, with: :package_products do
+  decorate Search::Admin::CatalogProduct, with: :product_bundles do
     def search_text
       super.tap do |text|
         text << model.template if model.discrete_bundle?

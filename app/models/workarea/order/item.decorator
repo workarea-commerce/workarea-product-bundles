@@ -1,5 +1,5 @@
 module Workarea
-  decorate Order::Item, with: :package_products do
+  decorate Order::Item, with: :product_bundles do
     decorated do
       field :bundle_item_id, type: String
       field :bundle_quantity, type: Integer, default: 1

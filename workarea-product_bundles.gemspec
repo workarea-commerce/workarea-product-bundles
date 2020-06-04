@@ -1,12 +1,12 @@
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
-require 'workarea/package_products/version'
+require 'workarea/product_bundles/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = 'workarea-package_products'
-  s.version     = Workarea::PackageProducts::VERSION
+  s.name        = 'workarea-product_bundles'
+  s.version     = Workarea::ProductBundles::VERSION
   s.authors     = ['Adam Clarke']
   s.email       = ['adam@revelry.co']
   s.homepage    = 'https://github.com/workarea-commerce/workarea-package-products'

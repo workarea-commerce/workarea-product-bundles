@@ -1,5 +1,5 @@
 module Workarea
-  module PackageProducts
+  module ProductBundles
     VERSION = '3.4.1'.freeze
   end
 end
