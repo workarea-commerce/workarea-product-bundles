@@ -17,13 +17,17 @@
               = label_tag 'product_type_standard', t('workarea.admin.create_catalog_products.select.standard'), class: 'heading--3'
               %p= t('workarea.admin.create_catalog_products.select.standard_description')
             .property
-              = radio_button_tag 'product_type', 'bundle', false, title: t('workarea.admin.create_catalog_products.select.bundle')
-              = label_tag 'product_type_bundle', t('workarea.admin.create_catalog_products.select.bundle'), class: 'heading--3'
-              %p= t('workarea.admin.create_catalog_products.select.bundle_description')
-            .property
               = radio_button_tag 'product_type', 'kit', false, title: t('workarea.admin.create_catalog_products.select.kit')
               = label_tag 'product_type_kit', t('workarea.admin.create_catalog_products.select.kit'), class: 'heading--3'
               %p= t('workarea.admin.create_catalog_products.select.kit_description')
+            .property
+              = radio_button_tag 'product_type', 'family', false, title: t('workarea.admin.create_catalog_products.select.family')
+              = label_tag 'product_type_bundle', t('workarea.admin.create_catalog_products.select.family'), class: 'heading--3'
+              %p= t('workarea.admin.create_catalog_products.select.family_description')
+            .property
+              = radio_button_tag 'product_type', 'package', false, title: t('workarea.admin.create_catalog_products.select.package')
+              = label_tag 'product_type_bundle', t('workarea.admin.create_catalog_products.select.package'), class: 'heading--3'
+              %p= t('workarea.admin.create_catalog_products.select.package_description')
         .grid__cell.grid__cell--33
 
     .workflow-bar

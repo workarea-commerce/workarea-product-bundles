@@ -1,0 +1,29 @@
+module Workarea
+  decorate Admin::VariantViewModel, with: :product_bundles do
+    def product
+      @product ||=
+        options[:product] || Admin::ProductViewModel.wrap(model.product)
+    end
+
+    def components
+      @components ||= model.components.map do |component|
+        Admin::VariantComponentViewModel.wrap(
+          component,
+          product: find_product_for_component(component)
+        )
+      end
+    end
+
+    private
+
+    def find_product_for_component(component)
+      product.bundled_products.detect do |product|
+        if component.product_id.present?
+          product.id == component.product_id
+        else
+          product.skus.include?(component.sku)
+        end
+      end
+    end
+  end
+end

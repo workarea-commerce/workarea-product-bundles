@@ -44,8 +44,9 @@ module Workarea
             result[name] ||= []
             result[name] += Array.wrap(value)
             result[name].uniq!
-            result
           end
+
+          result
         end
       end
 
@@ -53,7 +54,8 @@ module Workarea
         @product.variants.reduce({}) do |result, variant|
           variant.details.each do |name, value|
             result[name] ||= []
-            result[name] << value unless result[name].include?(value)
+            result[name] += Array.wrap(value)
+            result[name].uniq!
           end
 
           result

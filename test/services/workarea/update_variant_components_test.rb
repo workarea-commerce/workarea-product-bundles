@@ -19,7 +19,8 @@ module Workarea
       params = [
         { id: variant.components.first.id.to_s, remove: 'true' },
         { id: variant.components.last.id.to_s, quantity: 2 },
-        { product_id: 'CPROD3', sku: 'CSKU3' }
+        { product_id: 'CPROD3', sku: 'CSKU3', quantity: 2 },
+        { product_id: 'CPROD3', sku: 'CSKU3', quantity: 1 }
       ]
 
       UpdateVariantComponents.new(variant, params).perform
@@ -31,6 +32,7 @@ module Workarea
 
       component = variant.components.detect { |c| c.product_id == 'CPROD3' }
       assert_equal('CSKU3', component.sku)
+      assert_equal(3, component.quantity)
     end
   end
 end

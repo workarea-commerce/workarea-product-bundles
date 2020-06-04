@@ -1,8 +1,10 @@
 module Workarea
   decorate Admin::CreateCatalogProductsController, with: :product_bundles do
     def index
-      if params[:product_type] == 'bundle'
-        redirect_to create_catalog_product_bundles_path
+      if params[:product_type] == 'package'
+        redirect_to create_catalog_product_bundles_path(template: 'package')
+      elsif params[:product_type] == 'family'
+        redirect_to create_catalog_product_bundles_path(template: 'family')
       elsif params[:product_type] == 'kit'
         redirect_to create_catalog_product_kits_path
       elsif params[:product_type] == 'standard'

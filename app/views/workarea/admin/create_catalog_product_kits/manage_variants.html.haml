@@ -1,0 +1,73 @@
+- @page_title = t('workarea.admin.create_catalog_products.variants.page_title', product_name: @product.name)
+
+.view
+  .view__header
+    .grid.grid--right
+      .grid__cell.grid__cell--50
+        .view__heading
+          %h1.heading.heading--no-margin= t('workarea.admin.create_catalog_product_kits.variants.heading', product_name: @product.name)
+          %p
+            = t('workarea.admin.create_catalog_product_kits.variants.summary')
+            %br
+            %strong= link_to t('workarea.admin.create_catalog_product_kits.variants.create.heading'), variants_create_catalog_product_kit_path(@product)
+
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@product, html_options: { target: @product.id })
+
+  .view__container
+    - if @variants.none?
+      %p.align-center= t('workarea.admin.create_catalog_product_kits.variants.manage.no_variants')
+
+    - else
+      .browsing-controls.align-center
+        .browsing-controls__search
+          .search-form
+            = text_field_tag 'filter_skus', '', id: nil, class: 'search-form__input', placeholder: t('workarea.admin.create_catalog_product_kits.variants.filter_placeholder'), data: { filterable_input: { group: 'existing_variants', counter: '#variant-counter' }.to_json }
+          .section
+            %p
+              %strong#variant-counter
+
+      .grid
+        - @variants.each do |variant|
+          .grid__cell.grid__cell--25{ id: "variant-#{variant.sku}", data: { filterable: { group: 'existing_variants', value: variant.admin_filter_value }.to_json } }
+            .box
+              .box__body
+                = link_to edit_variant_create_catalog_product_kit_path(@product, variant.sku) do
+                  %strong= variant.name
+                - if variant.name != variant.sku
+                  %p= variant.sku
+
+                %p= format_variant_options(variant.details)
+
+                %p
+                  - variant.components.each do |component|
+                    = component.quantity
+                    %strong= component.name
+                    %br
+
+                .box__actions
+                  = link_to t('workarea.admin.actions.delete'), destroy_variant_create_catalog_product_kit_path(@product, variant.sku), class: 'text-button text-button--destroy', data: { method: :delete, confirm: t('workarea.admin.actions.delete_confirmation') }
+
+
+    .workflow-bar
+      .grid.grid--middle
+        .grid__cell.grid__cell--20
+          = link_to t('workarea.admin.create_catalog_products.variants.cancel'), catalog_product_path(@product), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_catalog_product_kits.workflow.cancel_message') }
+
+        .grid__cell.grid__cell--60
+          %ol.workflow-bar__steps
+            %li.workflow-bar__step
+              1) #{link_to t('workarea.admin.create_catalog_product_kits.steps.setup'), edit_create_catalog_product_kit_path(@product)}
+            %li.workflow-bar__step
+              2) #{link_to t('workarea.admin.create_catalog_product_kits.steps.bundled_products'), bundled_products_create_catalog_product_kit_path(@product)}
+            %li.workflow-bar__step
+              %strong 3) #{t('workarea.admin.create_catalog_product_kits.steps.variants')}
+            %li.workflow-bar__step 4) #{t('workarea.admin.create_catalog_product_kits.steps.images')}
+            %li.workflow-bar__step 5) #{t('workarea.admin.create_catalog_product_kits.steps.details')}
+            %li.workflow-bar__step 6) #{t('workarea.admin.create_catalog_product_kits.steps.content')}
+            %li.workflow-bar__step 7) #{t('workarea.admin.create_catalog_product_kits.steps.categorization')}
+            %li.workflow-bar__step 8) #{t('workarea.admin.create_catalog_product_kits.steps.publish')}
+
+        .grid__cell.grid__cell--20
+          .grid.grid--auto.grid--right.grid--middle
+            .grid__cell= link_to "#{t('workarea.admin.create_catalog_product_bundles.bundled_products.continue_to_images')} →", images_create_catalog_product_kit_path(@product), value: 'continue_to_images', class: 'workflow-bar__button'

@@ -43,7 +43,7 @@ module Workarea
 
         click_link 'Add New Product'
 
-        choose 'product_type_bundle'
+        choose 'product_type_package'
         click_button 'select_product_type'
 
         fill_in 'product[name]', with: 'Test Package'

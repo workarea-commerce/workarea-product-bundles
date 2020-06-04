@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Workarea
   module Storefront
-    class PackageProductViewModelTest < TestCase
+    class BundlesProductViewModelTest < TestCase
       def test_bundled_products
         package_child_1 = create_product(variants: [{ sku: 'SKUC1', regular: 5.00 }])
         package_child_2 = create_product

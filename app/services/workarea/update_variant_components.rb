@@ -8,6 +8,7 @@ module Workarea
     def perform
       @components_params.each do |params|
         params.deep_symbolize_keys! if params.respond_to?(:deep_symbolize_keys!)
+        next unless params[:sku].present? || params[:id].present?
         ComponentParams.new(@variant, params).save
       end
     end
