@@ -1,0 +1,1644 @@
+[{
+		"id": "PC001",
+		"name": "Pillow Case",
+		"template": "option_selects",
+		"filters": {
+			"Color": ["White", "Sand"],
+			"Size": ["Full", "Queen", "King"]
+		},
+		"variants": [{
+				"sku": "PC001WF",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Full"]
+				}
+			},
+			{
+				"sku": "PC001WQ",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Queen"]
+				}
+			},
+			{
+				"sku": "PC001WK",
+				"details": {
+					"Color": ["White"],
+					"Size": ["King"]
+				}
+			},
+			{
+				"sku": "PC001SF",
+				"details": {
+					"Color": ["Sand"],
+					"Size": ["Full"]
+				}
+			},
+			{
+				"sku": "PC001SQ",
+				"details": {
+					"Color": ["Sand"],
+					"Size": ["Queen"]
+				}
+			},
+			{
+				"sku": "PC001SK",
+				"details": {
+					"Color": ["Sand"],
+					"Size": ["King"]
+				}
+			}
+		],
+		"pricing": {
+			"PC001WF": {
+				"msrp": 9.99,
+				"prices": [{
+					"regular": 8.99
+				}]
+			},
+			"PC001WQ": {
+				"msrp": 10.99,
+				"prices": [{
+					"regular": 9.99
+				}]
+			},
+			"PC001WK": {
+				"msrp": 11.99,
+				"prices": [{
+					"regular": 11.99
+				}]
+			},
+			"PC001SF": {
+				"msrp": 9.99,
+				"prices": [{
+					"regular": 8.99
+				}]
+			},
+			"PC001SQ": {
+				"msrp": 10.99,
+				"prices": [{
+					"regular": 9.99
+				}]
+			},
+			"PC001SK": {
+				"msrp": 11.99,
+				"prices": [{
+					"regular": 11.99
+				}]
+			}
+		},
+		"inventory": {
+			"PC001WF": {
+				"policy": "standard",
+				"available": 25
+			},
+			"PC001WQ": {
+				"policy": "standard",
+				"available": 25
+			},
+			"PC001WK": {
+				"policy": "standard",
+				"available": 25
+			},
+			"PC001SF": {
+				"policy": "standard",
+				"available": 25
+			},
+			"PC001SQ": {
+				"policy": "standard",
+				"available": 25
+			},
+			"PC001SK": {
+				"policy": "standard",
+				"available": 25
+			}
+		}
+	},
+	{
+		"id": "SS001",
+		"name": "Bed Sheet Set",
+		"template": "option_selects",
+		"filters": {
+			"Color": ["White", "Sand"],
+			"Size": ["Twin", "Full", "Queen", "King"]
+		},
+		"variants": [{
+				"sku": "SS001WT",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Twin"]
+				}
+			},
+			{
+				"sku": "SS001WF",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Full"]
+				}
+			},
+			{
+				"sku": "SS001WQ",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Queen"]
+				}
+			},
+			{
+				"sku": "SS001WK",
+				"details": {
+					"Color": ["White"],
+					"Size": ["King"]
+				}
+			},
+			{
+				"sku": "SS001ST",
+				"details": {
+					"Color": ["Sand"],
+					"Size": ["Twin"]
+				}
+			},
+			{
+				"sku": "SS001SF",
+				"details": {
+					"Color": ["Sand"],
+					"Size": ["Full"]
+				}
+			},
+			{
+				"sku": "SS001SQ",
+				"details": {
+					"Color": ["Sand"],
+					"Size": ["Queen"]
+				}
+			},
+			{
+				"sku": "SS001SK",
+				"details": {
+					"Color": ["Sand"],
+					"Size": ["King"]
+				}
+			}
+		],
+		"pricing": {
+			"SS001WT": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 39.99
+				}]
+			},
+			"SS001WF": {
+				"msrp": 49.99,
+				"prices": [{
+					"regular": 49.99
+				}]
+			},
+			"SS001WQ": {
+				"msrp": 59.99,
+				"prices": [{
+					"regular": 59.99
+				}]
+			},
+			"SS001WK": {
+				"msrp": 69.99,
+				"prices": [{
+					"regular": 69.99
+				}]
+			},
+			"SS001ST": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 39.99
+				}]
+			},
+			"SS001SF": {
+				"msrp": 49.99,
+				"prices": [{
+					"regular": 49.99
+				}]
+			},
+			"SS001SQ": {
+				"msrp": 59.99,
+				"prices": [{
+					"regular": 59.99
+				}]
+			},
+			"SS001SK": {
+				"msrp": 69.99,
+				"prices": [{
+					"regular": 69.99
+				}]
+			}
+		},
+		"inventory": {
+			"SS001WT": {
+				"policy": "standard",
+				"available": 25
+			},
+			"SS001WF": {
+				"policy": "standard",
+				"available": 25
+			},
+			"SS001WQ": {
+				"policy": "standard",
+				"available": 25
+			},
+			"SS001WK": {
+				"policy": "standard",
+				"available": 25
+			},
+			"SS001ST": {
+				"policy": "standard",
+				"available": 25
+			},
+			"SS001SF": {
+				"policy": "standard",
+				"available": 25
+			},
+			"SS001SQ": {
+				"policy": "standard",
+				"available": 25
+			},
+			"SS001SK": {
+				"policy": "standard",
+				"available": 25
+			}
+		}
+	},
+	{
+		"id": "BC001",
+		"name": "Bed Comforter",
+		"template": "option_selects",
+		"filters": {
+			"Color": ["White", "Blue"],
+			"Size": ["Twin", "Full", "Queen", "King"]
+		},
+		"variants": [{
+				"sku": "BC001WT",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Twin"]
+				}
+			},
+			{
+				"sku": "BC001WF",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Full"]
+				}
+			},
+			{
+				"sku": "BC001WQ",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Queen"]
+				}
+			},
+			{
+				"sku": "BC001WK",
+				"details": {
+					"Color": ["White"],
+					"Size": ["King"]
+				}
+			},
+			{
+				"sku": "BC001BT",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["Twin"]
+				}
+			},
+			{
+				"sku": "BC001BF",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["Full"]
+				}
+			},
+			{
+				"sku": "BC001BQ",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["Queen"]
+				}
+			},
+			{
+				"sku": "BC001BK",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["King"]
+				}
+			}
+		],
+		"pricing": {
+			"BC001WT": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 39.99
+				}]
+			},
+			"BC001WF": {
+				"msrp": 44.99,
+				"prices": [{
+					"regular": 44.99
+				}]
+			},
+			"BC001WQ": {
+				"msrp": 49.99,
+				"prices": [{
+					"regular": 49.99
+				}]
+			},
+			"BC001WK": {
+				"msrp": 54.99,
+				"prices": [{
+					"regular": 54.99
+				}]
+			},
+			"BC001BT": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 39.99
+				}]
+			},
+			"BC001BF": {
+				"msrp": 44.99,
+				"prices": [{
+					"regular": 44.99
+				}]
+			},
+			"BC001BQ": {
+				"msrp": 49.99,
+				"prices": [{
+					"regular": 49.99
+				}]
+			},
+			"BC001BK": {
+				"msrp": 54.99,
+				"prices": [{
+					"regular": 54.99
+				}]
+			}
+		},
+		"inventory": {
+			"BC001WT": {
+				"policy": "standard",
+				"available": 25
+			},
+			"BC001WF": {
+				"policy": "standard",
+				"available": 25
+			},
+			"BC001WQ": {
+				"policy": "standard",
+				"available": 25
+			},
+			"BC001WK": {
+				"policy": "standard",
+				"available": 25
+			},
+			"BC001BT": {
+				"policy": "standard",
+				"available": 25
+			},
+			"BC001BF": {
+				"policy": "standard",
+				"available": 25
+			},
+			"BC001BQ": {
+				"policy": "standard",
+				"available": 25
+			},
+			"BC001BK": {
+				"policy": "standard",
+				"available": 25
+			}
+		}
+	},
+	{
+		"id": "BK001",
+		"name": "Bedding Kit",
+		"template": "option_selects",
+		"product_ids": ["PC001", "SS001", "BC001"],
+		"filters": {
+			"Theme": ["Clean", "Beachy"],
+			"Size": ["Twin", "Full", "Queen", "King"]
+		},
+		"variants": [{
+				"sku": "BK001CT",
+				"details": {
+					"Theme": ["Clean"],
+					"Size": ["Twin"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WF",
+						"quantity": 1
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001WT",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001WT",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "BK001CF",
+				"details": {
+					"Theme": ["Clean"],
+					"Size": ["Full"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WF",
+						"quantity": 2
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001WF",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001WF",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "BK001CQ",
+				"details": {
+					"Theme": ["Clean"],
+					"Size": ["Queen"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WQ",
+						"quantity": 4
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001WQ",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001WQ",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "BK001CK",
+				"details": {
+					"Theme": ["Clean"],
+					"Size": ["King"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WK",
+						"quantity": 4
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001WK",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001WK",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "BK001BT",
+				"details": {
+					"Theme": ["Beachy"],
+					"Size": ["Twin"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WF",
+						"quantity": 1
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001ST",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001BT",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "BK001BF",
+				"details": {
+					"Theme": ["Beachy"],
+					"Size": ["Full"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WF",
+						"quantity": 1
+					},
+					{
+						"product_id": "PC001",
+						"sku": "PC001SF",
+						"quantity": 1
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001SF",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001BF",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "BK001BQ",
+				"details": {
+					"Theme": ["Beachy"],
+					"Size": ["Queen"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WQ",
+						"quantity": 2
+					},
+					{
+						"product_id": "PC001",
+						"sku": "PC001SQ",
+						"quantity": 2
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001SQ",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001BQ",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "BK001BK",
+				"details": {
+					"Theme": ["Beachy"],
+					"Size": ["King"]
+				},
+				"components": [{
+						"product_id": "PC001",
+						"sku": "PC001WK",
+						"quantity": 2
+					},
+					{
+						"product_id": "PC001",
+						"sku": "PC001SK",
+						"quantity": 2
+					},
+					{
+						"product_id": "SS001",
+						"sku": "SS001SK",
+						"quantity": 1
+					},
+					{
+						"product_id": "BC001",
+						"sku": "BC001BK",
+						"quantity": 1
+					}
+				]
+			}
+		],
+		"pricing": {
+			"BK001CT": {
+				"prices": [{
+					"regular": 79.99
+				}]
+			},
+			"BK001CF": {
+				"prices": [{
+					"regular": 89.99
+				}]
+			},
+			"BK001CQ": {
+				"prices": [{
+					"regular": 104.99
+				}]
+			},
+			"BK001CK": {
+				"prices": [{
+					"regular": 124.99
+				}]
+			},
+			"BK001BT": {
+				"prices": [{
+					"regular": 79.99
+				}]
+			},
+			"BK001BF": {
+				"prices": [{
+					"regular": 89.99
+				}]
+			},
+			"BK001BQ": {
+				"prices": [{
+					"regular": 104.99
+				}]
+			},
+			"BK001BK": {
+				"prices": [{
+					"regular": 124.99
+				}]
+			}
+		},
+		"inventory": {
+			"BK001CT": {
+				"policy": "defer_to_components"
+			},
+			"BK001CF": {
+				"policy": "defer_to_components"
+			},
+			"BK001CQ": {
+				"policy": "defer_to_components"
+			},
+			"BK001CK": {
+				"policy": "defer_to_components"
+			},
+			"BK001BT": {
+				"policy": "defer_to_components"
+			},
+			"BK001BF": {
+				"policy": "defer_to_components"
+			},
+			"BK001BQ": {
+				"policy": "defer_to_components"
+			},
+			"BK001BK": {
+				"policy": "defer_to_components"
+			}
+		},
+		"fulfillment": {
+			"BK001CT": {
+				"policy": "bundle"
+			},
+			"BK001CF": {
+				"policy": "bundle"
+			},
+			"BK001CQ": {
+				"policy": "bundle"
+			},
+			"BK001CK": {
+				"policy": "bundle"
+			},
+			"BK001BT": {
+				"policy": "bundle"
+			},
+			"BK001BF": {
+				"policy": "bundle"
+			},
+			"BK001BQ": {
+				"policy": "bundle"
+			},
+			"BK001BK": {
+				"policy": "bundle"
+			}
+		}
+	},
+	{
+		"id": "SKP001",
+		"name": "Sweater Knitting Pattern",
+		"template": "generic",
+		"variants": [{
+			"sku": "SKP001"
+		}],
+		"pricing": {
+			"SKP001": {
+				"msrp": 9.99,
+				"prices": [{
+					"regular": 9.99
+				}]
+			}
+		},
+		"inventory": {
+			"SKP001": {
+				"policy": "standard",
+				"available": 100
+			}
+		}
+	},
+	{
+		"id": "KN001",
+		"name": "Knitting Needle",
+		"template": "option_selects",
+		"filters": {
+			"Size": ["3", "5", "7"]
+		},
+		"variants": [{
+				"sku": "KN0013",
+				"details": {
+					"Size": ["3"]
+				}
+			},
+			{
+				"sku": "KN0015",
+				"details": {
+					"Size": ["5"]
+				}
+			},
+			{
+				"sku": "KN0017",
+				"details": {
+					"Size": ["7"]
+				}
+			}
+		],
+		"pricing": {
+			"KN0013": {
+				"msrp": 4.99,
+				"prices": [{
+					"regular": 4
+				}]
+			},
+			"KN0015": {
+				"msrp": 4.99,
+				"prices": [{
+					"regular": 4
+				}]
+			},
+			"KN0017": {
+				"msrp": 4.99,
+				"prices": [{
+					"regular": 4
+				}]
+			}
+		},
+		"inventory": {
+			"KN0013": {
+				"policy": "standard",
+				"available": 500
+			},
+			"KN0015": {
+				"policy": "standard",
+				"available": 500
+			},
+			"KN0017": {
+				"policy": "standard",
+				"available": 500
+			}
+		}
+	},
+	{
+		"id": "CY001",
+		"name": "Cotton Yarn",
+		"template": "option_thumbnails",
+		"filters": {
+			"Color": ["Purple", "Blue"],
+			"Size": ["Ball", "Skein"],
+			"Weight": ["Fine", "Light"]
+		},
+		"variants": [{
+				"sku": "CY001PBF",
+				"details": {
+					"Color": ["Purple"],
+					"Size": ["Ball"],
+					"Weight": ["Fine"]
+				}
+			},
+			{
+				"sku": "CY001PBL",
+				"details": {
+					"Color": ["Purple"],
+					"Size": ["Ball"],
+					"Weight": ["Light"]
+				}
+			},
+			{
+				"sku": "CY001PSF",
+				"details": {
+					"Color": ["Purple"],
+					"Size": ["Skein"],
+					"Weight": ["Fine"]
+				}
+			},
+			{
+				"sku": "CY001PSL",
+				"details": {
+					"Color": ["Purple"],
+					"Size": ["Skein"],
+					"Weight": ["Light"]
+				}
+			},
+			{
+				"sku": "CY001BBF",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["Ball"],
+					"Weight": ["Fine"]
+				}
+			},
+			{
+				"sku": "CY001BBL",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["Ball"],
+					"Weight": ["Light"]
+				}
+			},
+			{
+				"sku": "CY001BSF",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["Skein"],
+					"Weight": ["Fine"]
+				}
+			},
+			{
+				"sku": "CY001BSL",
+				"details": {
+					"Color": ["Blue"],
+					"Size": ["Skein"],
+					"Weight": ["Light"]
+				}
+			}
+		],
+		"pricing": {
+			"CY001PBF": {
+				"msrp": 4.99,
+				"prices": [{
+					"regular": 4.99
+				}]
+			},
+			"CY001PBL": {
+				"msrp": 4.99,
+				"prices": [{
+					"regular": 4.99
+				}]
+			},
+			"CY001PSF": {
+				"msrp": 6.99,
+				"prices": [{
+					"regular": 6.99
+				}]
+			},
+			"CY001PSL": {
+				"msrp": 6.99,
+				"prices": [{
+					"regular": 6.99
+				}]
+			},
+			"CY001BBF": {
+				"msrp": 4.99,
+				"prices": [{
+					"regular": 4.99
+				}]
+			},
+			"CY001BBL": {
+				"msrp": 4.99,
+				"prices": [{
+					"regular": 4.99
+				}]
+			},
+			"CY001BSF": {
+				"msrp": 6.99,
+				"prices": [{
+					"regular": 6.99
+				}]
+			},
+			"CY001BSL": {
+				"msrp": 6.99,
+				"prices": [{
+					"regular": 6.99
+				}]
+			}
+		},
+		"inventory": {
+			"CY001PBF": {
+				"policy": "standard",
+				"available": 50
+			},
+			"CY001PBL": {
+				"policy": "standard",
+				"available": 50
+			},
+			"CY001PSF": {
+				"policy": "standard",
+				"available": 50
+			},
+			"CY001PSL": {
+				"policy": "standard",
+				"available": 50
+			},
+			"CY001BBF": {
+				"policy": "standard",
+				"available": 50
+			},
+			"CY001BBL": {
+				"policy": "standard",
+				"available": 50
+			},
+			"CY001BSF": {
+				"policy": "standard",
+				"available": 50
+			},
+			"CY001BSL": {
+				"policy": "standard",
+				"available": 50
+			}
+		}
+	},
+	{
+		"id": "WY001",
+		"name": "Wool Yarn",
+		"template": "option_thumbnails",
+		"filters": {
+			"Color": ["White"],
+			"Size": ["Ball", "Skein"],
+			"Weight": ["Fine", "Light"]
+		},
+		"variants": [{
+				"sku": "WY001WBF",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Ball"],
+					"Weight": ["Fine"]
+				}
+			},
+			{
+				"sku": "WY001WBL",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Ball"],
+					"Weight": ["Light"]
+				}
+			},
+			{
+				"sku": "WY001WSF",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Skein"],
+					"Weight": ["Fine"]
+				}
+			},
+			{
+				"sku": "WY001WSL",
+				"details": {
+					"Color": ["White"],
+					"Size": ["Skein"],
+					"Weight": ["Light"]
+				}
+			}
+		],
+		"pricing": {
+			"WY001WBF": {
+				"msrp": 5.99,
+				"prices": [{
+					"regular": 5.99
+				}]
+			},
+			"WY001WBL": {
+				"msrp": 5.99,
+				"prices": [{
+					"regular": 5.99
+				}]
+			},
+			"WY001WSF": {
+				"msrp": 7.99,
+				"prices": [{
+					"regular": 7.99
+				}]
+			},
+			"WY001WSL": {
+				"msrp": 7.99,
+				"prices": [{
+					"regular": 7.99
+				}]
+			}
+		},
+		"inventory": {
+			"WY001WBF": {
+				"policy": "standard",
+				"available": 50
+			},
+			"WY001WBL": {
+				"policy": "standard",
+				"available": 50
+			},
+			"WY001WSF": {
+				"policy": "standard",
+				"available": 50
+			},
+			"WY001WSL": {
+				"policy": "standard",
+				"available": 50
+			}
+		}
+	},
+	{
+		"id": "SKK001",
+		"name": "Sweater Knitting Kit",
+		"template": "option_selects",
+		"product_ids": ["SKP001", "KN001", "CY001", "WY001"],
+		"filters": {
+			"Color": ["Purple", "Blue"]
+		},
+		"variants": [{
+				"sku": "SKK001P",
+				"details": {
+					"Color": ["Purple"]
+				},
+				"components": [{
+						"product_id": "SKP001",
+						"sku": "SKP001",
+						"quantity": 1
+					},
+					{
+						"product_id": "KN001",
+						"sku": "KN0013",
+						"quantity": 2
+					},
+					{
+						"product_id": "KN001",
+						"sku": "KN0017",
+						"quantity": 2
+					},
+					{
+						"product_id": "CY001",
+						"sku": "CY001PSL",
+						"quantity": 4
+					},
+					{
+						"product_id": "WY001",
+						"sku": "WY001WSF",
+						"quantity": 2
+					}
+				]
+			},
+			{
+				"sku": "SKK001B",
+				"details": {
+					"Color": ["Blue"]
+				},
+				"components": [{
+						"product_id": "SKP001",
+						"sku": "SKP001",
+						"quantity": 1
+					},
+					{
+						"product_id": "KN001",
+						"sku": "KN0013",
+						"quantity": 2
+					},
+					{
+						"product_id": "KN001",
+						"sku": "KN0017",
+						"quantity": 2
+					},
+					{
+						"product_id": "CY001",
+						"sku": "CY001BSL",
+						"quantity": 4
+					},
+					{
+						"product_id": "WY001",
+						"sku": "WY001WSF",
+						"quantity": 2
+					}
+				]
+			}
+		],
+		"pricing": {
+			"SKK001P": {
+				"prices": [{
+					"regular": 36.49
+				}]
+			},
+			"SKK001B": {
+				"prices": [{
+					"regular": 36.49
+				}]
+			}
+		},
+		"inventory": {
+			"SKK001P": {
+				"policy": "defer_to_components"
+			},
+			"SKK001B": {
+				"policy": "defer_to_components"
+			}
+		},
+		"fulfillment": {
+			"SKK001P": {
+				"policy": "bundle"
+			},
+			"SKK001B": {
+				"policy": "bundle"
+			}
+		}
+	},
+	{
+		"id": "MO001",
+		"name": "OEM Motor Oil - 5 Quarts",
+		"template": "option_thumbnails",
+		"filters": {
+			"Viscosity": ["0W30", "5W30", "10W30", "0W40", "5W40", "10W40"]
+		},
+		"variants": [{
+				"sku": "MO001030",
+				"details": {
+					"Viscosity": ["0W30"]
+				}
+			},
+			{
+				"sku": "MO001530",
+				"details": {
+					"Viscosity": ["5W30"]
+				}
+			},
+			{
+				"sku": "MO0011030",
+				"details": {
+					"Viscosity": ["10W30"]
+				}
+			},
+			{
+				"sku": "MO001040",
+				"details": {
+					"Viscosity": ["0W40"]
+				}
+			},
+			{
+				"sku": "MO001540",
+				"details": {
+					"Viscosity": ["5W40"]
+				}
+			},
+			{
+				"sku": "MO0011040",
+				"details": {
+					"Viscosity": ["10W40"]
+				}
+			}
+		],
+		"pricing": {
+			"MO001030": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 38.99
+				}]
+			},
+			"MO001530": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 38.99
+				}]
+			},
+			"MO0011030": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 38.99
+				}]
+			},
+			"MO001040": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 38.99
+				}]
+			},
+			"MO001540": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 38.99
+				}]
+			},
+			"MO0011040": {
+				"msrp": 39.99,
+				"prices": [{
+					"regular": 38.99
+				}]
+			}
+		},
+		"inventory": {
+			"MO001030": {
+				"policy": "standard",
+				"available": 25
+			},
+			"MO001530": {
+				"policy": "standard",
+				"available": 25
+			},
+			"MO0011030": {
+				"policy": "standard",
+				"available": 25
+			},
+			"MO001040": {
+				"policy": "standard",
+				"available": 25
+			},
+			"MO001540": {
+				"policy": "standard",
+				"available": 25
+			},
+			"MO0011040": {
+				"policy": "standard",
+				"available": 25
+			}
+		}
+	},
+	{
+		"id": "DPCW001",
+		"name": "Oil Drain Plug Crush Washer",
+		"template": "option_thumbnails",
+		"filters": {
+			"Size": ["15mm", "17mm", "19mm"]
+		},
+		"variants": [{
+				"sku": "DPCW00115",
+				"details": {
+					"Size": ["15mm"]
+				}
+			},
+			{
+				"sku": "DPCW00117",
+				"details": {
+					"Size": ["17mm"]
+				}
+			},
+			{
+				"sku": "DPCW00119",
+				"details": {
+					"Size": ["19mm"]
+				}
+			}
+		],
+		"pricing": {
+			"DPCW00115": {
+				"msrp": 2.99,
+				"prices": [{
+					"regular": 2.99
+				}]
+			},
+			"DPCW00117": {
+				"msrp": 2.99,
+				"prices": [{
+					"regular": 2.99
+				}]
+			},
+			"DPCW00119": {
+				"msrp": 2.99,
+				"prices": [{
+					"regular": 2.99
+				}]
+			}
+		},
+		"inventory": {
+			"DPCW00115": {
+				"policy": "standard",
+				"available": 100
+			},
+			"DPCW00117": {
+				"policy": "standard",
+				"available": 100
+			},
+			"DPCW00119": {
+				"policy": "standard",
+				"available": 100
+			}
+		}
+	},
+	{
+		"id": "OF001",
+		"name": "OEM Oil Filter",
+		"template": "option_selects",
+		"filters": {
+			"Flow": ["Standard", "Performance"]
+		},
+		"variants": [{
+				"sku": "OF001S",
+				"details": {
+					"Style": ["Standard"]
+				}
+			},
+			{
+				"sku": "OF001P",
+				"details": {
+					"Style": ["Performance"]
+				}
+			}
+		],
+		"pricing": {
+			"OF001S": {
+				"msrp": 19.99,
+				"prices": [{
+					"regular": 19.99
+				}]
+			},
+			"OF001P": {
+				"msrp": 29.99,
+				"prices": [{
+					"regular": 29.99
+				}]
+			}
+		},
+		"inventory": {
+			"OF001S": {
+				"policy": "standard",
+				"available": 50
+			},
+			"OF001P": {
+				"policy": "standard",
+				"available": 50
+			}
+		}
+	},
+	{
+		"id": "OCK001",
+		"name": "OEM Oil Change Kit",
+		"template": "option_thumbnails",
+		"product_ids": ["MO001", "DPCW001", "OF001"],
+		"filters": {
+			"Year": ["2019", "2020"],
+			"Model": ["Sedan SE", "Vert LE", "Coupe GT "]
+		},
+		"variants": [{
+				"sku": "OCK00119S",
+				"details": {
+					"Year": ["2019"],
+					"Model": ["Sedan SE"]
+				},
+				"components": [{
+						"product_id": "MO001",
+						"sku": "MO001530",
+						"quantity": 1
+					},
+					{
+						"product_id": "DPCW001",
+						"sku": "DPCW00117",
+						"quantity": 1
+					},
+					{
+						"product_id": "OF001",
+						"sku": "OF001S",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "OCK00120S",
+				"details": {
+					"Year": ["2020"],
+					"Model": ["Sedan SE"]
+				},
+				"components": [{
+						"product_id": "MO001",
+						"sku": "MO001530",
+						"quantity": 1
+					},
+					{
+						"product_id": "DPCW001",
+						"sku": "DPCW00117",
+						"quantity": 1
+					},
+					{
+						"product_id": "OF001",
+						"sku": "OF001S",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "OCK00119V",
+				"details": {
+					"Year": ["2019"],
+					"Model": ["Vert LE"]
+				},
+				"components": [{
+						"product_id": "MO001",
+						"sku": "MO0011030",
+						"quantity": 1
+					},
+					{
+						"product_id": "DPCW001",
+						"sku": "DPCW00115",
+						"quantity": 1
+					},
+					{
+						"product_id": "OF001",
+						"sku": "OF001S",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "OCK00120V",
+				"details": {
+					"Year": ["2020"],
+					"Model": ["Vert LE"]
+				},
+				"components": [{
+						"product_id": "MO001",
+						"sku": "MO0011030",
+						"quantity": 1
+					},
+					{
+						"product_id": "DPCW001",
+						"sku": "DPCW00115",
+						"quantity": 1
+					},
+					{
+						"product_id": "OF001",
+						"sku": "OF001S",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "OCK00119C",
+				"details": {
+					"Year": ["2019"],
+					"Model": ["Coupe GT"]
+				},
+				"components": [{
+						"product_id": "MO001",
+						"sku": "MO001530",
+						"quantity": 1
+					},
+					{
+						"product_id": "DPCW001",
+						"sku": "DPCW00117",
+						"quantity": 1
+					},
+					{
+						"product_id": "OF001",
+						"sku": "OF001P",
+						"quantity": 1
+					}
+				]
+			},
+			{
+				"sku": "OCK00120C",
+				"details": {
+					"Year": ["2020"],
+					"Model": ["Coupe GT"]
+				},
+				"components": [{
+						"product_id": "MO001",
+						"sku": "MO001540",
+						"quantity": 1
+					},
+					{
+						"product_id": "DPCW001",
+						"sku": "DPCW00117",
+						"quantity": 1
+					},
+					{
+						"product_id": "OF001",
+						"sku": "OF001P",
+						"quantity": 1
+					}
+				]
+			}
+		],
+		"pricing": {
+			"OCK00119S": {
+				"msrp": 72.99,
+				"prices": [{
+					"regular": 72.99
+				}]
+			},
+			"OCK00120S": {
+				"msrp": 72.99,
+				"prices": [{
+					"regular": 72.99
+				}]
+			},
+			"OCK00119V": {
+				"msrp": 74.99,
+				"prices": [{
+					"regular": 74.99
+				}]
+			},
+			"OCK00120V": {
+				"msrp": 74.99,
+				"prices": [{
+					"regular": 74.99
+				}]
+			},
+			"OCK00119C": {
+				"msrp": 86.99,
+				"prices": [{
+					"regular": 86.99
+				}]
+			},
+			"OCK00120C": {
+				"msrp": 86.99,
+				"prices": [{
+					"regular": 86.99
+				}]
+			}
+		},
+		"inventory": {
+			"OCK00119S": {
+				"policy": "defer_to_components"
+			},
+			"OCK00120S": {
+				"policy": "defer_to_components"
+			},
+			"OCK00119V": {
+				"policy": "defer_to_components"
+			},
+			"OCK00120V": {
+				"policy": "defer_to_components"
+			},
+			"OCK00119C": {
+				"policy": "defer_to_components"
+			},
+			"OCK00120C": {
+				"policy": "defer_to_components"
+			}
+		},
+		"fulfillment": {
+			"OCK00119S": {
+				"policy": "bundle"
+			},
+			"OCK00120S": {
+				"policy": "bundle"
+			},
+			"OCK00119V": {
+				"policy": "bundle"
+			},
+			"OCK00120V": {
+				"policy": "bundle"
+			},
+			"OCK00119C": {
+				"policy": "bundle"
+			},
+			"OCK00120C": {
+				"policy": "bundle"
+			}
+		}
+	},
+  {
+    "id": "BFB001",
+		"name": "Bedding Family",
+		"template": "family",
+		"product_ids": ["PC001", "SS001", "BC001"],
+		"filters": {
+			"Color": ["White", "Blue", "Sand"],
+			"Size": ["Twin", "Full", "Queen", "King"]
+		}
+  },
+  {
+    "id": "SKFB001",
+    "name": "Sweater Knitting Family",
+    "template": "family",
+    "product_ids": ["SKP001", "KN001", "CY001", "WY001"],
+    "filters": {
+      "Color": ["Purple", "Blue"]
+    }
+  },
+  {
+    "id": "OCFB001",
+    "name": "OEM Oil Change Family",
+    "template": "family",
+    "product_ids": ["MO001", "DPCW001", "OF001"]
+  },
+  {
+    "id": "BPB001",
+    "name": "Bedding Package",
+    "template": "package",
+    "product_ids": ["PC001", "SS001", "BC001"],
+    "filters": {
+      "Color": ["White", "Blue", "Sand"],
+      "Size": ["Twin", "Full", "Queen", "King"]
+    }
+  },
+  {
+    "id": "SKPB001",
+    "name": "Sweater Knitting Package",
+    "template": "package",
+    "product_ids": ["SKP001", "KN001", "CY001", "WY001"],
+    "filters": {
+      "Color": ["Purple", "Blue"]
+    }
+  },
+  {
+    "id": "OCPB001",
+    "name": "OEM Oil Change Package",
+    "template": "package",
+    "product_ids": ["MO001", "DPCW001", "OF001"]
+  }
+]

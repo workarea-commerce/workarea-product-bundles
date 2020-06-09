@@ -3,38 +3,58 @@ module Workarea
     def perform
       puts 'Adding product bundles...'
 
-      10.times do
-        package = create_product
-
+      create_products_from_file.each do |product|
         category = Workarea::Catalog::Category.sample
-        category.product_ids.push(package.id)
+        category.product_ids.push(product.id)
         category.save!
       end
     end
 
+    def create_products_from_file
+      path = 'data/bundle_seeds.json'
+      contents = File.read(Workarea::ProductBundles::Engine.root.join(path))
+      products_data = JSON.parse(contents)
+
+      products_data.map(&method(:create_product))
+    end
+
     private
 
-    def create_product
+    def create_product(data)
       Sidekiq::Callbacks.disable do
-        model = Workarea::Catalog::Product.new
-        bundled_products =
-          Workarea::Catalog::Product.sample(4).reject(&:bundle?)
+        pricing_data = data['pricing']
+        inventory_data = data['inventory']
+        fulfillment_data = data['fulfillment']
 
-        model.id = rand(1_000_000)
-        model.name = "Product Bundle #{rand(100_000)}"
-        model.template = Workarea.config.product_bundle_templates.sample
-        model.product_ids = bundled_products.map(&:id)
+        product = Catalog::Product.create!(
+          data.except('pricing', 'inventory', 'fulfillment')
+              .reverse_merge(description: Faker::Lorem.paragraph)
+        )
 
-        model.filters = bundled_products.each_with_object({}) do |product, bundle_filters|
-          product.filters.each do |filter_name, values|
-            bundle_filters[filter_name] ||= []
-            bundle_filters[filter_name].concat(Array(values)).uniq!
+        if pricing_data.present?
+          pricing_data.each do |sku, pdata|
+            sku = Pricing::Sku.new(pdata.reverse_merge(id: sku, tax_code: '001'))
+            sku.save!(validate: false)
           end
         end
 
-        model.description = Faker::Lorem.paragraph
-        model.save!
-        model
+        if inventory_data.present?
+          inventory_data.each do |sku, idata|
+            inventory = Inventory::Sku.create!(idata.merge(id: sku))
+            next unless product.kit?
+
+            variant = product.variants.detect { |v| v.sku == sku }
+            inventory.update!(component_quantities: variant.component_quantities)
+          end
+        end
+
+        if fulfillment_data.present?
+          fulfillment_data.each do |sku, fdata|
+            Fulfillment::Sku.create!(fdata.merge(id: sku))
+          end
+        end
+
+        product
       end
     end
   end

@@ -1,6 +1,5 @@
 Workarea.configure do |config|
   config.seeds.insert_after('Workarea::ProductsSeeds', 'Workarea::ProductBundleSeeds')
-  config.seeds.insert_after('Workarea::ProductsSeeds', 'Workarea::ProductKitSeeds')
 
   config.product_templates += %i(package family)
   config.product_bundle_templates = %i(package family)
