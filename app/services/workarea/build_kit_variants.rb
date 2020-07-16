@@ -36,7 +36,7 @@ module Workarea
 
       pieces = params[:components].values.map do |skus_params|
         skus_params.map do |sku_params|
-          next unless sku_params[:selected].to_s =~ /true/i
+          next unless sku_params[:selected] =~ /true/i
 
           product = bundled_products.detect { |p| p.id == sku_params[:product_id] }
           next unless product.present?
@@ -62,11 +62,11 @@ module Workarea
     end
 
     def copy_options?
-      params[:variant][:copy_options].to_s =~ /true/i
+      params[:variant][:copy_options] =~ /true/i
     end
 
     def calculate_pricing?
-      params[:variant][:calculate_pricing].to_s =~ /true/i
+      params[:variant][:calculate_pricing] =~ /true/i
     end
 
     def bundled_products

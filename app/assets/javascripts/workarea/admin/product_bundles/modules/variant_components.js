@@ -33,7 +33,7 @@ WORKAREA.registerModule('variantComponents', (function () {
                 $counter = $product.find(data.counter);
                 $counter.text(
                     I18n.t(
-                        'workarea.variant_components.selected',
+                        'workarea.admin.variant_components.selected',
                         { count: $product.data('selectedCount') }
                     )
                 );

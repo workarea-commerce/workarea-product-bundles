@@ -51,7 +51,7 @@ module Workarea
 
         flash[:success] = t('workarea.admin.create_catalog_product_kits.flash_messages.variants_saved')
 
-        if params[:add_more_variants].to_s =~ /true/i
+        if params[:add_more_variants] =~ /true/i
           redirect_to variants_create_catalog_product_kit_path(@product)
         else
           redirect_to manage_variants_create_catalog_product_kit_path(@product)
@@ -84,7 +84,7 @@ module Workarea
 
       def destroy_variant
         variant = @product.variants.detect { |v| v.sku == params[:sku] }
-        variant.destroy
+        variant.destroy if variant.present?
 
         flash[:success] = t('workarea.admin.catalog_variants.flash_messages.removed')
         redirect_to manage_variants_create_catalog_product_kit_path(@product)

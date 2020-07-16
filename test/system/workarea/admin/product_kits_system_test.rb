@@ -65,21 +65,21 @@ module Workarea
           assert(page.has_content?('Small'))
           assert(page.has_content?('Medium'))
 
-          assert(page.has_content?(t('workarea.filterable.showing', count: 2)))
+          assert(page.has_content?(t('workarea.admin.filterable.showing', count: 2)))
           fill_in 'filter_skus', with: 'Small'
-          assert(page.has_content?(t('workarea.filterable.showing', count: 1)))
+          assert(page.has_content?(t('workarea.admin.filterable.showing', count: 1)))
 
           assert(page.has_content?('SKU1-1'))
           assert(page.has_no_content?('SKU1-2'))
           assert(page.has_content?('Small'))
           assert(page.has_no_content?('Medium'))
 
-          assert(page.has_content?(t('workarea.variant_components.selected', count: 0)))
+          assert(page.has_content?(t('workarea.admin.variant_components.selected', count: 0)))
           check 'select_all'
-          assert(page.has_content?(t('workarea.variant_components.selected', count: 1)))
+          assert(page.has_content?(t('workarea.admin.variant_components.selected', count: 1)))
 
           fill_in 'filter_skus', with: ''
-          assert(page.has_content?(t('workarea.filterable.showing', count: 2)))
+          assert(page.has_content?(t('workarea.admin.filterable.showing', count: 2)))
 
           assert(find('[id$=selected_SKU1-1]').checked?)
           refute(find('[id$=selected_SKU1-2]').checked?)
@@ -108,21 +108,21 @@ module Workarea
         end
 
         preview_text = t(
-          'workarea.variant_components.preview.count_summary_html',
+          'workarea.admin.variant_components.preview.count_summary_html',
           count: 4,
           details: [
             t(
-              'workarea.variant_components.preview.detail_summary_html',
+              'workarea.admin.variant_components.preview.detail_summary_html',
               type: 'Color',
               values: 'Blue, White, and Red'
             ),
             t(
-              'workarea.variant_components.preview.detail_summary_html',
+              'workarea.admin.variant_components.preview.detail_summary_html',
               type: 'Size',
               values: 'Small and Medium'
             ),
             t(
-              'workarea.variant_components.preview.detail_summary_html',
+              'workarea.admin.variant_components.preview.detail_summary_html',
               type: 'Material',
               values: 'Cotton'
             )
@@ -134,7 +134,7 @@ module Workarea
         assert(
           page.html.include?(
             t(
-              'workarea.variant_components.preview.pricing_summary_html',
+              'workarea.admin.variant_components.preview.pricing_summary_html',
               min: '$15.00',
               max: '$18.00'
             )
@@ -147,25 +147,25 @@ module Workarea
         assert_current_path(admin.manage_variants_create_catalog_product_kit_path(product))
 
         assert(page.has_content?('Success'))
-        assert(page.has_content?(t('workarea.filterable.showing', count: 4)))
+        assert(page.has_content?(t('workarea.admin.filterable.showing', count: 4)))
 
         product.reload
         product.skus.each { |sku| assert(page.has_content?(sku)) }
 
         fill_in 'filter_skus', with: 'SKU1-1'
-        assert(page.has_content?(t('workarea.filterable.showing', count: 2)))
+        assert(page.has_content?(t('workarea.admin.filterable.showing', count: 2)))
 
         assert(page.has_no_content?('SKU1-2'))
 
         fill_in 'filter_skus', with: ''
-        assert(page.has_content?(t('workarea.filterable.showing', count: 4)))
+        assert(page.has_content?(t('workarea.admin.filterable.showing', count: 4)))
 
         within find("#variant-#{product.variants.first.sku}") do
           click_link t('workarea.admin.actions.delete')
         end
 
         assert(page.has_content?('Success'))
-        assert(page.has_content?(t('workarea.filterable.showing', count: 3)))
+        assert(page.has_content?(t('workarea.admin.filterable.showing', count: 3)))
 
         product.reload
         variant = product.variants.first
@@ -222,7 +222,7 @@ module Workarea
 
         click_button t('workarea.admin.create_catalog_product_kits.variants.create.button')
         assert(page.has_content?('Success'))
-        assert(page.has_content?(t('workarea.filterable.showing', count: 4)))
+        assert(page.has_content?(t('workarea.admin.filterable.showing', count: 4)))
 
         click_link(t('workarea.admin.create_catalog_product_bundles.bundled_products.continue_to_images'))
         assert(page.has_content?(t('workarea.admin.create_catalog_products.images.add_images', product_name: 'Test Kit')))

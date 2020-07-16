@@ -7,7 +7,7 @@ module Workarea
           product ||= Catalog::Product.find(product_id) if product_id
           product ||= Catalog::Product.find_by_sku(sku)
 
-          if product.respond_to?(:bundled_products)
+          if product.is_a?(ProductViewModel)
             product
           else
             ProductViewModel.wrap(product, sku: sku)

@@ -108,7 +108,6 @@ module Workarea
           hash[:tax_codes] << record.tax_code
           hash[:msrp] += record.msrp.to_m
           hash[:regular] += price.regular.to_m
-          hash[:sale] = price.sale.to_m
         end
       end
 

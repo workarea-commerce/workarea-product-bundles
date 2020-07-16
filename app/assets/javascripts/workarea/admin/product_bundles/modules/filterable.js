@@ -14,7 +14,7 @@ WORKAREA.registerModule('filterable', (function () {
             }, 0);
 
             $el.text(
-                I18n.t('workarea.filterable.showing', { count: count })
+                I18n.t('workarea.admin.filterable.showing', { count: count })
             );
         },
 

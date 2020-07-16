@@ -126,12 +126,24 @@ en:
           title: Select a type of product to create
       fields:
         components: Components
+      filterable:
+        showing:
+          one: showing %{count} result
+          other: showing %{count} results
       fulfillment_skus:
         edit:
           bundle_info_html: <p><strong>Bundle:</strong> Used for kits or any bundle product that persists through checkout. This will remove the bundle item from fulfillment in favor of fulfillment items for each product within the bundle.</p>
       inventory_skus:
         edit:
           defer_to_components_info_html: <p><strong>Defer to Components:</strong> Used for kits or any variant that contains components. This will calculate availability based on the availability of the component SKU availability.</p>
+      variant_components:
+        selected: '%{count} selected,'
+        preview:
+          count_summary_html:
+            one: From the selections you have made, <strong>%{count} variant</strong> will be created with %{details}.
+            other: From the selections you have made, <strong>%{count} variants</strong> will be created with %{details}.
+          detail_summary_html: <strong>%{type}</strong> options of %{values}
+          pricing_summary_html: Pricing will range from <strong>%{min}</strong> to <strong>%{max}</strong>.
     alerts:
       issues:
         no_bundled_products: No Bundled Products
@@ -139,15 +151,3 @@ en:
       carts:
         bundle_contains: 'This item contains:'
         bundled_item_quantity_html: '%{quantity} of %{name}'
-    variant_components:
-      selected: '%{count} selected,'
-      preview:
-        count_summary_html:
-          one: From the selections you have made, <strong>%{count} variant</strong> will be created with %{details}.
-          other: From the selections you have made, <strong>%{count} variants</strong> will be created with %{details}.
-        detail_summary_html: <strong>%{type}</strong> options of %{values}
-        pricing_summary_html: Pricing will range from <strong>%{min}</strong> to <strong>%{max}</strong>.
-    filterable:
-      showing:
-        one: showing %{count} result
-        other: showing %{count} results

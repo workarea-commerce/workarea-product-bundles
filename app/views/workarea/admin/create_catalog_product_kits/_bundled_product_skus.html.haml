@@ -7,7 +7,7 @@
       .grid__cell.grid__cell--60
         %h4.box__heading= bundled_product.name
         %span= t('workarea.admin.create_catalog_product_kits.variants.create.sku_selection_prompt')
-        = link_to t('workarea.admin.create_catalog_product_kits.variants.create.copy_product'), bundled_product_create_catalog_product_kit_path(product, bundled_product_id: bundled_product.id), data: { remote_content: { insert_after: "#bundled-product-#{optionized_id}" }.to_json }
+        = link_to t('workarea.admin.create_catalog_product_kits.variants.create.copy_product'), bundled_product_create_catalog_product_kit_path(product, bundled_product_id: bundled_product.id), data: { remote: '', insert: "#bundled-product-#{optionized_id}", insert_after: '' }
         = link_to "#copy-product-info-#{key}", data: { tooltip: '' } do
           = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.catalog_variants.new.options.learn_more'))
 
@@ -16,7 +16,7 @@
       .grid__cell.grid__cell--40
         .grid.grid--auto.grid--right.grid--middle
           .grid__cell
-            %span{ id: "selected-#{optionized_id}"}= t('workarea.variant_components.selected', count: 0)
+            %span{ id: "selected-#{optionized_id}"}= t('workarea.admin.variant_components.selected', count: 0)
           .grid__cell
             %span{ id: "count-#{optionized_id}" }
           .grid__cell= text_field_tag 'filter_skus', '', id: nil, class: 'text-box text-box--medium', placeholder: t('workarea.admin.create_catalog_product_kits.variants.filter_placeholder'), data: { filterable_input: { group: "product_#{optionized_id}", counter: "#count-#{optionized_id}" }.to_json }

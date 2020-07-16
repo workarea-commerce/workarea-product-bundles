@@ -4,7 +4,6 @@ Workarea.append_javascripts(
   'admin.modules',
   'workarea/admin/product_bundles/modules/variant_components',
   'workarea/admin/product_bundles/modules/variant_component_selects',
-  'workarea/admin/product_bundles/modules/remote_content',
   'workarea/admin/product_bundles/modules/filterable'
 )
 
