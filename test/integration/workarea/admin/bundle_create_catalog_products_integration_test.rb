@@ -11,8 +11,11 @@ module Workarea
       get admin.create_catalog_products_path(product_type: 'standard')
       assert(response.ok?)
 
-      get admin.create_catalog_products_path(product_type: 'bundle')
-      assert_redirected_to(admin.create_catalog_product_bundles_path)
+      get admin.create_catalog_products_path(product_type: 'package')
+      assert_redirected_to(admin.create_catalog_product_bundles_path(template: 'package'))
+
+      get admin.create_catalog_products_path(product_type: 'family')
+      assert_redirected_to(admin.create_catalog_product_bundles_path(template: 'family'))
 
       get admin.create_catalog_products_path(product_type: 'kit')
       assert_redirected_to(admin.create_catalog_product_kits_path)

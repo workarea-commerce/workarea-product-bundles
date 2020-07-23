@@ -11,6 +11,8 @@ module Workarea
         class_name: 'Workarea::Catalog::Variant',
         inverse_of: :components,
         touch: true
+
+      validates :sku, presence: true
     end
   end
 end

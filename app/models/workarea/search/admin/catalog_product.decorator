@@ -2,6 +2,8 @@ module Workarea
   decorate Search::Admin::CatalogProduct, with: :product_bundles do
     def search_text
       super.tap do |text|
+        text << 'product_bundle' if model.bundle?
+        text << 'kit' if model.kit?
         text << model.template if model.discrete_bundle?
         text.push(*variant_component_skus)
       end

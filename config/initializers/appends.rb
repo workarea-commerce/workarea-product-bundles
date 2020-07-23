@@ -1,6 +1,13 @@
 # Javascript Appends
 
 Workarea.append_javascripts(
+  'admin.modules',
+  'workarea/admin/product_bundles/modules/variant_components',
+  'workarea/admin/product_bundles/modules/variant_component_selects',
+  'workarea/admin/product_bundles/modules/filterable'
+)
+
+Workarea.append_javascripts(
   'storefront.modules',
   'workarea/storefront/product_bundles/modules/bundle_sku_selects',
   'workarea/storefront/product_bundles/modules/bundle_option_buttons'
@@ -16,7 +23,9 @@ Workarea.append_stylesheets(
 
 Workarea.append_stylesheets(
   'admin.components',
-  'workarea/admin/product_bundles/components/product_cards'
+  'workarea/admin/product_bundles/components/product_cards',
+  'workarea/admin/product_bundles/components/component_sku_table',
+  'workarea/admin/product_bundles/components/component_sku_select'
 )
 
 # Partial Appends
@@ -42,11 +51,21 @@ Workarea.append_partials(
 )
 
 Workarea.append_partials(
-  'admin.variant_sections',
+  'admin.additional_variant_information_fields',
   'workarea/admin/catalog_variants/components'
 )
 
 Workarea.append_partials(
   'admin.product_fields',
   'workarea/admin/catalog_products/show_bundled_products_field'
+)
+
+Workarea.append_partials(
+  'admin.inventory_sku_policy_info',
+  'workarea/admin/inventory_skus/defer_to_components_info'
+)
+
+Workarea.append_partials(
+  'admin.fulfillment_sku_policy_info',
+  'workarea/admin/fulfillment_skus/bundle_info'
 )

@@ -20,7 +20,15 @@ module Workarea
 
         return unless product_id
 
-        variant.components.build(params.merge(product_id: product_id))
+        matching_component = @variant.components.detect do |component|
+          component.product_id == product_id && component.sku == params[:sku]
+        end
+
+        if matching_component.present?
+          matching_component.quantity += params[:quantity].to_i
+        else
+          variant.components.build(params.merge(product_id: product_id))
+        end
       end
 
       def remove?
@@ -29,7 +37,7 @@ module Workarea
 
       def remove
         variant.components = variant.components.reject do |component|
-          component.id.to_s == params[:id]
+          component.id.to_s == params[:id].to_s
         end
       end
 

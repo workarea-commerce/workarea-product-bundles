@@ -4,7 +4,7 @@ module Workarea
       include BundleCreation
 
       def index
-        @product.template = 'package'
+        @product.template = params['template'].presence || 'family'
         render :setup
       end
 
@@ -26,7 +26,7 @@ module Workarea
       def bundled_products
         options = view_model_options.dup
         options[:q] ||= ''
-        options[:q] += " -#{Workarea.config.product_bundle_templates.join(',')}"
+        options[:q] += " -product_bundle"
 
         search = Search::AdminProducts.new(options)
         @search = SearchViewModel.new(search, options)

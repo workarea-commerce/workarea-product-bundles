@@ -1,7 +1,7 @@
 module Workarea
   decorate Catalog::Variant, with: :product_bundles do
     decorated do
-      embeds_many :components, 
+      embeds_many :components,
         class_name: 'Workarea::Catalog::VariantComponent',
         inverse_of: :variant
     end
@@ -10,6 +10,14 @@ module Workarea
       components.each_with_object({}) do |component, qty|
         qty[component.sku] = component.quantity
       end
+    end
+
+    def admin_filter_value
+      [
+        sku,
+        *details.to_a.flatten,
+        *components.flat_map { |c| [c.sku, c.product_id] }
+      ].compact.uniq.join(' ').downcase
     end
   end
 end

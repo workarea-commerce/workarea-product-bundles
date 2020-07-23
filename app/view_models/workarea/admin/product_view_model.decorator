@@ -14,6 +14,21 @@ module Workarea
         end
     end
 
+    def bundled_product_sku_options
+      bundled_products.flat_map do |product|
+        product.variants.map do |variant|
+          [
+            [
+              variant.sku,
+              variant.details.flat_map { |k, v| "#{k}: #{v.to_sentence}" }
+            ].join(' '),
+            variant.sku,
+            data: { variant_component_option: product.id }
+          ]
+        end
+      end
+    end
+
     def bundle_templates
       Workarea.config.product_bundle_templates
         .map(&:to_s)

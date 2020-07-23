@@ -26,7 +26,14 @@ Workarea::Admin::Engine.routes.draw do
         get :bundled_products
 
         get :variants
+        post :preview_variants
         post :save_variants
+        get :bundled_product
+
+        get :manage_variants
+        get :edit_variant, path: 'variant/:sku'
+        patch :update_variant, path: 'variant/:sku'
+        delete :destroy_variant, path: 'variant/:sku'
 
         get :details
         post :save_details
