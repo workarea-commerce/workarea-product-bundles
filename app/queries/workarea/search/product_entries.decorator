@@ -1,8 +1,13 @@
 module Workarea
-  decorate Search::ProductEntries, with: :package_products do
+  decorate Search::ProductEntries, with: :product_bundles do
     def index_entries_for(product)
-      return Search::Storefront::PackageProduct.new(product) if product.package?
-      super
+      return super unless product.bundle?
+
+      if product.kit?
+        return Search::Storefront::ProductKit.new(product)
+      else
+        return Search::Storefront::ProductBundle.new(product)
+      end
     end
   end
 end

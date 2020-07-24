@@ -1,0 +1,10 @@
+/*------------------------------------*\
+    #COMPONENT-SKU-TABLE
+\*------------------------------------*/
+
+$component-sku-table-height: 500px !default;
+
+.component-sku-table {
+    max-height: $component-sku-table-height;
+    overflow: scroll;
+}

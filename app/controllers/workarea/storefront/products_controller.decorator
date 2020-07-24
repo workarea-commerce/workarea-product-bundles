@@ -1,8 +1,22 @@
 module Workarea
-  decorate Storefront::ProductsController, with: :package_products do
-    def show
-      super
-      render 'package_show' and return if @product.package? && !request.xhr?
+  decorate Storefront::ProductsController, with: :product_bundles do
+    def bundle_details
+      via = params[:via].presence || params[:bundled_items].try(:first).try(:[], :via)
+      sku = params[:sku].presence || params[:bundled_items].try(:first).try(:[], :sku)
+      bundle_id = params[:bundle_id].presence || params[:bundled_items].try(:first).try(:[], :bundle_id)
+
+      model = Catalog::Product.find_by(slug: params[:id])
+      raise InvalidDisplay unless model.active? || current_user.try(:admin?)
+
+      @product = Storefront::ProductViewModel.wrap(
+        model,
+        view_model_options.merge(via: via, sku: sku)
+      )
+
+      bundle_model = Catalog::Product.find(bundle_id)
+      raise InvalidDisplay unless bundle_model.active? || current_user.try(:admin?)
+
+      @bundle = Storefront::ProductViewModel.wrap(bundle_model)
     end
   end
 end

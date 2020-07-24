@@ -3,24 +3,42 @@ en:
     admin:
       catalog_products:
         cards:
-          packaged_products:
+          bundled_products:
             button: Manage Products
-            description: Package products appear on the product detail page.
-            empty: No packaged products.
+            description: Bundled products appear on the product detail page.
+            empty: No bundled products.
             empty_button: Add Products
-            title: Packaged Products
+            title: Bundled Products
+        edit:
+          show_bundle_info_title: Show Bundled Products Info
+          show_bundle_info: Control whether or not products included in a bundle are shown on the product detail page and when added to cart.
+          show_bundled_products_label: Show Bundled Products
+          show_bundled_products: Show Bundled Products
+          hide_bundled_products: Hide Bundled Products
         index:
-          add_new_package_product: Add New Package Product
-      create_catalog_package_products:
+          add_new_product_bundle: Add New Product Bundle
+      catalog_variants:
+        edit:
+          components:
+            label: Component SKUs
+            sku: SKU
+            quantity: Quantity
+            remove: Remove
+            remove_title: Remove component SKU %{sku}
+            new_sku: SKU
+            new_sku_placeholder: SKU
+            new_sku_quantity: Quantity
+            new_sku_quantity_placeholder: Quantity
+      create_catalog_product_bundles:
         flash_messages:
-          packaged_products_saved: Packaged products have been saved
-        packaged_products:
+          bundled_products_saved: Bundled products have been saved
+        bundled_products:
           continue_to_images: Continue to Images
-          instruction: Click on products to add them to the package.
+          instruction: Click on products to add them to the bundle.
           no_matching_products: No matching products found
-          page_title: Products for %{product_name}
+          page_title: Bundled products for %{product_name}
           start_over: Start over
-          title: "%{product_name}: Add Products"
+          title: "%{product_name}: Add Products to bundle"
         setup:
           save_and_add_products: Save and Add Products
         steps:
@@ -28,18 +46,108 @@ en:
           content: Content
           details: Details
           images: Images
-          packaged_products: Packaged Products
+          bundled_products: Bundled Products
           publish: Publish
           setup: Setup
         workflow:
-          cancel_message: Are you sure? All work on this package will be lost.
+          cancel_message: Are you sure? All work on this bundle will be lost.
+          skip_this: or skip this
+      create_catalog_product_kits:
+        flash_messages:
+          bundled_products_saved: Bundled products have been saved
+          variants_saved: Variants have been created
+        bundled_products:
+          continue_to_variants: Continue to Variants
+          instruction: Click on products to add them to the kit.
+          no_matching_products: No matching products found
+          page_title: Bundled products for %{product_name}
+          start_over: Start over
+          title: "%{product_name}: Add Products to kit"
+        setup:
+          save_and_add_products: Save and Add Products
+        steps:
+          categorization: Categorization
+          content: Content
+          details: Details
+          images: Images
+          bundled_products: Bundled Products
+          publish: Publish
+          setup: Setup
+          variants: Variants
+        variants:
+          create:
+            heading: Create New Variants
+            step_one_heading: First, select the SKUs you want to include as part of the kit.
+            step_one_details: You can select any number of SKUs from each product. A variant representing a unique combination of a single SKU from each product will be generated for you.
+            step_two_heading: Then, provide any data you'd like to set on the new variants.
+            sku_field: SKU / SKU Prefix
+            sku_note: When generating multiple variants this will be used as a prefix for each SKU.
+            pricing_toggle: Calculate Pricing
+            pricing_toggle_tooltip: If used, the total price of each SKU selected will be used to generate the price of the new variant.
+            pricing_toggle_on: calculate pricing
+            pricing_toggle_off: do not calculate pricing
+            options_toggle: Copy Options
+            options_toggle_tooltip:  If used, the options of each SKU included in a variant will be copied to the new variant.
+            options_toggle_on: copy options
+            options_toggle_off: do not copy options
+            button: Create Variants
+            add_more: Create more
+            sku_selection_prompt: Select SKUs to include in kit variants.
+            copy_product: Copy Product
+            copy_product_info_html: |
+              <strong>What does this do?</strong>
+              <p>When creating kit variants, only 1 SKU from each product table will be used per variant. If you want variants to contain multiple SKUs from the same product, you can copy that product table and select a second set of SKUs to use<p>
+          manage:
+            no_variants:  There are no existing variants.
+            edit_variant_message: Select a variant to edit
+            update: Update Variant
+          filter_placeholder: Filter SKUs
+          heading: '%{product_name}: Variants'
+          manage_link:
+            one: Manage existing variant
+            other: Manage %{count} existing variants
+          manage_prompt_html: '<strong>%{link}</strong> or,'
+          summary: Variants within a kit represent a collection of SKUs from the products within a kit.
+        workflow:
+          cancel_message: Are you sure? All work on this kit will be lost.
           skip_this: or skip this
       create_catalog_products:
         select:
           button: Select and Continue
-          instruction: A product can contain either variants or other products. Pick the product type you wish you continue creating.
+          family: Family
+          family_description: A family product contains other products and displays them on a single detail page with the ability to add any or all items to cart at the same time.
+          instruction: A product can contain either variants and/or other products. Pick the product type you wish you continue creating.
+          kit: Kit
+          kit_description: A kit product contains other products but is displayed to customers as a single product with its own pricing and variants.
           package: Package
-          package_description: A product that contains other products. Can be used to bundle similar or related products together on a single detail page.
+          package_description: A package product contains other products and allows for each item to be added to cart individually.
           standard: Standard
           standard_description: A typical product that contains variants representing the options of a single product.
           title: Select a type of product to create
+      fields:
+        components: Components
+      filterable:
+        showing:
+          one: showing %{count} result
+          other: showing %{count} results
+      fulfillment_skus:
+        edit:
+          bundle_info_html: <p><strong>Bundle:</strong> Used for kits or any bundle product that persists through checkout. This will remove the bundle item from fulfillment in favor of fulfillment items for each product within the bundle.</p>
+      inventory_skus:
+        edit:
+          defer_to_components_info_html: <p><strong>Defer to Components:</strong> Used for kits or any variant that contains components. This will calculate availability based on the availability of the component SKU availability.</p>
+      variant_components:
+        selected: '%{count} selected,'
+        preview:
+          count_summary_html:
+            one: From the selections you have made, <strong>%{count} variant</strong> will be created with %{details}.
+            other: From the selections you have made, <strong>%{count} variants</strong> will be created with %{details}.
+          detail_summary_html: <strong>%{type}</strong> options of %{values}
+          pricing_summary_html: Pricing will range from <strong>%{min}</strong> to <strong>%{max}</strong>.
+    alerts:
+      issues:
+        no_bundled_products: No Bundled Products
+    storefront:
+      carts:
+        bundle_contains: 'This item contains:'
+        bundled_item_quantity_html: '%{quantity} of %{name}'

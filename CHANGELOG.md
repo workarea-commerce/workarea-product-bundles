@@ -1,3 +1,13 @@
+Workarea Package Products 3.4.1 (2020-04-20)
+--------------------------------------------------------------------------------
+
+*   Use patched HashUpdate for localized hash fields
+
+    Fixes an infinite loop when installed with other plugins.
+    Ben Crouse
+
+
+
 Workarea Package Products 3.3.1 (2019-04-16)
 --------------------------------------------------------------------------------
 
@@ -195,7 +205,7 @@ Workarea Package Products 3.0.5 (2017-09-26)
 
     PACKAGEPDP-41
     Matt Duffy
-    
+
 
 Workarea Package Products 3.0.4 (2017-09-06)
 --------------------------------------------------------------------------------

@@ -1,20 +1,37 @@
 module Workarea
-  decorate Search::Admin::CatalogProduct, with: :package_products do
+  decorate Search::Admin::CatalogProduct, with: :product_bundles do
     def search_text
       super.tap do |text|
-        text << 'package' if model.package?
-        text << 'family' if model.family?
+        text << 'product_bundle' if model.bundle?
+        text << 'kit' if model.kit?
+        text << model.template if model.discrete_bundle?
+        text.push(*variant_component_skus)
       end
+    end
+
+    def jump_to_search_text
+      super.tap { |text| text.push(*variant_component_skus) }
     end
 
     def issues
       super.tap do |issues|
-        if model.package?
-          # issues << 'No Packaged Products' if model.product_ids.blank?
-          issues.delete('No Variants')
-          issues.delete('SKU missing price')
+        if model.discrete_bundle?
+          issues.delete(I18n.t('workarea.alerts.issues.no_variants'))
+          issues.delete(I18n.t('workarea.alerts.issues.sku_missing_price'))
+        end
+
+        if model.product_ids.blank? &&
+            model.template.in?(Workarea.config.product_bundle_templates.map(&:to_s))
+
+          issues << I18n.t('workarea.alerts.issues.no_bundled_products')
         end
       end
+    end
+
+    private
+
+    def variant_component_skus
+      model.variants.flat_map(&:components).map(&:sku).uniq
     end
   end
 end

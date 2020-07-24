@@ -1,18 +1,59 @@
 module Workarea
-  decorate Storefront::ProductsIntegrationTest, with: :package_products do
+  decorate Storefront::ProductsIntegrationTest, with: :product_bundles do
     def test_rendering_via_params
       category = create_category
-      product = create_product(product_ids: [create_product.id])
+      bundled_product = create_product(id: 'BPROD1', variants: [{ sku: 'BSKU1', regular: 6.to_m }])
+      product = create_product(
+        variants: [{
+          sku: 'SKU1',
+          components: [{ product_id: 'BPROD1', sku: 'BSKU1' }],
+          regular: 6.to_m
+        }],
+        product_ids: [bundled_product.id]
+      )
 
       Workarea.config.product_templates.each do |template|
         next if template == :test_product
         product.update_attributes!(template: template)
 
         get storefront.product_path(product, via: category.to_gid_param)
-        assert_select(
-          'form.product-details__add-to-cart-form input[name="via"][value=?]',
-          category.to_gid_param
-        )
+
+        if template.in?(Workarea.config.product_bundle_templates)
+          assert_select(
+            'form.product-details__add-to-cart-form input[name*="via"][value=?]',
+            category.to_gid_param
+          )
+        else
+          assert_select(
+            'form.product-details__add-to-cart-form input[name="via"][value=?]',
+            category.to_gid_param
+          )
+        end
+      end
+    end
+
+    def test_bundle_details
+      bundle_product = create_product(variants: [{ sku: 'BUNDLE1' }])
+      product = create_product(variants: [{ sku: 'SKU1' }])
+
+      get storefront.bundle_details_product_path(product),
+          params: { bundle_id: bundle_product.id }
+
+      assert(response.ok?)
+
+      bundle_product.update!(active: false)
+
+      assert_raises(Workarea::InvalidDisplay) do
+        get storefront.bundle_details_product_path(product),
+            params: { bundle_id: bundle_product.id }
+      end
+
+      bundle_product.update!(active: true)
+      product.update!(active: false)
+
+      assert_raises(Workarea::InvalidDisplay) do
+        get storefront.bundle_details_product_path(product),
+            params: { bundle_id: bundle_product.id }
       end
     end
   end

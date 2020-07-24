@@ -1,29 +1,40 @@
 module Workarea
-  decorate Storefront::CartItemsController, with: :package_products do
+  decorate Storefront::CartItemsController, with: :product_bundles do
 
     decorated do
-      skip_before_action :verify_authenticity_token, only: [:create, :package]
-      after_action :check_inventory, except: [:create, :package]
+      skip_before_action :verify_authenticity_token, only: [:create, :bundle]
+      after_action :check_inventory, except: [:create, :bundle]
+      after_action :add_bundled_items, only: :create
     end
 
-    def package
-      add_to_cart = AddPackageToCart.new(current_order, params)
+    def bundle
+      add_to_cart = AddMultipleCartItems.new(
+        current_order,
+        params[:bundled_items]
+          .map { |item_params| item_params.to_unsafe_h }
+          .reject { |item_params| item_params[:quantity].to_i == 0 }
+      )
 
-      if add_to_cart.save
+      if add_to_cart.perform
         check_inventory
         Pricing.perform(current_order, current_shipping)
 
-        order_items = add_to_cart.items.map do |item|
-          current_order.items.find_existing(
-            item.item_params[:sku],
-            item.item_params[:customizations]
-          )
-        end.compact
-
-        @items = order_items.map do |item|
-          Storefront::OrderItemViewModel.wrap(item, view_model_options)
+        @items = add_to_cart.items.select(&:persisted?).map do |item|
+          Storefront::OrderItemViewModel.wrap(item.item.reload, view_model_options)
         end
       end
+    end
+
+    private
+
+    def add_bundled_items
+      return unless defined?(@item) && params[:bundled_items].present?
+
+      AddBundledItemsToOrder.new(
+        current_order,
+        @item,
+        params[:bundled_items].map(&:to_unsafe_h)
+      ).perform
     end
   end
 end

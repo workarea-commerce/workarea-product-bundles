@@ -6,27 +6,10 @@ module Workarea
                :msrp?, :msrp, :msrp_min, :msrp_max, :sale_starts_at,
                :sale_ends_at, to: :pricing
 
-      def primary_image
-        product_image = super
-        return product_image unless product_image.placeholder?
-
-        @primary_image ||=
-          packaged_products
-          .map(&:images)
-          .flatten
-          .reject(&:placeholder?)
-          .first ||
-          Catalog::ProductPlaceholderImage.cached
-      end
-
-      def show_panel?
-        false
-      end
-
       def pricing
         @pricing ||=
           options[:pricing] ||
-          Pricing::Collection.new(packaged_products.map(&:skus).flatten)
+          Pricing::Collection.new(bundled_products.map(&:skus).flatten)
       end
     end
   end

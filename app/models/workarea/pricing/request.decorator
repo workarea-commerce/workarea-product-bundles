@@ -1,0 +1,25 @@
+module Workarea
+  decorate Pricing::Request, with: :product_bundles do
+    def run
+      super
+      Pricing::BundleAdjustments.new(order).adjust
+    end
+
+    private
+
+    def clone_order_attributes
+      super.tap do |attributes|
+        if attributes['bundled_items'].present?
+          attributes['bundled_items'].each { |i| i['price_adjustments'] = [] }
+        end
+      end
+    end
+
+    def all_skus
+      super.tap do |skus|
+        order.bundled_items.each { |i| skus << i.sku }
+        skus.uniq!
+      end
+    end
+  end
+end

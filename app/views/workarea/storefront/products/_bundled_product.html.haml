@@ -1,0 +1,55 @@
+.bundled-product-details{ class: "bundled-product-details--#{product.template}", data: { bundled_product_id: product.id, analytics: product_view_analytics_data(product).to_json } }
+  .grid
+    .grid__cell.grid__cell--20-at-medium
+      .bundled-product-details__primary-image
+        = link_to product_path(product, via: params[:via]), class: 'product-details__primary-image-link', style: intrinsic_ratio_product_image_styles(product.primary_image), data: { analytics_product_impression: product_impression_data(product), analytics: product_click_analytics_data(product).to_json } do
+          = image_tag product_image_url(product.primary_image, :medium_thumb), alt: t('workarea.storefront.products.image_alt_attribute', name: product.name), class: 'product-details__primary-image-link-image'
+
+    .grid__cell.grid__cell--40-at-medium
+
+      .bundled-product-details__name
+        %strong.bundled-product-details__heading= link_to product.name, product_path(product, via: params[:via])
+
+        %p.bundled-product-details__id
+          %span= product.id
+
+      .bundled-product-details__options
+        = hidden_field_tag bundle_field_prefix(bundle, 'bundle_id'), bundle.id, id: dom_id(product, bundle_name_prefix(bundle, 'bundle_id'))
+        = hidden_field_tag bundle_field_prefix(bundle, 'product_id'), product.id, id: dom_id(product, bundle_name_prefix(bundle, 'product_id'))
+        = hidden_field_tag bundle_field_prefix(bundle, 'via'), params[:via], id: dom_id(product, bundle_name_prefix(bundle, 'via'))
+
+        - if bundle_fixed_selection?(bundle)
+          = hidden_field_tag bundle_field_prefix(bundle, 'sku'), product.current_sku, id: dom_id(product, bundle_name_prefix(bundle, 'sku'))
+
+          %p.bundled-product-details__option-group
+            - product.current_variant.details.each do |name, value|
+              %strong #{name.titleize}:
+              #{value.join(',')}
+
+        - else
+          = render "workarea/storefront/products/bundled_templates/#{product.template}", bundle: bundle, product: product
+
+          - if product.current_sku.present?
+            %p.bundled-product-details__inventory-status= product.inventory_status
+
+        - unless product.purchasable?
+          %p.bundled-product-details__unavailable= t('workarea.storefront.products.unavailable')
+
+    .grid__cell.grid__cell--40-at-medium.align-right
+      - unless bundle_fixed_selection?(bundle)
+        .product-prices.product-prices--details
+          = render 'workarea/storefront/products/pricing', product: product
+
+      - if product.purchasable?
+        .bundled-product-details__quantity
+          .property
+            = label_tag 'bundled_items__quantity', nil, class: 'property__name', for: dom_id(product, bundle_name_prefix(bundle, 'quantity')) do
+              %span.property__text= t('workarea.storefront.products.quantity')
+              - if bundle_fixed_selection?(bundle)
+                .value= product.quantity
+                = hidden_field_tag bundle_field_prefix(bundle, 'quantity'), product.quantity, id: dom_id(product, bundle_name_prefix(bundle, 'quantity'))
+              - else
+                .value= number_field_tag bundle_field_prefix(bundle, 'quantity'), (bundle.family? ? 0 : 1), class: 'text-box text-box--x-small', required: true, min: (bundle.family? ? 0 : 1), id: dom_id(product, bundle_name_prefix(bundle, 'quantity'))
+
+        - if show_bundled_product_add_to_cart?(bundle)
+          %p.bundled-product-details__add-to-cart-action= button_tag t('workarea.storefront.products.add_to_cart'), value: 'add_to_cart', class: 'button'

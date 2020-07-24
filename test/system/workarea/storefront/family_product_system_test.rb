@@ -6,7 +6,7 @@ module Workarea
       include Storefront::SystemTest
 
       def test_adding_a_family_product_to_cart
-        packaged_products = [
+        bundled_products = [
           create_product(
             name: 'Packaged Product 1',
             variants: [
@@ -26,7 +26,7 @@ module Workarea
         family = create_product(
           name: 'Test Product',
           template: 'family',
-          product_ids: packaged_products.map(&:id)
+          product_ids: bundled_products.map(&:id)
         )
 
         visit storefront.product_path(family)
@@ -37,15 +37,15 @@ module Workarea
         assert(page.has_content?('$1.00'))
         assert(page.has_content?('$3.00'))
 
-        product_1 = packaged_products.first
-        check "family_product_#{product_1.id}"
-        select product_1.variants.first.sku, from: "sku_catalog_product_#{product_1.id}"
+        product_1 = bundled_products.first
+        select product_1.variants.first.sku, from: "bundled_items__sku_catalog_product_#{product_1.id}"
+        fill_in "bundled_items__quantity_catalog_product_#{product_1.id}", with: 1
 
-        product_2 = packaged_products.second
-        check "family_product_#{product_2.id}"
-        select product_2.variants.first.sku, from: "sku_catalog_product_#{product_2.id}"
+        product_2 = bundled_products.second
+        select product_2.variants.first.sku, from: "bundled_items__sku_catalog_product_#{product_2.id}"
+        fill_in "bundled_items__quantity_catalog_product_#{product_2.id}", with: 1
 
-        click_button 'Add to Cart'
+        click_button t('workarea.storefront.products.add_to_cart')
 
         dialog = find('.ui-dialog')
 

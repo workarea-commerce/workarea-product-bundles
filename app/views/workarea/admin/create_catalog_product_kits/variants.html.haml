@@ -1,0 +1,122 @@
+- @page_title = t('workarea.admin.create_catalog_products.variants.page_title', product_name: @product.name)
+
+.view
+  .view__header
+    .grid.grid--right
+      .grid__cell.grid__cell--50
+        .view__heading
+          %h1.heading.heading--no-margin= t('workarea.admin.create_catalog_product_kits.variants.heading', product_name: @product.name)
+          %p
+            = t('workarea.admin.create_catalog_product_kits.variants.summary')
+            - if @variants.size > 0
+              %br
+              = t('workarea.admin.create_catalog_product_kits.variants.manage_prompt_html', link: link_to(t('workarea.admin.create_catalog_product_kits.variants.manage_link', count: @variants.size), manage_variants_create_catalog_product_kit_path(@product)))
+
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@product, html_options: { target: @product.id })
+
+  .view__container
+    %h2.align-center= t('workarea.admin.create_catalog_product_kits.variants.create.heading')
+
+    = form_tag save_variants_create_catalog_product_kit_path(@product), method: 'post', id: 'variant_form', data: { unsaved_changes: '', variant_components: '' } do
+      .grid.grid--center
+        .grid__cell.grid__cell--50
+          %div.align-center
+            %h3= t('workarea.admin.create_catalog_product_kits.variants.create.step_one_heading')
+            %p= t('workarea.admin.create_catalog_product_kits.variants.create.step_one_details')
+
+        .grid__cell.grid__cell--75
+          .section
+            - @product.bundled_products.each do |bundled_product|
+              = render 'workarea/admin/create_catalog_product_kits/bundled_product_skus', product: @product, bundled_product: bundled_product, key: SecureRandom.hex(3)
+
+        .grid__cell.grid__cell--75
+          .section
+            %div.align-center
+              %h3= t('workarea.admin.create_catalog_product_kits.variants.create.step_two_heading')
+
+            .property.align-center
+              = label_tag 'variant[sku]', t('workarea.admin.create_catalog_product_kits.variants.create.sku_field'), class: 'property__name'
+              = text_field_tag 'variant[sku]', @product.id, class: 'text-box text-box--medium'
+              .property__note= t('workarea.admin.create_catalog_product_kits.variants.create.sku_note')
+
+            .property.align-center
+              %span.property__name= t('workarea.admin.create_catalog_product_kits.variants.create.pricing_toggle')
+              =  toggle_button_for 'variant[calculate_pricing]', true, title_true: t('workarea.admin.create_catalog_product_kits.variants.create.pricing_toggle_on'), title_false: t('workarea.admin.create_catalog_product_kits.variants.create.pricing_toggle_off'), data: { toggle_button: '' } do
+                = link_to '#pricing-info', data: { tooltip: '' } do
+                  = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.bulk_action_product_edits.pricing.info'))
+                #pricing-info.tooltip-content= t('workarea.admin.create_catalog_product_kits.variants.create.pricing_toggle_tooltip')
+
+                .toggle-button__more.toggle-button__more--to-right{ data: { toggle_button_negative_element: '' } }
+                  .property
+                    = label_tag 'variant[price]', t('workarea.admin.fields.regular_price'), class: 'property__name'
+                    = currency_symbol
+                    = text_field_tag 'variant[price]', nil, class: 'text-box text-box--small', placeholder: t('workarea.admin.prices.placeholder')
+
+            .property.align-center
+              %span.property__name= t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle')
+              =  toggle_button_for 'variant[copy_options]', true, title_true: t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_on'), title_false: t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_off'), data: { toggle_button: '' } do
+                = link_to '#option-copying-info', data: { tooltip: '' } do
+                  = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.bulk_action_product_edits.pricing.info'))
+
+                #option-copying-info.tooltip-content= t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_tooltip')
+
+                .toggle-button__more.toggle-button__more--below{ data: { toggle_button_positive_element: '' } }
+                .toggle-button__more.toggle-button__more--below{ data: { toggle_button_negative_element: '' } }
+                  .grid.grid--center
+                    .grid__cell.grid__cell--75
+                      %table#options-table
+                        %thead
+                          %tr
+                            %th= t('workarea.admin.fields.name')
+                            %th= t('workarea.admin.fields.values')
+                        %tbody
+                          %tr{ data: { cloneable_row: '' } }
+                            %td
+                              .property
+                                = text_field_tag 'new_details[]', nil, id: nil, class: 'text-box text-box--medium text-box--i18n', title: t('workarea.admin.catalog_variants.new.options.new_attribute_name'), placeholder: t('workarea.admin.catalog_variants.new.options.new_attribute_name_placeholder')
+                                %span.property__note= t('workarea.admin.catalog_variants.new.options.new_attribute_name_note')
+                            %td
+                              .property
+                                = text_field_tag 'new_details[]', nil, id: nil, class: 'text-box text-box--i18n', title: t('workarea.admin.catalog_variants.new.options.new_attribute_value'), placeholder: t('workarea.admin.catalog_variants.new.options.new_attribute_value_placeholder')
+                                %span.property__note= t('workarea.admin.catalog_variants.new.options.new_attribute_value_note')
+                                %span.property__note
+                                  = t('workarea.admin.catalog_variants.new.options.new_attribute_value_csv')
+                                  = link_to '#csv-help', data: { tooltip: '' } do
+                                    = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.catalog_variants.new.options.learn_more'))
+                                = render 'workarea/admin/shared/csv_formatting_tooltip'
+
+        .grid__cell.grid__cell--50
+          .section{ data: { component_sku_selection_preview: preview_variants_create_catalog_product_kit_path(@product) } }
+
+        .grid__cell.grid__cell--75
+          .align-center
+            = label_tag 'add_more_variants' do
+              = check_box_tag 'add_more_variants', true, false
+              %span= t('workarea.admin.create_catalog_product_kits.variants.create.add_more')
+
+            = button_tag t('workarea.admin.create_catalog_product_kits.variants.create.button'), value: 'create_variants', class: 'button button--create'
+
+
+    .workflow-bar
+      .grid.grid--middle
+        .grid__cell.grid__cell--20
+          = link_to t('workarea.admin.create_catalog_products.variants.cancel'), catalog_product_path(@product), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_catalog_product_kits.workflow.cancel_message') }
+
+        .grid__cell.grid__cell--60
+          %ol.workflow-bar__steps
+            %li.workflow-bar__step
+              1) #{link_to t('workarea.admin.create_catalog_product_kits.steps.setup'), edit_create_catalog_product_kit_path(@product)}
+            %li.workflow-bar__step
+              2) #{link_to t('workarea.admin.create_catalog_product_kits.steps.bundled_products'), bundled_products_create_catalog_product_kit_path(@product)}
+            %li.workflow-bar__step
+              %strong 3) #{t('workarea.admin.create_catalog_product_kits.steps.variants')}
+            %li.workflow-bar__step 4) #{t('workarea.admin.create_catalog_product_kits.steps.images')}
+            %li.workflow-bar__step 5) #{t('workarea.admin.create_catalog_product_kits.steps.details')}
+            %li.workflow-bar__step 6) #{t('workarea.admin.create_catalog_product_kits.steps.content')}
+            %li.workflow-bar__step 7) #{t('workarea.admin.create_catalog_product_kits.steps.categorization')}
+            %li.workflow-bar__step 8) #{t('workarea.admin.create_catalog_product_kits.steps.publish')}
+
+        .grid__cell.grid__cell--20
+          .grid.grid--auto.grid--right.grid--middle
+            .grid__cell= link_to "#{t('workarea.admin.create_catalog_product_bundles.bundled_products.continue_to_images')} →", images_create_catalog_product_kit_path(@product), value: 'continue_to_images', class: 'workflow-bar__button'

@@ -4,7 +4,7 @@ module Workarea
   module Storefront
     module ProductTemplates
       class PackageViewModelTest < TestCase
-        def test_packaged_products
+        def test_bundled_products
           product_one = create_product(template: 'option_selects')
           product_two = create_product
           package = create_product(product_ids: [product_one.id, product_two.id])
@@ -13,12 +13,12 @@ module Workarea
 
           assert_equal(
             Storefront::ProductTemplates::OptionSelectsViewModel,
-            view_model.packaged_products.first.class
+            view_model.bundled_products.first.class
           )
 
           assert_equal(
             Storefront::ProductViewModel,
-            view_model.packaged_products.second.class
+            view_model.bundled_products.second.class
           )
 
           product_one = create_product(template: 'test')
@@ -26,7 +26,7 @@ module Workarea
           package = create_product(product_ids: [product_one.id, product_two.id])
 
           view_model = Storefront::ProductTemplates::PackageViewModel.new(package)
-          assert_equal(1, view_model.packaged_products.length)
+          assert_equal(1, view_model.bundled_products.length)
         end
       end
     end

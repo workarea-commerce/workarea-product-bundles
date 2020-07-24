@@ -14,6 +14,8 @@
         .product-details__description
           %p= truncated_product_description(product, t('workarea.storefront.products.read_more'))
 
+      = render 'workarea/storefront/products/bundled_products', product: product
+
       = append_partials('storefront.product_details', product: product)
 
       %p.product-details__full-details=link_to t('workarea.storefront.products.view_full_details'), product_path(product, color: params[:color]), class: 'text-button'

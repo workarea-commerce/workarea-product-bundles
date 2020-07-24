@@ -1,14 +1,21 @@
 require 'test_helper'
 
 module Workarea
-  decorate Search::ProductEntriesTest, with: :package_products do
+  decorate Search::ProductEntriesTest, with: :product_bundles do
     def test_package_product_entries
-      products = Array.new(2) { create_product }
-      products.first.update!(product_ids: ['ABC', '123'])
+      products = Array.new(3) { create_product }
+      products.first.update!(
+        product_ids: ['ABC', '123'],
+        variants: [
+          { sku: 'BSKU', components: [{ product_id: 'BUNDLED1', sku: 'SKU3' }] }
+        ]
+      )
+      products.second.update!(product_ids: ['ABC', '123'], template: 'package')
 
       entries = Search::ProductEntries.new(products).entries
-      assert_equal(2, entries.size)
-      assert_equal(Search::Storefront::PackageProduct, entries.first.class)
+      assert_equal(3, entries.size)
+      assert_equal(Search::Storefront::ProductKit, entries.first.class)
+      assert_equal(Search::Storefront::ProductBundle, entries.second.class)
       assert_equal(Search::Storefront::Product, entries.last.class)
     end
   end

@@ -1,0 +1,11 @@
+module Workarea
+  decorate Storefront::CartViewModel, with: :product_bundles do
+    decorated do
+      include Storefront::ItemBundles
+    end
+
+    def bundled_items
+      @bundled_items ||= Storefront::CartItemViewModel.wrap(model.bundled_items)
+    end
+  end
+end

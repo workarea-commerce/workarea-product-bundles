@@ -1,0 +1,33 @@
+- if variant.product.bundle?
+  .section
+    %h2= t('workarea.admin.catalog_variants.edit.components.label')
+    %table
+      %thead
+        %tr
+          %th= t('workarea.admin.fields.product')
+          %th= t('workarea.fields.sku')
+          %th= t('workarea.fields.quantity')
+          %th.align-center= t('workarea.admin.catalog_variants.edit.components.remove')
+      %tbody
+        - @variant.components.each do |component|
+          = hidden_field_tag 'components[][id]', component.id, id: nil
+          = hidden_field_tag 'components[][product_id]', component.product_id, id: nil
+          = hidden_field_tag 'components[][sku]', component.sku, id: nil
+
+          %tr
+            %td= (@product.bundled_products.detect { |p| p.id == component.product_id })&.name || component.product_id
+            %td= component.sku
+            %td
+              = text_field_tag 'components[][quantity]', component.quantity, id: nil, class: 'text-box text-box--small'
+            %td.align-center= check_box_tag 'components[][remove]', true, false, id: "remove_component_#{component.sku}", title: t('workarea.admin.catalog_variants.edit.components.remove_title', sku: component.sku)
+        %tr{ data: { cloneable_row: '' } }
+          %td
+            .property
+              = select_tag 'components[][product_id]', options_from_collection_for_select(@product.bundled_products, 'id', 'name'), include_blank: true, id: nil, title: t('workarea.admin.catalog_variants.edit.components.product'), class: 'component-sku-select', data: { variant_component_select: '' }
+          %td
+            .property
+              = select_tag 'components[][sku]', options_for_select(@product.bundled_product_sku_options), include_blank: true, id: nil, title: t('workarea.admin.catalog_variants.edit.components.new_sku'), class: 'component-sku-select hidden'
+          %td
+            .property
+              = text_field_tag 'components[][quantity]', nil, id: nil, class: 'text-box text-box--small', title: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity'), placeholder: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity_placeholder')
+          %td.align-center -

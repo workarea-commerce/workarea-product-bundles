@@ -1,0 +1,5 @@
+- detail_summary = @summary[:details].map { |type, values| t('workarea.admin.variant_components.preview.detail_summary_html', type: type, values: values.to_sentence) }
+
+= render_message 'info' do
+  = t('workarea.admin.variant_components.preview.count_summary_html', count: @summary[:variants], details: detail_summary.to_sentence.html_safe)
+  = t('workarea.admin.variant_components.preview.pricing_summary_html', min: number_to_currency(@summary[:prices].min), max: number_to_currency(@summary[:prices].max))

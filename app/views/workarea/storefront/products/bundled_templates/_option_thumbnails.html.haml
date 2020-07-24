@@ -1,0 +1,15 @@
+= hidden_field_tag bundle_field_prefix(bundle, 'sku'), product.current_sku
+
+- product.options_for_selection.each_with_index do |option, index|
+  .property
+    = label_tag option.slug, nil, class: 'property__name', for: bundle_name_prefix(bundle, "#{option.slug}_#{dom_id(product)}"), id: bundle_name_prefix(bundle, "aria_product_option_#{option.slug}_#{index}") do
+      %span.property__text= option_label(option)
+    .value
+      - option.selections.each do |selection|
+        = radio_button_tag option.slug, selection, option.current == selection, required: false, title: selection, class: 'visually-hidden', aria: { labelledby: bundle_name_prefix(bundle, "aria_product_option_#{option.slug}_#{index}") }
+        - url = bundle_details_product_path(product, option_selection_url_for(product, option, selection).except(:id).merge(bundle_id: bundle.id))
+        = link_to url, title: selection, class: "option-button option-button--#{selection.downcase.dasherize}#{' option-button--active' if option.current == selection}", data: { bundle_option_button: bundle.id } do
+          - if product.images_by_option[selection.optionize].present?
+            = image_tag(product_image_url(product.images_by_option[selection.optionize].first, :small_thumb), alt: selection, class: 'option-button__image')
+          - else
+            %span.option-button__text= selection
