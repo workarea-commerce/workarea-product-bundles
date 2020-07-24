@@ -38,7 +38,7 @@ module Workarea
     end
 
     def templates
-      return super unless model.present? # why??
+      return super unless model.present?
 
       if discrete_bundle?
         bundle_templates

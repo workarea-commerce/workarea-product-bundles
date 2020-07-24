@@ -9,7 +9,7 @@ module Workarea
     end
 
     def bundled_items
-      @bundled_items ||=  model.bundled_items.map do |item|
+      @bundled_items ||= model.bundled_items.map do |item|
         Storefront::OrderItemViewModel.new(item)
       end
     end

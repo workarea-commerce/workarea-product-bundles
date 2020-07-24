@@ -7,9 +7,9 @@ require 'workarea/product_bundles/version'
 Gem::Specification.new do |s|
   s.name        = 'workarea-product_bundles'
   s.version     = Workarea::ProductBundles::VERSION
-  s.authors     = ['Adam Clarke']
-  s.email       = ['adam@revelry.co']
-  s.homepage    = 'https://github.com/workarea-commerce/workarea-package-products'
+  s.authors     = ['Matt Duffy']
+  s.email       = ['mduffy@workarea.com']
+  s.homepage    = 'https://github.com/workarea-commerce/workarea-product-bundles'
   s.summary     = 'Add support for package products to the Workarea Commerce Platform'
   s.description = 'Add support for package products to the Workarea Commerce Platform'
 
@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.3.0'
 
-  s.add_dependency 'workarea', '~> 3.x', '>= 3.5.9'
+  s.add_dependency 'workarea', '~> 3.x', '>= 3.5.16'
 end

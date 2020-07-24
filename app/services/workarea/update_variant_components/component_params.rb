@@ -32,7 +32,7 @@ module Workarea
       end
 
       def remove?
-        params[:remove].to_s =~ /true/i
+        params[:remove] =~ /true/i
       end
 
       def remove
