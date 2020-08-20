@@ -4,6 +4,7 @@ module Workarea
 
     def set_details
       set_variant_components
+      create_fulfillment_sku
       super
     end
 
@@ -12,6 +13,12 @@ module Workarea
         @variant,
         params.to_unsafe_h['components']
       ).perform
+    end
+
+    def create_fulfillment_sku
+      return unless @product.kit?
+      fulfillment_sku = Fulfillment::Sku.find_or_initialize_by(id: @variant.sku)
+      fulfillment_sku.update!(policy: 'bundle')
     end
   end
 end
