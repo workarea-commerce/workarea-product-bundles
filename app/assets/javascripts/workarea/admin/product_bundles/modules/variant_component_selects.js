@@ -42,7 +42,7 @@ WORKAREA.registerModule('variantComponentSelects', (function () {
 
             saveInitialState($skuSelect);
 
-            $select.on('change', function(event) {
+            $select.on('change', function() {
                 resetSelect($skuSelect);
                 filterOptions($select, $skuSelect);
             });
