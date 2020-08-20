@@ -8,6 +8,14 @@ module Workarea
         return super if !product.discrete_bundle? || !product.active?
         []
       end
+
+      def details_for_component(component)
+        if component.respond_to?(:details)
+          component.details
+        else
+          VariantComponentViewModel.wrap(component).details
+        end
+      end
     end
   end
 end

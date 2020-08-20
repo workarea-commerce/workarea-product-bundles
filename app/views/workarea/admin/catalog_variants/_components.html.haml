@@ -6,6 +6,7 @@
         %tr
           %th= t('workarea.admin.fields.product')
           %th= t('workarea.fields.sku')
+          %th= t('workarea.admin.fields.options')
           %th= t('workarea.fields.quantity')
           %th.align-center= t('workarea.admin.catalog_variants.edit.components.remove')
       %tbody
@@ -18,6 +19,11 @@
             %td= (@product.bundled_products.detect { |p| p.id == component.product_id })&.name || component.product_id
             %td= component.sku
             %td
+              - details_for_component(component).each do |key, values|
+                %strong #{key.titleize}:
+                = values.join(', ')
+
+            %td
               = text_field_tag 'components[][quantity]', component.quantity, id: nil, class: 'text-box text-box--small'
             %td.align-center= check_box_tag 'components[][remove]', true, false, id: "remove_component_#{component.sku}", title: t('workarea.admin.catalog_variants.edit.components.remove_title', sku: component.sku)
         %tr{ data: { cloneable_row: '' } }
@@ -27,6 +33,7 @@
           %td
             .property
               = select_tag 'components[][sku]', options_for_select(@product.bundled_product_sku_options), include_blank: true, id: nil, title: t('workarea.admin.catalog_variants.edit.components.new_sku'), class: 'component-sku-select hidden'
+          %td \-
           %td
             .property
               = text_field_tag 'components[][quantity]', nil, id: nil, class: 'text-box text-box--small', title: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity'), placeholder: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity_placeholder')
