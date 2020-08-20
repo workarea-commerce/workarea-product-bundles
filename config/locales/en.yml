@@ -82,11 +82,11 @@ en:
             step_two_heading: Then, provide any data you'd like to set on the new variants.
             sku_field: SKU / SKU Prefix
             sku_note: When generating multiple variants this will be used as a prefix for each SKU.
-            pricing_toggle: Calculate Pricing
+            pricing_toggle: Calculate pricing
             pricing_toggle_tooltip: If used, the total price of each SKU selected will be used to generate the price of the new variant.
             pricing_toggle_on: calculate pricing
             pricing_toggle_off: do not calculate pricing
-            options_toggle: Copy Options
+            options_toggle: Copy options from selected variants
             options_toggle_tooltip:  If used, the options of each SKU included in a variant will be copied to the new variant.
             options_toggle_on: copy options
             options_toggle_off: do not copy options
