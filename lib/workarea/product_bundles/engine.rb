@@ -8,6 +8,9 @@ module Workarea
         Workarea::Storefront::ApplicationController.helper(
           Workarea::Storefront::ProductBundlesHelper
         )
+        Workarea::Admin::ApplicationController.helper(
+          Workarea::Admin::ProductBundlesHelper
+        )
       end
     end
   end
