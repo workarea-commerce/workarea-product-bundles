@@ -5,6 +5,14 @@ module Workarea
       field :bundle_quantity, type: Integer, default: 1
     end
 
+    def fulfilled_by?(*types)
+      result = super(*types)
+      return result if result || !bundle? || order.blank?
+
+      bundled_items = order.bundled_items_for(id.to_s)
+      bundled_items.any? { |item| item.fulfilled_by?(*types) }
+    end
+
     def bundled_item?
       bundle_item_id.present?
     end
