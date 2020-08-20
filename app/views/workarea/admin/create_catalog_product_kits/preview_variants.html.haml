@@ -1,5 +1,32 @@
-- detail_summary = @summary[:details].map { |type, values| t('workarea.admin.variant_components.preview.detail_summary_html', type: type, values: values.to_sentence) }
+%h3.align-center= t('workarea.admin.variant_components.preview.title')
 
-= render_message 'info' do
-  = t('workarea.admin.variant_components.preview.count_summary_html', count: @summary[:variants], details: detail_summary.to_sentence.html_safe)
-  = t('workarea.admin.variant_components.preview.pricing_summary_html', min: number_to_currency(@summary[:prices].min), max: number_to_currency(@summary[:prices].max))
+.grid.grid--center
+  .grid__cell.grid__cell--40
+    .box
+      .box__body.align-center
+        .text.text--larger.text--bold= @summary[:variants]
+        .text= t('workarea.admin.variant_components.preview.variants', count: @summary[:variants])
+
+  .grid__cell.grid__cell--40
+    .box
+      .box__body.align-center
+        - if @summary[:prices].many?
+          .text.text--larger.text--bold= t('workarea.admin.variant_components.preview.price_range', min: number_to_currency(@summary[:prices].min), max: number_to_currency(@summary[:prices].max))
+          .text= t('workarea.admin.variant_components.preview.prices')
+        - else
+          .text.text--larger.text--bold= number_to_currency(@summary[:prices].first)
+          .text= t('workarea.admin.variant_components.preview.price')
+
+  - if @summary[:details].present?
+    .grid__cell.grid__cell--80
+      .box
+        .box__body.align-center
+          %p.text= t('workarea.admin.variant_components.preview.options')
+
+          %ul.list-reset
+            - @summary[:details].each do |type, values|
+              %li
+                %p
+                  %strong= values.to_sentence
+                  %br
+                  = type.titleize
