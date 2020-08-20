@@ -47,7 +47,7 @@ module Workarea
 
     def current_variant_components
       variant = current_variant.presence || (variants.first if variants.one?)
-      variant&.components || []
+      (variant&.components || []).sort_by { |c| product_ids.index(c.product_id) || 999 }
     end
 
     def quantity

@@ -6,12 +6,16 @@ module Workarea
     end
 
     def components
-      @components ||= model.components.map do |component|
-        Admin::VariantComponentViewModel.wrap(
-          component,
-          product: find_product_for_component(component)
-        )
-      end
+      @components ||=
+        model
+          .components
+          .sort_by { |c| product.product_ids.index(c.product_id) || 999 }
+          .map do |component|
+            Admin::VariantComponentViewModel.wrap(
+              component,
+              product: find_product_for_component(component)
+            )
+          end
     end
 
     private
