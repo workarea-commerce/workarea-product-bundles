@@ -126,6 +126,7 @@ en:
           title: Select a type of product to create
       fields:
         components: Components
+        value: Value
       filterable:
         showing:
           one: showing %{count} result
