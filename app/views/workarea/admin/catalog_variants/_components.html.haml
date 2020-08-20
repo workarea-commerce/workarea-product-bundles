@@ -33,7 +33,7 @@
           %td
             .property
               = select_tag 'components[][sku]', options_for_select(@product.bundled_product_sku_options), include_blank: true, id: nil, title: t('workarea.admin.catalog_variants.edit.components.new_sku'), class: 'component-sku-select hidden'
-          %td \-
+          %td -
           %td
             .property
               = text_field_tag 'components[][quantity]', nil, id: nil, class: 'text-box text-box--small', title: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity'), placeholder: t('workarea.admin.catalog_variants.edit.components.new_sku_quantity_placeholder')
