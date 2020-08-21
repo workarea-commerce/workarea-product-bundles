@@ -16,7 +16,7 @@ module Workarea
 
       {
         variants: variants.count,
-        prices: variants.map(&:pricing_sku).map(&:sell_price),
+        prices: variants.map(&:pricing_sku).map(&:sell_price).uniq,
         details: variants.each_with_object(Hash.new([])) do |variant, details|
           variant.model.details.each do |key, value|
             details[key] = (details[key] + value).uniq

@@ -4,8 +4,11 @@ module Workarea
   class CatalogVariantComponentsIntegrationTest < Workarea::IntegrationTest
     include Admin::IntegrationTest
 
-    def test_update
-      product = create_product(
+    setup :product
+
+    def product
+      @product ||= create_product(
+        product_ids: %w(CPROD1 CPROD2),
         variants: [{
           name: 'Test',
           sku: 'SKU1234',
@@ -16,7 +19,28 @@ module Workarea
           ]
         }]
       )
+    end
 
+    def test_create_sets_fulfillment_sku_for_kits
+      post admin.catalog_product_variants_path(product),
+           params: {
+             variant: { sku: 'SKU5678' },
+             new_details: %w(Color Blue),
+             components: [
+               { product_id: 'CPROD1', sku: 'CSKU11' },
+               { product_id: 'CPROD2', sku: 'CSKU21' }
+             ]
+           }
+
+      product.reload
+      assert(product.kit?)
+      assert_equal(2, product.variants.count)
+
+      fulfillment_sku = Fulfillment::Sku.find('SKU5678')
+      assert_equal('bundle', fulfillment_sku.policy)
+    end
+
+    def test_update
       variant = product.variants.first
 
       patch admin.catalog_product_variant_path(product, variant),

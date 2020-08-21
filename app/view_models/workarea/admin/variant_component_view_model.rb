@@ -1,6 +1,8 @@
 module Workarea
   module Admin
     class VariantComponentViewModel < ApplicationViewModel
+      delegate :details, to: :product_variant
+
       def product
         @product ||= begin
           product = options[:product].presence
@@ -17,6 +19,10 @@ module Workarea
 
       def name
         "#{product.name} (#{sku})"
+      end
+
+      def product_variant
+        @product_variant ||= product.variants.detect { |v| v.sku == sku }
       end
     end
   end

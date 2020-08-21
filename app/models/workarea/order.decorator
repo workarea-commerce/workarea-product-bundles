@@ -10,10 +10,6 @@ module Workarea
       after_save :clean_bundled_items
     end
 
-    def requires_shipping?
-      super || bundled_items.any? { |i| i.fulfilled_by?(:shipping) }
-    end
-
     def bundled_items_for(item_id)
       bundled_items.find_for_bundle_item_id(item_id)
     end

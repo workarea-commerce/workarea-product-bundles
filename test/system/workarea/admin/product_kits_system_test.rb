@@ -107,39 +107,23 @@ module Workarea
           check 'select_all'
         end
 
-        preview_text = t(
-          'workarea.admin.variant_components.preview.count_summary_html',
-          count: 4,
-          details: [
-            t(
-              'workarea.admin.variant_components.preview.detail_summary_html',
-              type: 'Color',
-              values: 'Blue, White, and Red'
-            ),
-            t(
-              'workarea.admin.variant_components.preview.detail_summary_html',
-              type: 'Size',
-              values: 'Small and Medium'
-            ),
-            t(
-              'workarea.admin.variant_components.preview.detail_summary_html',
-              type: 'Material',
-              values: 'Cotton'
-            )
-          ].to_sentence
-        )
-
-        assert(page.html.include?(preview_text))
-
-        assert(
-          page.html.include?(
-            t(
-              'workarea.admin.variant_components.preview.pricing_summary_html',
-              min: '$15.00',
-              max: '$18.00'
+        within '#creation-preview' do
+          assert(page.has_content?('4'))
+          assert(page.has_content?(t('workarea.admin.variant_components.preview.variants.other')))
+          assert(page.has_content?('Blue, White, and Red'))
+          assert(page.has_content?('Color'))
+          assert(page.has_content?('Small and Medium'))
+          assert(page.has_content?('Size'))
+          assert(
+            page.has_content?(
+              t(
+                'workarea.admin.variant_components.preview.price_range',
+                min: '$15.00',
+                max: '$18.00'
+              )
             )
           )
-        )
+        end
 
         fill_in 'variant[sku]', with: 'KP'
         click_button t('workarea.admin.create_catalog_product_kits.variants.create.button')

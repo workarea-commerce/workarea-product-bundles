@@ -37,6 +37,26 @@ module Workarea
         ]
         refute(item.kit?)
       end
+
+      def test_fulfilled_by?
+        order = Order.new
+        item = order.items.build
+        assert(item.fulfilled_by?(:shipping))
+
+        item.fulfillment = 'bundle'
+        item.product_attributes['product_ids'] = [1, 2]
+
+        refute(item.fulfilled_by?(:shipping))
+        assert(item.fulfilled_by?(:bundle))
+
+        order.bundled_items.build(
+          bundle_item_id: item.id.to_s,
+          fulfillment: 'shipping'
+        )
+
+        assert(item.fulfilled_by?(:shipping))
+        assert(item.fulfilled_by?(:bundle))
+      end
     end
   end
 end

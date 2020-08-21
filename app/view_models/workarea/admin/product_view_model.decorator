@@ -46,5 +46,16 @@ module Workarea
         super.reject { |o| o.in?(bundle_templates) }
       end
     end
+
+    def inventory_message
+      return super unless discrete_bundle?
+
+      @bundle_inventory_message ||=
+        if !active?
+          t('workarea.admin.featured_products.statuses.inactive')
+        else
+          ''
+        end
+    end
   end
 end

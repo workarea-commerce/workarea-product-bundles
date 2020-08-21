@@ -69,7 +69,7 @@
                         %thead
                           %tr
                             %th= t('workarea.admin.fields.name')
-                            %th= t('workarea.admin.fields.values')
+                            %th= t('workarea.admin.fields.value')
                         %tbody
                           %tr{ data: { cloneable_row: '' } }
                             %td
@@ -80,14 +80,9 @@
                               .property
                                 = text_field_tag 'new_details[]', nil, id: nil, class: 'text-box text-box--i18n', title: t('workarea.admin.catalog_variants.new.options.new_attribute_value'), placeholder: t('workarea.admin.catalog_variants.new.options.new_attribute_value_placeholder')
                                 %span.property__note= t('workarea.admin.catalog_variants.new.options.new_attribute_value_note')
-                                %span.property__note
-                                  = t('workarea.admin.catalog_variants.new.options.new_attribute_value_csv')
-                                  = link_to '#csv-help', data: { tooltip: '' } do
-                                    = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.catalog_variants.new.options.learn_more'))
-                                = render 'workarea/admin/shared/csv_formatting_tooltip'
 
-        .grid__cell.grid__cell--50
-          .section{ data: { component_sku_selection_preview: preview_variants_create_catalog_product_kit_path(@product) } }
+        .grid__cell.grid__cell--75
+          #creation-preview.section{ data: { component_sku_selection_preview: preview_variants_create_catalog_product_kit_path(@product) } }
 
         .grid__cell.grid__cell--75
           .align-center

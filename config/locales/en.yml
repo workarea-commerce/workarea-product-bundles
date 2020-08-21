@@ -82,11 +82,11 @@ en:
             step_two_heading: Then, provide any data you'd like to set on the new variants.
             sku_field: SKU / SKU Prefix
             sku_note: When generating multiple variants this will be used as a prefix for each SKU.
-            pricing_toggle: Calculate Pricing
+            pricing_toggle: Calculate pricing
             pricing_toggle_tooltip: If used, the total price of each SKU selected will be used to generate the price of the new variant.
             pricing_toggle_on: calculate pricing
             pricing_toggle_off: do not calculate pricing
-            options_toggle: Copy Options
+            options_toggle: Copy options from selected variants
             options_toggle_tooltip:  If used, the options of each SKU included in a variant will be copied to the new variant.
             options_toggle_on: copy options
             options_toggle_off: do not copy options
@@ -126,6 +126,7 @@ en:
           title: Select a type of product to create
       fields:
         components: Components
+        value: Value
       filterable:
         showing:
           one: showing %{count} result
@@ -139,11 +140,14 @@ en:
       variant_components:
         selected: '%{count} selected,'
         preview:
-          count_summary_html:
-            one: From the selections you have made, <strong>%{count} variant</strong> will be created with %{details}.
-            other: From the selections you have made, <strong>%{count} variants</strong> will be created with %{details}.
-          detail_summary_html: <strong>%{type}</strong> options of %{values}
-          pricing_summary_html: Pricing will range from <strong>%{min}</strong> to <strong>%{max}</strong>.
+          title: This will create...
+          variants:
+            one: variant
+            other: new variants
+          price: price
+          prices: price range
+          price_range: '%{min} to %{max}'
+          options: with options from the following
     alerts:
       issues:
         no_bundled_products: No Bundled Products
