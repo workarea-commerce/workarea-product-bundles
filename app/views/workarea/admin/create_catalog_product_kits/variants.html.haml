@@ -2,18 +2,13 @@
 
 .view
   .view__header
-    .grid.grid--right
-      .grid__cell.grid__cell--50
-        .view__heading
-          %h1.heading.heading--no-margin= t('workarea.admin.create_catalog_product_kits.variants.heading', product_name: @product.name)
-          %p
-            = t('workarea.admin.create_catalog_product_kits.variants.summary')
-            - if @variants.size > 0
-              %br
-              = t('workarea.admin.create_catalog_product_kits.variants.manage_prompt_html', link: link_to(t('workarea.admin.create_catalog_product_kits.variants.manage_link', count: @variants.size), manage_variants_create_catalog_product_kit_path(@product)))
-
-      .grid__cell.grid__cell--25
-        = render_aux_navigation_for(@product, html_options: { target: @product.id })
+    .view__heading
+      %h1.heading.heading--no-margin= t('workarea.admin.create_catalog_product_kits.variants.heading', product_name: @product.name)
+      %p
+        = t('workarea.admin.create_catalog_product_kits.variants.summary')
+        - if @variants.size > 0
+          %br
+          = t('workarea.admin.create_catalog_product_kits.variants.manage_prompt_html', link: link_to(t('workarea.admin.create_catalog_product_kits.variants.manage_link', count: @variants.size), manage_variants_create_catalog_product_kit_path(@product)))
 
   .view__container
     %h2.align-center= t('workarea.admin.create_catalog_product_kits.variants.create.heading')
