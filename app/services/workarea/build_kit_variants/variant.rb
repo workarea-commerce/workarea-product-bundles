@@ -100,11 +100,14 @@ module Workarea
       end
 
       def component_pricing
-        components.each_with_object(Hash.new(0.to_m)) do |component, hash|
+        price_hash = Hash.new(0.to_m).tap { |h| h[:tax_codes] = [] }
+
+        components.each_with_object(price_hash) do |component, hash|
           record = pricing.detect { |r| r.id == component[:sku] }
+          next unless record.present?
+
           price = record.find_price
 
-          hash[:tax_codes] = [] unless hash[:tax_codes].is_a?(Array)
           hash[:tax_codes] << record.tax_code
           hash[:msrp] += record.msrp.to_m
           hash[:regular] += price.regular.to_m
