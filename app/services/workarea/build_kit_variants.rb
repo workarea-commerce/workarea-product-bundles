@@ -8,10 +8,12 @@ module Workarea
     end
 
     def perform
+      prime_related_skus
       variants.each(&:save!) && product.save!
     end
 
     def summary
+      prime_related_skus
       variants.each(&:build)
 
       {
@@ -77,6 +79,25 @@ module Workarea
       @pricing ||= Pricing::Collection.new(
         component_groups.flatten.map { |c| c[:sku] }.uniq
       )
+    end
+
+    def prime_related_skus
+      new_skus = variants.map(&:sku)
+      pricing_skus = Pricing::Collection.new(new_skus)
+      inventory_skus = Inventory::Collection.new(new_skus)
+      fulfillment_skus = Fulfillment::Sku.in(id: new_skus).to_a
+
+      variants.each do |variant|
+        variant.inventory_sku = inventory_skus.for_sku(variant.sku)
+
+        variant.pricing_sku =
+          pricing_skus.detect { |s| s.id == variant.sku }.presence ||
+          Pricing::Sku.new(id: variant.sku)
+
+        variant.fulfillment_sku =
+          fulfillment_skus.detect { |s| s.id == variant.sku }.presence ||
+          Fulfillment::Sku.new(id: variant.sku)
+      end
     end
   end
 end
