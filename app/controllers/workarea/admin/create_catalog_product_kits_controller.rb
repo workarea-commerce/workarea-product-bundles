@@ -2,6 +2,7 @@ module Workarea
   module Admin
     class CreateCatalogProductKitsController < CreateCatalogProductsController
       include BundleCreation
+      skip_around_action :inline_search_indexing, only: [:save_variants]
 
       def index
         render :setup

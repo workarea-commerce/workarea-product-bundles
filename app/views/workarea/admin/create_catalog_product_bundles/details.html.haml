@@ -19,7 +19,7 @@
                   %tr
                     %td
                       .property
-                        = text_field_tag 'filters[]', name, class: 'text-box text-box--i18n', title: 'New Filter Name', placeholder: 'Name', data: { rule_notypefilter: 'true' }, id: "filter_#{name}"
+                        = text_field_tag 'filters[]', name, class: 'text-box text-box--i18n', title: 'New Filter Name', placeholder: 'Name', pattern: Workarea.config.product_filter_input_validation_pattern, id: "filter_#{name}"
                     %td
                       .property
                         = text_field_tag 'filters[]', hash_editing_value(value), class: 'text-box text-box--i18n', title: 'New Filter Value', placeholder: 'Value', id: "filter_#{name}_value"
@@ -27,7 +27,7 @@
                 %tr{ data: { cloneable_row: '' } }
                   %td
                     .property
-                      = text_field_tag 'filters[]', nil, class: 'text-box text-box--i18n', title: 'New Filter Name', placeholder: 'Name', data: { rule_notypefilter: 'true' }, id: 'new_filter_name'
+                      = text_field_tag 'filters[]', nil, class: 'text-box text-box--i18n', title: 'New Filter Name', placeholder: 'Name', pattern: Workarea.config.product_filter_input_validation_pattern, id: 'new_filter_name'
                       %span.property__note= t('workarea.admin.create_catalog_products.details.example_color')
                   %td
                     .property

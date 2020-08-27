@@ -2,6 +2,7 @@ module Workarea
   class BuildKitVariants
     class Variant
       attr_reader :builder, :components, :pricing_sku, :inventory_sku, :fulfillment_sku
+      delegate :sku, to: :model
       delegate :product, :params, :copy_options?, :calculate_pricing?,
         :next_variant_sku, :pricing, to: :builder
 
@@ -44,11 +45,23 @@ module Workarea
         end
       end
 
+      def inventory_sku=(sku)
+        @inventory_sku = sku
+      end
+
+      def pricing_sku=(sku)
+        @pricing_sku = sku
+      end
+
+      def fulfillment_sku=(sku)
+        @fulfillment_sku = sku
+      end
+
       private
 
       def build_pricing
         pricing_data = component_pricing
-        @pricing_sku ||= Pricing::Sku.find_or_initialize_by(id: model.sku)
+        @pricing_sku ||= Pricing::Sku.find_or_initialize_by(id: sku)
 
         @pricing_sku.msrp = pricing_data[:msrp] if pricing_data[:msrp].positive?
         @pricing_sku.tax_code = pricing_data[:tax_codes].compact.uniq.first
@@ -87,7 +100,7 @@ module Workarea
       end
 
       def build_inventory
-        @inventory_sku ||= Inventory::Sku.find_or_initialize_by(id: model.sku)
+        @inventory_sku ||= Inventory::Sku.find_or_initialize_by(id: sku)
         @inventory_sku.assign_attributes(
           policy: 'defer_to_components',
           component_quantities: model.component_quantities
@@ -95,16 +108,19 @@ module Workarea
       end
 
       def build_fulfillment
-        @fulfillment_sku ||= Fulfillment::Sku.find_or_initialize_by(id: model.sku)
+        @fulfillment_sku ||= Fulfillment::Sku.find_or_initialize_by(id: sku)
         @fulfillment_sku.assign_attributes(policy: 'bundle')
       end
 
       def component_pricing
-        components.each_with_object(Hash.new(0.to_m)) do |component, hash|
+        price_hash = Hash.new(0.to_m).tap { |h| h[:tax_codes] = [] }
+
+        components.each_with_object(price_hash) do |component, hash|
           record = pricing.detect { |r| r.id == component[:sku] }
+          next unless record.present?
+
           price = record.find_price
 
-          hash[:tax_codes] = [] unless hash[:tax_codes].is_a?(Array)
           hash[:tax_codes] << record.tax_code
           hash[:msrp] += record.msrp.to_m
           hash[:regular] += price.regular.to_m
