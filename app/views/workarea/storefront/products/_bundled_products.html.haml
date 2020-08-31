@@ -2,7 +2,7 @@
   .product-details-bundled-products{ class: "product-details-bundled-products--#{product.template}" }
     - product.bundled_products.each do |bundled_product|
       .product-details-bundled-products__container
-        - if show_bundled_product_add_to_cart?(product)
+        - if product.show_bundled_add_to_cart?
           = form_tag cart_items_path, method: 'post', class: 'product-details__add-to-cart-form', data: { dialog_form: { dialogOptions: { closeAll: true, initModules: true } }, analytics: add_to_cart_analytics_data(product).to_json } do
             = render 'workarea/storefront/products/bundled_product', bundle: product, product: bundled_product
         - else

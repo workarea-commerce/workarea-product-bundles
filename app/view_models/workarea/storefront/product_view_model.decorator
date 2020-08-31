@@ -53,5 +53,13 @@ module Workarea
     def quantity
       options[:quantity]
     end
+
+    def fixed_selection?
+      kit?
+    end
+
+    def show_bundled_add_to_cart?
+      package?
+    end
   end
 end
