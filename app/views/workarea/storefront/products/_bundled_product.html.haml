@@ -53,3 +53,5 @@
 
         - if bundle.show_bundled_add_to_cart?
           %p.bundled-product-details__add-to-cart-action= button_tag t('workarea.storefront.products.add_to_cart'), value: 'add_to_cart', class: 'button'
+      - else
+        = hidden_field_tag bundle_field_prefix(bundle, 'quantity'), product.quantity, id: dom_id(product, bundle_name_prefix(bundle, 'quantity'))

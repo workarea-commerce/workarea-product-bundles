@@ -61,5 +61,11 @@ module Workarea
     def show_bundled_add_to_cart?
       package?
     end
+
+    def purchasable?
+      result = super
+      return result unless kit?
+      result && kit_products.all?(&:purchasable?)
+    end
   end
 end
