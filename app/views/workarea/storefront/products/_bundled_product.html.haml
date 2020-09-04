@@ -18,7 +18,7 @@
         = hidden_field_tag bundle_field_prefix(bundle, 'product_id'), product.id, id: dom_id(product, bundle_name_prefix(bundle, 'product_id'))
         = hidden_field_tag bundle_field_prefix(bundle, 'via'), params[:via], id: dom_id(product, bundle_name_prefix(bundle, 'via'))
 
-        - if bundle_fixed_selection?(bundle)
+        - if bundle.fixed_selection?
           = hidden_field_tag bundle_field_prefix(bundle, 'sku'), product.current_sku, id: dom_id(product, bundle_name_prefix(bundle, 'sku'))
 
           %p.bundled-product-details__option-group
@@ -36,7 +36,7 @@
           %p.bundled-product-details__unavailable= t('workarea.storefront.products.unavailable')
 
     .grid__cell.grid__cell--40-at-medium.align-right
-      - unless bundle_fixed_selection?(bundle)
+      - unless bundle.fixed_selection?
         .product-prices.product-prices--details
           = render 'workarea/storefront/products/pricing', product: product
 
@@ -45,11 +45,13 @@
           .property
             = label_tag 'bundled_items__quantity', nil, class: 'property__name', for: dom_id(product, bundle_name_prefix(bundle, 'quantity')) do
               %span.property__text= t('workarea.storefront.products.quantity')
-              - if bundle_fixed_selection?(bundle)
+              - if bundle.fixed_selection?
                 .value= product.quantity
                 = hidden_field_tag bundle_field_prefix(bundle, 'quantity'), product.quantity, id: dom_id(product, bundle_name_prefix(bundle, 'quantity'))
               - else
                 .value= number_field_tag bundle_field_prefix(bundle, 'quantity'), (bundle.family? ? 0 : 1), class: 'text-box text-box--x-small', required: true, min: (bundle.family? ? 0 : 1), id: dom_id(product, bundle_name_prefix(bundle, 'quantity'))
 
-        - if show_bundled_product_add_to_cart?(bundle)
+        - if bundle.show_bundled_add_to_cart?
           %p.bundled-product-details__add-to-cart-action= button_tag t('workarea.storefront.products.add_to_cart'), value: 'add_to_cart', class: 'button'
+      - else
+        = hidden_field_tag bundle_field_prefix(bundle, 'quantity'), product.quantity, id: dom_id(product, bundle_name_prefix(bundle, 'quantity'))
