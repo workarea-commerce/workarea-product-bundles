@@ -75,7 +75,7 @@ module Workarea
       assert_raises(Mongoid::Errors::DocumentNotFound) { fulfillment.reload }
 
       fulfillment = Fulfillment::Sku.find(variant.sku)
-      assert_equal('bundle', fulfillment.policy)
+      assert_equal('skip', fulfillment.policy)
     end
   end
 end

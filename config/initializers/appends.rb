@@ -67,5 +67,5 @@ Workarea.append_partials(
 
 Workarea.append_partials(
   'admin.fulfillment_sku_policy_info',
-  'workarea/admin/fulfillment_skus/bundle_info'
+  'workarea/admin/fulfillment_skus/skip_info'
 )

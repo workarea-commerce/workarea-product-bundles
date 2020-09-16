@@ -37,7 +37,7 @@ module Workarea
       assert_equal(2, product.variants.count)
 
       fulfillment_sku = Fulfillment::Sku.find('SKU5678')
-      assert_equal('bundle', fulfillment_sku.policy)
+      assert_equal('skip', fulfillment_sku.policy)
     end
 
     def test_update

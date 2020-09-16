@@ -83,7 +83,7 @@ module Workarea
       fulfillment_sku = Fulfillment::Sku.find(original_sku) rescue nil
       fulfillment_sku.destroy! if fulfillment_sku.present?
 
-      Fulfillment::Sku.create!(id: variant.sku, policy: 'bundle')
+      Fulfillment::Sku.create!(id: variant.sku, policy: 'skip')
     end
   end
 end

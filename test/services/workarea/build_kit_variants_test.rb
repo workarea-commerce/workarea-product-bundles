@@ -101,7 +101,7 @@ module Workarea
       assert_equal({ 'SKU1-1' => 2, 'SKU2-1' => 1 }, inventory.component_quantities)
 
       fulfillment = Fulfillment::Sku.find(variant.sku)
-      assert_equal('bundle', fulfillment.policy)
+      assert_equal('skip', fulfillment.policy)
 
       variant = kit.variants.detect do |variant|
         skus = variant.components.map(&:sku)
@@ -129,7 +129,7 @@ module Workarea
       assert_equal({ 'SKU1-1' => 2, 'SKU2-2' => 1 }, inventory.component_quantities)
 
       fulfillment = Fulfillment::Sku.find(variant.sku)
-      assert_equal('bundle', fulfillment.policy)
+      assert_equal('skip', fulfillment.policy)
 
       variant = kit.variants.detect do |variant|
         skus = variant.components.map(&:sku)
@@ -157,7 +157,7 @@ module Workarea
       assert_equal({ 'SKU1-2' => 2, 'SKU2-2' => 1 }, inventory.component_quantities)
 
       fulfillment = Fulfillment::Sku.find(variant.sku)
-      assert_equal('bundle', fulfillment.policy)
+      assert_equal('skip', fulfillment.policy)
 
       variant = kit.variants.detect do |variant|
         skus = variant.components.map(&:sku)
@@ -185,7 +185,7 @@ module Workarea
       assert_equal({ 'SKU1-2' => 2, 'SKU2-1' => 1 }, inventory.component_quantities)
 
       fulfillment = Fulfillment::Sku.find(variant.sku)
-      assert_equal('bundle', fulfillment.policy)
+      assert_equal('skip', fulfillment.policy)
     end
 
     def test_summary
