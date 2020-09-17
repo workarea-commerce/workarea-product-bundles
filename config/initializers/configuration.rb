@@ -7,7 +7,7 @@ Workarea.configure do |config|
   config.product_quickview_templates -= config.product_bundle_templates
 
   config.inventory_policies << 'Workarea::Inventory::Policies::DeferToComponents'
-  config.fulfillment_policies << 'Workarea::Fulfillment::Policies::Bundle'
+  config.fulfillment_policies << 'Workarea::Fulfillment::Policies::Skip'
   config.pricing_calculators.insert_after(
     'Workarea::Pricing::Calculators::CustomizationsCalculator',
     'Workarea::Pricing::Calculators::BundledItemCalculator'

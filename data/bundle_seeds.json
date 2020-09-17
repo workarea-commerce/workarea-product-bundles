@@ -693,28 +693,28 @@
 		},
 		"fulfillment": {
 			"BK001CT": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"BK001CF": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"BK001CQ": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"BK001CK": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"BK001BT": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"BK001BF": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"BK001BQ": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"BK001BK": {
-				"policy": "bundle"
+				"policy": "skip"
 			}
 		}
 	},
@@ -1142,10 +1142,10 @@
 		},
 		"fulfillment": {
 			"SKK001P": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"SKK001B": {
-				"policy": "bundle"
+				"policy": "skip"
 			}
 		}
 	},
@@ -1572,22 +1572,22 @@
 		},
 		"fulfillment": {
 			"OCK00119S": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"OCK00120S": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"OCK00119V": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"OCK00120V": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"OCK00119C": {
-				"policy": "bundle"
+				"policy": "skip"
 			},
 			"OCK00120C": {
-				"policy": "bundle"
+				"policy": "skip"
 			}
 		}
 	},

@@ -109,7 +109,7 @@ module Workarea
 
       def build_fulfillment
         @fulfillment_sku ||= Fulfillment::Sku.find_or_initialize_by(id: sku)
-        @fulfillment_sku.assign_attributes(policy: 'bundle')
+        @fulfillment_sku.assign_attributes(policy: 'skip')
       end
 
       def component_pricing
