@@ -11,7 +11,7 @@ Features
 * Adds a `package` product template for the storefront that displays all the packaged products together while still allowing separate add to cart buttons for each product
 * Adds a `family` product template for the storefront that displays all the packaged products together and allows adding any or all bundled products to a cart at the same time
 * Adds the concept of `kit` products, a product bundle that defines its own variants as specific combinations of bundled product SKUs, and displays as a single product through checkout.
-* adds the `defer_to_components` inventory policy which is used for kits to allow inventory to be determined by the SKUs which make up a particular kit variant.
+* Adds the `defer_to_components` inventory policy which is used for kits to allow inventory to be determined by the SKUs which make up a particular kit variant.
 * Adds the `skip` fulfillment policy which allows SKUs to skip the fulfillment process.
 
 Getting Started
@@ -37,13 +37,13 @@ Product Bundles
 
 A **product bundle** is a product that contains other products.
 
-For some bundles, this is simply a way to display related products together on a single product detail page. In this plugin, we call those **discrete bundles**, which always show each individual product within the bundle and allow any or all of the products to be added to cart.  
+For some bundles, this is simply a way to display related products together on a single product detail page. In this plugin, we call those **discrete bundles**, which always show each individual product within the bundle and allow any or all of the products to be added to cart. Each individual product will show as a separate item in the cart and throughout checkout.
 
 ### Discrete Bundles
 
 **Package**
 
-A package product is the most basic product bundle type. A package displays bundled products on a single detail page where a customer can select options and add each individual product to their cart one at a time. Each product within a package product displays its own options, quantity, and add to cart button. The bundle itself is never added directly to cart, but rather serves as a container of those related products.
+A package product is the most basic product bundle type. A package displays bundled products on a single detail page where a customer can select options and add each individual product to their cart one at a time. Each product within a package product displays its own options, quantity, and add to cart button. The package product itself is never added directly to cart, but rather serves as a container of those related products.
 
 **Family**
 
