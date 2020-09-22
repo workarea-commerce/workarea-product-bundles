@@ -65,7 +65,7 @@ To better visualize the relationship of kits and their bundled products, examine
 
 This kit contains two bundled products, Product A and Product B. Each of these products has two variants. When the kit was constructed, four variants were created, representing each unique combination of variants of the bundled products. Each kit variant has two components, one representing a variant from Product A with a quantity of 2, and another component representing a variant from Product B.
 
-The variants in the kit are represented to the customer like variants of a regular product from the detail page through checkout. Once an order containing a kit is placed, the items within the kit are expanded out of the kit to allow for proper tracking of each item's status through fulfillment.
+The variants in the kit are represented to the customer like variants of a regular product from the detail page through checkout. Once an order containing a kit is placed, the items within the kit are expanded out of the kit as separate order items, to allow for individual tracking of each item's status through fulfillment.
 
 Workarea Commerce Documentation
 --------------------------------------------------------------------------------
