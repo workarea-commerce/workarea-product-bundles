@@ -44,11 +44,12 @@ module Workarea
       end
 
       def preview_variants
-        @summary = BuildKitVariants.new(@product, params).summary
+        @builder = BuildKitVariants.new(@product, params.to_unsafe_h)
+        @summary = @builder.summary
       end
 
       def save_variants
-        result = BuildKitVariants.new(@product, params).perform
+        result = BuildKitVariants.new(@product, params.to_unsafe_h).perform
 
         flash[:success] = t('workarea.admin.create_catalog_product_kits.flash_messages.variants_saved')
 
@@ -89,6 +90,13 @@ module Workarea
 
         flash[:success] = t('workarea.admin.catalog_variants.flash_messages.removed')
         redirect_to manage_variants_create_catalog_product_kit_path(@product)
+      end
+
+      def destroy_all_variants
+        @product.update!(variants: [])
+
+        flash[:success] = t('workarea.admin.create_catalog_product_kits.flash_messages.variants_removed')
+        redirect_to variants_create_catalog_product_kit_path(@product)
       end
 
       def images

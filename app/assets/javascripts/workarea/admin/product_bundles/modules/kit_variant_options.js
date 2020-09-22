@@ -1,13 +1,13 @@
 /**
- * @namespace WORKAREA.variantComponents
+ * @namespace WORKAREA.kitVariantOptions
  */
-WORKAREA.registerModule('variantComponents', (function () {
+WORKAREA.registerModule('kitVariantOptions', (function () {
     'use strict';
 
     var toggleSelectAll = function(event) {
             var $selectAll = $(event.target),
-                $product = $selectAll.closest('[data-variant-component-product]'),
-                $checkboxes = $product.find('[data-variant-component-sku]'),
+                $optionSets = $selectAll.closest('[data-kit-variant-option-set]'),
+                $checkboxes = $optionSets.find('[data-kit-variant-option]'),
                 isChecked = $selectAll.is(':checked');
 
             _.each($checkboxes, function(checkbox) {
@@ -22,9 +22,9 @@ WORKAREA.registerModule('variantComponents', (function () {
         },
 
         updateCount = function(event) {
-            var $product = $(event.target).closest('[data-variant-component-product]'),
-                data = $product.data('variantComponentProduct'),
-                $checkboxes = $product.find('[data-variant-component-sku]'),
+            var $product = $(event.target).closest('[data-kit-variant-options-product]'),
+                data = $product.data('kitVariantOptionsProduct'),
+                $checkboxes = $product.find('[data-kit-variant-option]'),
                 $counter;
 
             $product.data('selectedCount', $checkboxes.filter(':checked').length);
@@ -33,7 +33,7 @@ WORKAREA.registerModule('variantComponents', (function () {
                 $counter = $product.find(data.counter);
                 $counter.text(
                     I18n.t(
-                        'workarea.admin.variant_components.selected',
+                        'workarea.admin.kit_variant_options.selected',
                         { count: $product.data('selectedCount') }
                     )
                 );
@@ -41,8 +41,8 @@ WORKAREA.registerModule('variantComponents', (function () {
         },
 
         updatePreviewMessage = function($form) {
-            var $products = $('[data-variant-component-product]', $form),
-                $previewSection = $('[data-component-sku-selection-preview]', $form),
+            var $products = $('[data-kit-variant-options-product]', $form),
+                $previewSection = $('[data-kit-variant-options-preview]', $form),
                 anySelected = _.some($products, function(table) {
                     return $(table).data('selectedCount') > 0;
                 });
@@ -50,7 +50,7 @@ WORKAREA.registerModule('variantComponents', (function () {
 
             if (anySelected) {
                 $.post(
-                    $previewSection.data('componentSkuSelectionPreview'),
+                    $previewSection.data('kitVariantOptionsPreview'),
                     $form.serialize()
                 ).done(function(html) {
                     $previewSection.html(html);
@@ -63,7 +63,7 @@ WORKAREA.registerModule('variantComponents', (function () {
         setupSelectAll = function($form) {
             $form.on(
                 'click',
-                '[data-variant-component-select-all]',
+                '[data-kit-variant-option-select-all]',
                 toggleSelectAll
             );
         },
@@ -71,7 +71,7 @@ WORKAREA.registerModule('variantComponents', (function () {
         setupCounter = function($form) {
             $form.on(
                 'click',
-                '[data-variant-component-sku]',
+                '[data-kit-variant-option]',
                 updateCount
             );
         },
@@ -87,10 +87,10 @@ WORKAREA.registerModule('variantComponents', (function () {
         /**
          * @method
          * @name init
-         * @memberof WORKAREA.variantComponents
+         * @memberof WORKAREA.kitVariantOptions
          */
         init = function ($scope) {
-            var $form = $('[data-variant-components]', $scope);
+            var $form = $('[data-kit-variant-options]', $scope);
 
             if (_.isEmpty($form)) { return; }
 

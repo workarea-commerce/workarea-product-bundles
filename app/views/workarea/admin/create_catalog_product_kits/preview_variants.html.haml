@@ -1,30 +1,40 @@
-%h3.align-center= t('workarea.admin.variant_components.preview.title')
+%h3.align-center= t('workarea.admin.kit_variant_options.preview.title')
 
 .grid.grid--center
-  .grid__cell.grid__cell--40
-    .box
-      .box__body.align-center
-        .text.text--larger.text--bold= @summary[:variants]
-        .text= t('workarea.admin.variant_components.preview.variants', count: @summary[:variants])
+  - if @summary.missing_details?
+    .grid__cell.grid__cell--80
+      = render_message 'warning', t('workarea.admin.kit_variant_options.preview.no_options_warning')
+  - elsif @summary.duplicate_details?
+    .grid__cell.grid__cell--80
+      = render_message 'info', t('workarea.admin.kit_variant_options.preview.duplicate_options_warning')
+  - elsif @summary.invalid_details?
+    .grid__cell.grid__cell--80
+      = render_message 'warning', t('workarea.admin.kit_variant_options.preview.invalid_options_warning')
 
   .grid__cell.grid__cell--40
     .box
       .box__body.align-center
-        - if @summary[:prices].many?
-          .text.text--larger.text--bold= t('workarea.admin.variant_components.preview.price_range', min: number_to_currency(@summary[:prices].min), max: number_to_currency(@summary[:prices].max))
-          .text= t('workarea.admin.variant_components.preview.prices')
+        .text.text--larger.text--bold= @summary.variants
+        .text= t('workarea.admin.kit_variant_options.preview.variants', count: @summary.variants)
+
+  .grid__cell.grid__cell--40
+    .box
+      .box__body.align-center
+        - if @summary.prices.many?
+          .text.text--larger.text--bold= t('workarea.admin.kit_variant_options.preview.price_range', min: number_to_currency(@summary.prices.min), max: number_to_currency(@summary.prices.max))
+          .text= t('workarea.admin.kit_variant_options.preview.prices')
         - else
-          .text.text--larger.text--bold= number_to_currency(@summary[:prices].first)
-          .text= t('workarea.admin.variant_components.preview.price')
+          .text.text--larger.text--bold= number_to_currency(@summary.prices.first)
+          .text= t('workarea.admin.kit_variant_options.preview.price')
 
-  - if @summary[:details].present?
+  - if @summary.details.present?
     .grid__cell.grid__cell--80
       .box
         .box__body.align-center
-          %p.text= t('workarea.admin.variant_components.preview.options')
+          %p.text= t('workarea.admin.kit_variant_options.preview.options')
 
           %ul.list-reset
-            - @summary[:details].each do |type, values|
+            - @summary.details.each do |type, values|
               %li
                 %p
                   %strong= values.to_sentence

@@ -2,9 +2,9 @@ module Workarea
   class BuildKitVariants
     class Variant
       attr_reader :builder, :components, :pricing_sku, :inventory_sku, :fulfillment_sku
-      delegate :sku, to: :model
-      delegate :product, :params, :copy_options?, :calculate_pricing?,
-        :next_variant_sku, :pricing, to: :builder
+      delegate :sku, :details, to: :model
+      delegate :product, :params, :next_variant_sku, :pricing, to: :builder
+      delegate :calculate_pricing?, :custom_price, :new_details?, :new_details, to: :params
 
       def initialize(builder, components)
         @builder = builder
@@ -14,7 +14,7 @@ module Workarea
       def build
         return @result if defined?(@result)
 
-        build_options
+        build_details
         build_components
         build_pricing
         build_inventory
@@ -33,6 +33,14 @@ module Workarea
 
       def model
         @model ||= product.variants.build(sku: next_variant_sku)
+      end
+
+      def has_details?
+        defined?(@result) ? details.present? : component_details.present?
+      end
+
+      def invalid_details?
+        details.values.any?(&:many?)
       end
 
       def status
@@ -68,16 +76,16 @@ module Workarea
 
         price = @pricing_sku.active_prices.first || @pricing_sku.prices.build
         price.regular =
-          calculate_pricing? ? pricing_data[:regular] : params[:variant][:price].to_m
+          calculate_pricing? ? pricing_data[:regular] : custom_price.to_m
       end
 
-      def build_options
-        if copy_options?
-          model.details = component_details
-        else
+      def build_details
+        model.details = component_details
+
+        if new_details?
           model.details = HashUpdate.new(
-            original: model.details,
-            adds: params[:new_details],
+            original: details,
+            adds: new_details,
           ).result
         end
       end
@@ -129,7 +137,7 @@ module Workarea
 
       def component_details
         components.each_with_object({}) do |component, hash|
-          component[:variant].details.each do |key, value|
+          component[:details].each do |key, value|
             hash[key] = ((hash[key] || []) + value).uniq
           end
         end

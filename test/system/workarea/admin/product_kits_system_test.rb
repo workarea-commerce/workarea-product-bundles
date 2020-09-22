@@ -57,67 +57,73 @@ module Workarea
 
         within table do
           assert(page.has_content?(@product_1.name))
-          assert(page.has_content?('SKU1-1'))
-          assert(page.has_content?('SKU1-2'))
           assert(page.has_content?('Color'))
           assert(page.has_content?('Blue'))
           assert(page.has_content?('Size'))
           assert(page.has_content?('Small'))
           assert(page.has_content?('Medium'))
 
-          assert(page.has_content?(t('workarea.admin.filterable.showing', count: 2)))
-          fill_in 'filter_skus', with: 'Small'
+          assert(page.has_content?(t('workarea.admin.filterable.showing', count: 3)))
+          fill_in 'filter_options', with: 'Small'
           assert(page.has_content?(t('workarea.admin.filterable.showing', count: 1)))
 
-          assert(page.has_content?('SKU1-1'))
-          assert(page.has_no_content?('SKU1-2'))
           assert(page.has_content?('Small'))
           assert(page.has_no_content?('Medium'))
+          assert(page.has_no_content?('Blue'))
 
-          assert(page.has_content?(t('workarea.admin.variant_components.selected', count: 0)))
-          check 'select_all'
-          assert(page.has_content?(t('workarea.admin.variant_components.selected', count: 1)))
+          assert(page.has_content?(t('workarea.admin.kit_variant_options.selected', count: 0)))
+          check 'select_all_size'
+          assert(page.has_content?(t('workarea.admin.kit_variant_options.selected', count: 1)))
 
-          fill_in 'filter_skus', with: ''
-          assert(page.has_content?(t('workarea.admin.filterable.showing', count: 2)))
+          fill_in 'filter_options', with: ''
+          assert(page.has_content?(t('workarea.admin.filterable.showing', count: 3)))
 
-          assert(find('[id$=selected_SKU1-1]').checked?)
-          refute(find('[id$=selected_SKU1-2]').checked?)
+          assert(find('[id$=size_small_checkbox]').checked?)
+          refute(find('[id$=size_medium_checkbox]').checked?)
+          refute(find('[id$=color_blue_checkbox]').checked?)
 
-          uncheck 'select_all'
+          uncheck 'select_all_size'
 
-          refute(find('[id$=selected_SKU1-1]').checked?)
-          refute(find('[id$=selected_SKU1-2]').checked?)
+          refute(find('[id$=size_small_checkbox]').checked?)
+          refute(find('[id$=size_medium_checkbox]').checked?)
+          refute(find('[id$=color_blue_checkbox]').checked?)
 
-          check 'select_all'
+          check 'select_all_size'
 
-          assert(find('[id$=selected_SKU1-1]').checked?)
-          assert(find('[id$=selected_SKU1-2]').checked?)
+          assert(find('[id$=size_small_checkbox]').checked?)
+          assert(find('[id$=size_medium_checkbox]').checked?)
+          refute(find('[id$=color_blue_checkbox]').checked?)
+
+          find('[id$=details_size_copy_true_label]').click
+          find('[id$=details_color_copy_true_label]').click
 
           click_link t('workarea.admin.create_catalog_product_kits.variants.create.copy_product')
         end
 
         assert(page.has_content?(@product_1.name, count: 2))
-        assert(page.has_content?('SKU1-1', count: 2))
-        assert(page.has_content?('SKU1-2', count: 2))
 
         table = page.find('[id^=bundled-product-prod2]')
 
         within table do
-          check 'select_all'
+          check 'select_all_color'
+          find('[id$=details_color_copy_true_label]').click
+          find('[id$=details_color_rename]').set 'Secondary Color'
+          find('[id$=details_material_copy_true_label]').click
         end
 
         within '#creation-preview' do
           assert(page.has_content?('4'))
-          assert(page.has_content?(t('workarea.admin.variant_components.preview.variants.other')))
-          assert(page.has_content?('Blue, White, and Red'))
+          assert(page.has_content?(t('workarea.admin.kit_variant_options.preview.variants.other')))
+          assert(page.has_content?('Blue'))
           assert(page.has_content?('Color'))
+          assert(page.has_content?('White and Red'))
+          assert(page.has_content?('Secondary Color'))
           assert(page.has_content?('Small and Medium'))
           assert(page.has_content?('Size'))
           assert(
             page.has_content?(
               t(
-                'workarea.admin.variant_components.preview.price_range',
+                'workarea.admin.kit_variant_options.preview.price_range',
                 min: '$15.00',
                 max: '$18.00'
               )
@@ -198,10 +204,14 @@ module Workarea
         click_link(t('workarea.admin.create_catalog_product_kits.bundled_products.continue_to_variants'))
 
         within page.find('[id^=bundled-product-prod1]') do
-          check 'select_all'
+          check 'select_all_color'
+          find('[id$=details_color_copy_true_label]').click
+          find('[id$=details_size_copy_true_label]').click
         end
         within page.find('[id^=bundled-product-prod2]') do
-          check 'select_all'
+          check 'select_all_color'
+          find('[id$=details_color_copy_true_label]').click
+          find('[id$=details_material_copy_true_label]').click
         end
 
         click_button t('workarea.admin.create_catalog_product_kits.variants.create.button')
