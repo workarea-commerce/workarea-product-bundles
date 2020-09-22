@@ -61,7 +61,7 @@ A variant made for a kit will have many components. Components define which SKUs
 
 To better visualize the relationship of kits and their bundled products, examine the following example:
 
-![Kit Diagram](kit_diagram.png)
+![Kit Diagram](https://github.com/workarea-commerce/workarea-product-bundles/blob/master/kit_diagram.png)
 
 This kit contains two bundled products, Product A and Product B. Each of these products has two variants. When the kit was constructed, four variants were created, representing each unique combination of variants of the bundled products. Each kit variant has two components, one representing a variant from Product A with a quantity of 2, and another component representing a variant from Product B.
 
