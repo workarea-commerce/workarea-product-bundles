@@ -4,7 +4,7 @@ module Workarea
 
     def initialize(product, params)
       @product = product
-      @params = params
+      @params = Params.new(params.merge(bundled_products: bundled_products))
     end
 
     def perform
@@ -15,16 +15,18 @@ module Workarea
     def summary
       prime_related_skus
       variants.each(&:build)
+      all_details = variants.map(&:details)
 
-      {
+      OpenStruct.new(
         variants: variants.count,
         prices: variants.map(&:pricing_sku).map(&:sell_price).uniq,
-        details: variants.each_with_object(Hash.new([])) do |variant, details|
-          variant.model.details.each do |key, value|
-            details[key] = (details[key] + value).uniq
-          end
-        end
-      }
+        details: all_details.each_with_object(Hash.new([])) do |details, hash|
+          details.each { |key, value| hash[key] = (hash[key] + value).uniq }
+        end,
+        missing_details?: !variants.all?(&:has_details?),
+        duplicate_details?: all_details.size != all_details.uniq.size,
+        invalid_details?: variants.any?(&:invalid_details?)
+      )
     end
 
     def variants
@@ -35,40 +37,15 @@ module Workarea
 
     def component_groups
       return @component_groups if defined?(@component_groups)
-
-      pieces = params[:components].values.map do |skus_params|
-        skus_params.map do |sku_params|
-          next unless sku_params[:selected] =~ /true/i
-
-          product = bundled_products.detect { |p| p.id == sku_params[:product_id] }
-          next unless product.present?
-
-          {
-            product_id: product.id,
-            sku: sku_params[:sku],
-            quantity: sku_params[:quantity],
-            product: product,
-            variant: product.variants.detect { |v| v.sku == sku_params[:sku] }
-          }
-        end.compact
-      end.reject(&:blank?)
-
+      pieces = params.components
       @component_groups = pieces.shift.product(*pieces)
     end
 
     def next_variant_sku
-      prefix = params[:variant][:sku]
+      prefix = params.variant[:sku]
       return prefix if component_groups.one? && prefix.present?
 
       "#{prefix || product.id}-#{SecureRandom.hex(2).upcase}"
-    end
-
-    def copy_options?
-      params[:variant][:copy_options] =~ /true/i
-    end
-
-    def calculate_pricing?
-      params[:variant][:calculate_pricing] =~ /true/i
     end
 
     def bundled_products

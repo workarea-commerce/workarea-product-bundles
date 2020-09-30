@@ -13,17 +13,17 @@
   .view__container
     %h2.align-center= t('workarea.admin.create_catalog_product_kits.variants.create.heading')
 
-    = form_tag save_variants_create_catalog_product_kit_path(@product), method: 'post', id: 'variant_form', data: { unsaved_changes: '', variant_components: '' } do
+    = form_tag save_variants_create_catalog_product_kit_path(@product), method: 'post', id: 'variant_form', data: { unsaved_changes: '', kit_variant_options: '' } do
       .grid.grid--center
         .grid__cell.grid__cell--50
           %div.align-center
             %h3= t('workarea.admin.create_catalog_product_kits.variants.create.step_one_heading')
             %p= t('workarea.admin.create_catalog_product_kits.variants.create.step_one_details')
 
-        .grid__cell.grid__cell--75
+        .grid__cell.grid__cell--100
           .section
             - @product.bundled_products.each do |bundled_product|
-              = render 'workarea/admin/create_catalog_product_kits/bundled_product_skus', product: @product, bundled_product: bundled_product, key: SecureRandom.hex(3)
+              = render 'workarea/admin/create_catalog_product_kits/bundled_product_options', product: @product, bundled_product: bundled_product, key: SecureRandom.hex(3)
 
         .grid__cell.grid__cell--75
           .section
@@ -50,14 +50,14 @@
 
             .property.align-center
               %span.property__name= t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle')
-              =  toggle_button_for 'variant[copy_options]', true, title_true: t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_on'), title_false: t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_off'), data: { toggle_button: '' } do
+              =  toggle_button_for 'variant[new_details]', false, title_true: t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_on'), title_false: t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_off'), data: { toggle_button: '' } do
                 = link_to '#option-copying-info', data: { tooltip: '' } do
                   = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.bulk_action_product_edits.pricing.info'))
 
                 #option-copying-info.tooltip-content= t('workarea.admin.create_catalog_product_kits.variants.create.options_toggle_tooltip')
 
-                .toggle-button__more.toggle-button__more--below{ data: { toggle_button_positive_element: '' } }
                 .toggle-button__more.toggle-button__more--below{ data: { toggle_button_negative_element: '' } }
+                .toggle-button__more.toggle-button__more--below{ data: { toggle_button_positive_element: '' } }
                   .grid.grid--center
                     .grid__cell.grid__cell--75
                       %table#options-table
@@ -77,7 +77,7 @@
                                 %span.property__note= t('workarea.admin.catalog_variants.new.options.new_attribute_value_note')
 
         .grid__cell.grid__cell--75
-          #creation-preview.section{ data: { component_sku_selection_preview: preview_variants_create_catalog_product_kit_path(@product) } }
+          #creation-preview.section{ data: { kit_variant_options_preview: preview_variants_create_catalog_product_kit_path(@product) } }
 
         .grid__cell.grid__cell--75
           .align-center

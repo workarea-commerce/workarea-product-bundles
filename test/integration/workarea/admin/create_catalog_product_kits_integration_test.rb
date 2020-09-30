@@ -72,20 +72,29 @@ module Workarea
         post admin.save_variants_create_catalog_product_kit_path(product),
              params: {
                components: {
-                 '1' => [
-                   { selected: 'true', product_id: 'PROD1', sku: 'SKU1-1', quantity: '2' },
-                   { selected: 'true', product_id: 'PROD1', sku: 'SKU1-2', quantity: '2' }
-                 ],
-                 '2' => [
-                   { selected: 'true', product_id: 'PROD2', sku: 'SKU2-1', quantity: '1' },
-                   { selected: 'true', product_id: 'PROD2', sku: 'SKU2-2', quantity: '1' }
-                 ],
+                 '1' => {
+                   quantity: '2',
+                   product_id: 'PROD1',
+                   details: {
+                     'Color' => { copy: 'false', values: %w(Blue) },
+                     'Size' => { copy: 'true', values: %w(Small Medium) }
+                   }
+                 },
+                 '2' => {
+                   quantity: '1',
+                   product_id: 'PROD2',
+                   details: {
+                     'Color' => { copy: 'true', rename: 'PROD2 Colors', values: %w(Red White) },
+                     'Material' => { copy: 'false', values: %w(Cotton) }
+                   }
+                 },
                },
                variant: {
                  sku: 'KP',
-                 copy_options: 'true',
                  calculate_pricing: 'true',
-               }
+                 new_details: 'true'
+               },
+               new_details: %w(Foo Bar)
              }
 
         assert_redirected_to(
@@ -94,6 +103,11 @@ module Workarea
 
         product.reload
         assert_equal(4, product.variants.count)
+        assert_includes(product.variants.first.details.keys, 'Size')
+        assert_includes(product.variants.first.details.keys, 'PROD2 Colors')
+        assert_includes(product.variants.first.details.keys, 'Foo')
+        refute_includes(product.variants.first.details.keys, 'Colors')
+        refute_includes(product.variants.first.details.keys, 'Material')
       end
 
       def test_update_variant

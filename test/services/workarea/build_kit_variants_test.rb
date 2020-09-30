@@ -44,22 +44,29 @@ module Workarea
     def params
       @params ||= {
         components: {
-          '1' => [
-            { selected: 'true', product_id: 'PROD1', sku: 'SKU1-1', quantity: '2' },
-            { selected: 'true', product_id: 'PROD1', sku: 'SKU1-2', quantity: '2' },
-            { selected: 'false', product_id: 'PROD1', sku: 'SKU1-3', quantity: '2' },
-          ],
-          '2' => [
-            { selected: 'true', product_id: 'PROD2', sku: 'SKU2-1', quantity: '1' },
-            { selected: 'true', product_id: 'PROD2', sku: 'SKU2-2', quantity: '1' },
-            { selected: 'false', product_id: 'PROD2', sku: 'SKU2-3', quantity: '1' },
-          ],
+          '1' => {
+            quantity: '2',
+            product_id: 'PROD1',
+            details: {
+              'Color' => { copy: 'true', values: %w(Blue) },
+              'Size' => { copy: 'true', values: %w(Small Medium) }
+            }
+          },
+          '2' => {
+            quantity: '1',
+            product_id: 'PROD2',
+            details: {
+              'Color' => { copy: 'true', rename: 'Secondary Color', values: %w(Red White) },
+              'Material' => { copy: 'false', values: %w(Cotton) }
+            }
+          },
         },
         variant: {
           sku: 'KP',
-          copy_options: 'true',
           calculate_pricing: 'true',
-        }
+          new_details: 'true'
+        },
+        new_details: %w(Foo Bar)
       }
     end
 
@@ -82,9 +89,11 @@ module Workarea
 
       assert(variant.present?)
       assert_includes(variant.sku, 'KP-')
-      assert_equal(%w(Blue White), variant.details['Color'])
+      assert_equal(%w(Blue), variant.details['Color'])
+      assert_equal(%w(White), variant.details['Secondary Color'])
       assert_equal(%w(Small), variant.details['Size'])
-      assert_equal(%w(Cotton), variant.details['Material'])
+      assert_equal(%w(Bar), variant.details['Foo'])
+      assert_nil(variant.details['Material'])
 
       component = variant.components.detect { |c| c.sku == 'SKU1-1' }
       assert_equal(2, component.quantity)
@@ -110,9 +119,11 @@ module Workarea
 
       assert(variant.present?)
       assert_includes(variant.sku, 'KP-')
-      assert_equal(%w(Blue Red), variant.details['Color'])
+      assert_equal(%w(Blue), variant.details['Color'])
+      assert_equal(%w(Red), variant.details['Secondary Color'])
       assert_equal(%w(Small), variant.details['Size'])
-      assert_equal(%w(Cotton), variant.details['Material'])
+      assert_equal(%w(Bar), variant.details['Foo'])
+      assert_nil(variant.details['Material'])
 
       component = variant.components.detect { |c| c.sku == 'SKU1-1' }
       assert_equal(2, component.quantity)
@@ -138,9 +149,11 @@ module Workarea
 
       assert(variant.present?)
       assert_includes(variant.sku, 'KP-')
-      assert_equal(%w(Blue Red), variant.details['Color'])
+      assert_equal(%w(Blue), variant.details['Color'])
+      assert_equal(%w(Red), variant.details['Secondary Color'])
       assert_equal(%w(Medium), variant.details['Size'])
-      assert_equal(%w(Cotton), variant.details['Material'])
+      assert_equal(%w(Bar), variant.details['Foo'])
+      assert_nil(variant.details['Material'])
 
       component = variant.components.detect { |c| c.sku == 'SKU1-2' }
       assert_equal(2, component.quantity)
@@ -166,9 +179,11 @@ module Workarea
 
       assert(variant.present?)
       assert_includes(variant.sku, 'KP-')
-      assert_equal(%w(Blue White), variant.details['Color'])
+      assert_equal(%w(Blue), variant.details['Color'])
+      assert_equal(%w(White), variant.details['Secondary Color'])
       assert_equal(%w(Medium), variant.details['Size'])
-      assert_equal(%w(Cotton), variant.details['Material'])
+      assert_equal(%w(Bar), variant.details['Foo'])
+      assert_nil(variant.details['Material'])
 
       component = variant.components.detect { |c| c.sku == 'SKU1-2' }
       assert_equal(2, component.quantity)
@@ -195,18 +210,58 @@ module Workarea
         product_ids: %w(PROD1 PROD2)
       )
 
+      summary = BuildKitVariants.new(kit, params).summary
+
+      assert_equal(4, summary.variants)
+      assert_equal([15.to_m, 17.to_m, 16.to_m, 18.to_m], summary.prices)
       assert_equal(
         {
-          variants: 4,
-          prices: [15.to_m, 17.to_m, 16.to_m, 18.to_m],
-          details: {
-            'Color' => %w(Blue White Red),
-            'Size' => %w(Small Medium),
-            'Material' => %w(Cotton)
-          }
+          'Color' => %w(Blue),
+          'Size' => %w(Small Medium),
+          'Secondary Color' => %w(White Red),
+          'Foo' => %w(Bar)
         },
-        BuildKitVariants.new(kit, params).summary
+        summary.details
       )
+      refute(summary.missing_details?)
+      refute(summary.duplicate_details?)
+      refute(summary.invalid_details?)
+
+      params[:components]['1'][:details]['Color'][:copy] = false
+      params[:components]['1'][:details]['Size'][:copy] = false
+      params[:components]['2'][:details]['Color'][:copy] = false
+      params[:variant][:new_details] = 'false'
+      params.delete(:new_details)
+
+      summary = BuildKitVariants.new(kit, params).summary
+
+      assert_equal(4, summary.variants)
+      assert_equal([15.to_m, 17.to_m, 16.to_m, 18.to_m], summary.prices)
+      assert_equal({}, summary.details)
+      assert(summary.missing_details?)
+
+      params[:components]['1'][:details]['Color'][:copy] = 'true'
+
+      summary = BuildKitVariants.new(kit, params).summary
+
+      assert_equal(4, summary.variants)
+      assert_equal([15.to_m, 17.to_m, 16.to_m, 18.to_m], summary.prices)
+      assert_equal({ 'Color' => %w(Blue) }, summary.details)
+      refute(summary.missing_details?)
+      assert(summary.duplicate_details?)
+
+      params[:components]['1'][:details]['Size'][:copy] = 'true'
+      params[:components]['2'][:details]['Color'][:copy] = 'true'
+      params[:components]['2'][:details]['Color'][:rename] = ''
+
+      summary = BuildKitVariants.new(kit, params).summary
+
+      assert_equal(4, summary.variants)
+      assert_equal([15.to_m, 17.to_m, 16.to_m, 18.to_m], summary.prices)
+      assert_equal({ 'Color' => %w(Blue White Red), 'Size' => %w(Small Medium) }, summary.details)
+      refute(summary.missing_details?)
+      refute(summary.duplicate_details?)
+      assert(summary.invalid_details?)
     end
   end
 end

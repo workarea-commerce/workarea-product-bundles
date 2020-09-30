@@ -56,6 +56,7 @@ en:
         flash_messages:
           bundled_products_saved: Bundled products have been saved
           variants_saved: Variants have been created
+          variants_removed: Variants have been deleted
         bundled_products:
           continue_to_variants: Continue to Variants
           instruction: Click on products to add them to the kit.
@@ -76,32 +77,44 @@ en:
           variants: Variants
         variants:
           create:
-            heading: Create New Variants
-            step_one_heading: First, select the SKUs you want to include as part of the kit.
-            step_one_details: You can select any number of SKUs from each product. A variant representing a unique combination of a single SKU from each product will be generated for you.
-            step_two_heading: Then, provide any data you'd like to set on the new variants.
-            sku_field: SKU / SKU Prefix
-            sku_note: When generating multiple variants this will be used as a prefix for each SKU.
-            pricing_toggle: Calculate pricing
-            pricing_toggle_tooltip: If used, the total price of each SKU selected will be used to generate the price of the new variant.
-            pricing_toggle_on: calculate pricing
-            pricing_toggle_off: do not calculate pricing
-            options_toggle: Copy options from selected variants
-            options_toggle_tooltip:  If used, the options of each SKU included in a variant will be copied to the new variant.
-            options_toggle_on: copy options
-            options_toggle_off: do not copy options
-            button: Create Variants
             add_more: Create more
-            sku_selection_prompt: Select SKUs to include in kit variants.
+            button: Create Variants
+            copy_options: Copy Options
+            copy_options_info_html: If set to yes, the option from this product will be copied to the new variant on the kit. You can choose to rename these options to avoid conflict with options of the same name on other products in the kit. Options of the same name from multiple products will be combined.
+            copy_options_info_title: Copy Options Info
+            copy_options_toggle_positive: Copy %{type}
+            copy_options_toggle_negative: Do not copy %{type}
             copy_product: Copy Product
             copy_product_info_html: |
               <strong>What does this do?</strong>
-              <p>When creating kit variants, only 1 SKU from each product table will be used per variant. If you want variants to contain multiple SKUs from the same product, you can copy that product table and select a second set of SKUs to use<p>
+              <p>When creating kit variants, only 1 SKU from each product will be used per variant. If you want variants to contain multiple SKUs from the same product, you can copy that product table and select options to be used for the second instance of that product in each kit variant.<p>
+            copy_product_info_title: Copy Product Info
+            heading: Create New Variants
+            rename: Rename
+            step_one_heading: First, select options from each product to use when creating new variants.
+            step_one_details: For each product, a single SKU matching options you select will be used to generate a variant for you.
+            step_two_heading: Then, provide any data you'd like to set on the new variants.
+            sku_field: SKU / SKU Prefix
+            sku_note: When generating multiple variants this will be used as a prefix for each SKU.
+            option_selection_heading: 'Select options to build variants from:'
+            option_selection_prompt: Select quantity and options to include in kit variants.
+            options_toggle: Add new options
+            options_toggle_tooltip:  If used, each kit variant will include the defined options. This will cause every variant created to have the same value for each option added and might require editing each variant after creation.
+            options_toggle_on: define new options
+            options_toggle_off: do not define new options
+            pricing_toggle: Calculate pricing
+            pricing_toggle_tooltip: If used, the total price of each SKU selected will be used to generate the price of the new variant. These prices will not continuously updated if the price of a component SKU changes at a later time.
+            pricing_toggle_on: calculate pricing
+            pricing_toggle_off: do not calculate pricing
           manage:
+            delete_all_variants: delete all variants
+            delete_all_variants_confirm: Are you sure you want to delete all variants in this kit?
+            duplicate_details: There are multiple variants that have the same combination of option values. This will prevent a customer from selecting these SKUs through option selection on the detail page. Review the variants and ensure a unique combination exists for each.
+            no_details_html: There are variants that have no options set. With no options to select on the detail page, a customer may not be able to sucessfully add this product to their cart. Update the variants to include options. Alternatively you can %{link} and create variants with options.
             no_variants:  There are no existing variants.
             edit_variant_message: Select a variant to edit
             update: Update Variant
-          filter_placeholder: Filter SKUs
+          filter_placeholder: Filter Options
           heading: '%{product_name}: Variants'
           manage_link:
             one: Manage existing variant
@@ -137,7 +150,7 @@ en:
       inventory_skus:
         edit:
           defer_to_components_info_html: <p><strong>Defer to Components:</strong> Used for kits or any variant that contains components. This will calculate availability based on the availability of the component SKU availability.</p>
-      variant_components:
+      kit_variant_options:
         selected: '%{count} selected,'
         preview:
           title: This will create...
@@ -147,7 +160,10 @@ en:
           price: price
           prices: price range
           price_range: '%{min} to %{max}'
-          options: with options from the following
+          options: with options from among the following
+          no_options_warning: There are currently no options set for the variants that will be created. With no options to select on the detail page, a customer may not be able to sucessfully add this product to their cart. Select options from the product in the kit to copy, or add new options.
+          duplicate_options_warning: With the options selected, there are multiple variants that will have the same combination of option values. This will prevent a customer from selecting these SKUs through option selection on the detail page.
+          invalid_options_warning: Some of the variants being created will have multiple values for a single option type. This is likely due to copied options from multiple products with the same name. This could cause issues for a customer on the detail page that will prevent this product from being added to their cart.
     alerts:
       issues:
         no_bundled_products: No Bundled Products

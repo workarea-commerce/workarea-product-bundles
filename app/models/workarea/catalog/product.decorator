@@ -50,5 +50,14 @@ module Workarea
     def purchasable?
       super && !discrete_bundle?
     end
+
+    def missing_variant_details?
+      variants.any? { |v| v.details.blank? }
+    end
+
+    def duplicate_variant_details?
+      all_details = variants.map(&:details)
+      all_details.size != all_details.uniq.size
+    end
   end
 end

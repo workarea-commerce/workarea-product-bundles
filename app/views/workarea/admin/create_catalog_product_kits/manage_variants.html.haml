@@ -28,6 +28,13 @@
               %strong#variant-counter
 
       .grid
+        - if @product.missing_variant_details?
+          .grid__cell
+            = render_message 'warning', t('workarea.admin.create_catalog_product_kits.variants.manage.no_details_html', link: link_to(t('workarea.admin.create_catalog_product_kits.variants.manage.delete_all_variants'), destroy_all_variants_create_catalog_product_kit_path(@product), data: { method: :delete, confirm: t('workarea.admin.create_catalog_product_kits.variants.manage.delete_all_variants_confirm') }))
+        - elsif @product.duplicate_variant_details?
+          .grid__cell
+            = render_message 'info', t('workarea.admin.create_catalog_product_kits.variants.manage.duplicate_details')
+
         - @variants.each do |variant|
           .grid__cell.grid__cell--25{ id: "variant-#{variant.sku}", data: { filterable: { group: 'existing_variants', value: variant.admin_filter_value }.to_json } }
             .box

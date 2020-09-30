@@ -2,7 +2,7 @@
 
 Workarea.append_javascripts(
   'admin.modules',
-  'workarea/admin/product_bundles/modules/variant_components',
+  'workarea/admin/product_bundles/modules/kit_variant_options',
   'workarea/admin/product_bundles/modules/variant_component_selects',
   'workarea/admin/product_bundles/modules/filterable'
 )

@@ -34,6 +34,7 @@ Workarea::Admin::Engine.routes.draw do
         get :edit_variant, path: 'variant/:sku'
         patch :update_variant, path: 'variant/:sku'
         delete :destroy_variant, path: 'variant/:sku'
+        delete :destroy_all_variants
 
         get :details
         post :save_details
