@@ -4,6 +4,10 @@ module Workarea
       include Admin::FeaturedProductsViewModel
     end
 
+    def variant_details?
+      variant_details.present?
+    end
+
     def bundled_products
       @bundled_products ||=
         begin

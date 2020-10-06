@@ -154,6 +154,33 @@ module Workarea
           component[:details]
         )
       end
+
+      def test_sku_based_components
+        params = {
+          '1' => {
+            product_id: 'PROD1',
+            quantity: 1,
+            skus: %w(SKU1-1)
+          }
+        }
+
+        components =
+          Params.new(bundled_products: products, components: params).components
+
+        assert_equal(1, components.size)
+        assert_equal(1, components.first.size)
+
+        component = components.first.first
+        assert_equal('SKU1-1', component[:sku])
+        assert_equal('SKU1-1', component[:variant].sku)
+        assert_equal('PROD1', component[:product_id])
+        assert_equal('PROD1', component[:product].id)
+        assert_equal(
+          { 'Color' => %w(Blue), 'Size' => %w(Small) },
+          component[:details]
+        )
+        assert_equal(1, component[:quantity])
+      end
     end
   end
 end

@@ -96,6 +96,7 @@ en:
             step_two_heading: Then, provide any data you'd like to set on the new variants.
             sku_field: SKU / SKU Prefix
             sku_note: When generating multiple variants this will be used as a prefix for each SKU.
+            sku_selection_heading: 'Select SKUs to use:'
             option_selection_heading: 'Select options to build variants from:'
             option_selection_prompt: Select quantity and options to include in kit variants.
             options_toggle: Add new options

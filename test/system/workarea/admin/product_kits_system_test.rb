@@ -180,6 +180,65 @@ module Workarea
         click_link t('workarea.admin.create_catalog_product_bundles.bundled_products.continue_to_images')
       end
 
+      def test_variant_creation_with_no_option_variants
+        @product_1.variants.each { |v| v.details = {} }
+        @product_1.save!
+
+        product = create_product(
+          id: 'KP001',
+          name: 'Test Kit',
+          product_ids: %w(PROD1 PROD2),
+          variants: []
+        )
+
+        visit admin.variants_create_catalog_product_kit_path(product)
+
+        table = page.find('[id^=bundled-product-prod1]')
+
+        within table do
+          assert(page.has_content?(@product_1.name))
+          assert(page.has_content?('SKU1-1'))
+          assert(page.has_content?('SKU1-2'))
+
+          find('[id$=sku1_1_sku_checkbox]').check
+
+          assert(page.has_content?(t('workarea.admin.kit_variant_options.selected', count: 1)))
+        end
+
+        table = page.find('[id^=bundled-product-prod2]')
+
+        within table do
+          check 'select_all_color'
+          find('[id$=details_color_copy_true_label]').click
+          find('[id$=details_material_copy_true_label]').click
+        end
+
+        within '#creation-preview' do
+          assert(page.has_content?('2'))
+          assert(page.has_content?(t('workarea.admin.kit_variant_options.preview.variants.other')))
+          assert(page.has_content?('White and Red'))
+          assert(page.has_content?('Color'))
+          assert(page.has_content?('Cotton'))
+          assert(page.has_content?('Material'))
+          assert(
+            page.has_content?(
+              t(
+                'workarea.admin.kit_variant_options.preview.price_range',
+                min: '$15.00',
+                max: '$17.00'
+              )
+            )
+          )
+        end
+
+        click_button t('workarea.admin.create_catalog_product_kits.variants.create.button')
+
+        assert_current_path(admin.manage_variants_create_catalog_product_kit_path(product))
+
+        assert(page.has_content?('Success'))
+        assert(page.has_content?(t('workarea.admin.filterable.showing', count: 2)))
+      end
+
       def test_full_kit_workflow
         create_category(name: 'Test Category')
 
