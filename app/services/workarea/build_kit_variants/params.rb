@@ -39,7 +39,7 @@ module Workarea
           product = bundled_products.detect { |p| p.id == component_params[:product_id] }
           next unless product.present?
 
-          variants = matching_variants(product, component_params[:details])
+          variants = matching_variants(product, component_params)
           next unless variants.present?
 
           variants.map do |variant|
@@ -55,14 +55,19 @@ module Workarea
       private
 
       def use_component?(component_params)
-        component_params[:quantity].to_i.positive? &&
-        component_params[:details].any? do |_detail, detail_params|
-          Array.wrap(detail_params[:values]).compact.any?
-        end
+        component_params[:quantity].to_i.positive? && (
+          Array.wrap(component_params[:skus]).any? ||
+          component_params[:details].any? do |_detail, detail_params|
+            Array.wrap(detail_params[:values]).compact.any?
+          end
+        )
       end
 
-      def matching_variants(product, component_details_params)
-        selected_details = filtered_details(component_details_params)
+      def matching_variants(product, component_params)
+        skus = Array.wrap(component_params[:skus]).reject(&:blank?)
+        return sku_based_variants(product, skus) if skus.present?
+
+        selected_details = filtered_details(component_params[:details])
 
         product.variants.map do |variant|
           details = intersecting_details(selected_details, variant.details)
@@ -71,9 +76,22 @@ module Workarea
           {
             variant: variant,
             sku: variant.sku,
-            details: transform_details(variant, details, component_details_params)
+            details: transform_details(variant, details, component_params[:details])
           }
         end.compact
+      end
+
+      def sku_based_variants(product, skus)
+        skus.map do |sku|
+          variant = product.variants.detect { |v| v.sku == sku }
+          next unless variant.present?
+
+          {
+            variant: variant,
+            sku: variant.sku,
+            details: variant.details
+          }
+        end
       end
 
       def filtered_details(component_details_params)

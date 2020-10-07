@@ -32,39 +32,56 @@
           = label_tag "components[#{key}][quantity]", t('workarea.admin.fields.quantity'), class: 'property__name'
           = number_field_tag "components[#{key}][quantity]", 1, class: 'text-box text-box--small'
 
-        .property
-          = label_tag "components[#{key}][details]", class: 'property__name' do
-            = t('workarea.admin.create_catalog_product_kits.variants.create.copy_options')
-            = link_to "#copy-options-info-#{key}", data: { tooltip: '' } do
-              = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_info_title'))
+        - if bundled_product.variant_details?
+          .property
+            = label_tag "components[#{key}][details]", class: 'property__name' do
+              = t('workarea.admin.create_catalog_product_kits.variants.create.copy_options')
+              = link_to "#copy-options-info-#{key}", data: { tooltip: '' } do
+                = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_info_title'))
 
-          .tooltip-content{ id: "copy-options-info-#{key}" }= t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_info_html')
+            .tooltip-content{ id: "copy-options-info-#{key}" }= t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_info_html')
 
-          - variant_detail_types.each do |type|
-            .grid
-              .grid__cell.grid__cell--25
-                %span= type.titleize
-              .grid__cell.grid__cell--75
-                = toggle_button_for "components[#{key}][details][#{type}][copy]", false, title_true: t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_toggle_positive', type: type), title_false: t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_toggle_negative', type: type), data: { toggle_button: '' } do
-                  .toggle-button__more.toggle-button__more--below{ data: { toggle_button_negative_element: '' } }
-                  .toggle-button__more.toggle-button__more--below{ data: { toggle_button_positive_element: '' } }
-                    .property
-                      = label_tag "components[#{key}][details][#{type}][rename]", t('workarea.admin.create_catalog_product_kits.variants.create.rename'), class: 'property_name'
-                      = text_field_tag"components[#{key}][details][#{type}][rename]", type, class: 'text-box', id: "component_#{key}_details_#{type.optionize}_rename"
+            - variant_detail_types.each do |type|
+              .grid
+                .grid__cell.grid__cell--25
+                  %span= type.titleize
+                .grid__cell.grid__cell--75
+                  = toggle_button_for "components[#{key}][details][#{type}][copy]", false, title_true: t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_toggle_positive', type: type), title_false: t('workarea.admin.create_catalog_product_kits.variants.create.copy_options_toggle_negative', type: type), data: { toggle_button: '' } do
+                    .toggle-button__more.toggle-button__more--below{ data: { toggle_button_negative_element: '' } }
+                    .toggle-button__more.toggle-button__more--below{ data: { toggle_button_positive_element: '' } }
+                      .property
+                        = label_tag "components[#{key}][details][#{type}][rename]", t('workarea.admin.create_catalog_product_kits.variants.create.rename'), class: 'property_name'
+                        = text_field_tag"components[#{key}][details][#{type}][rename]", type, class: 'text-box', id: "component_#{key}_details_#{type.optionize}_rename"
 
       .grid__cell.grid__cell--75
-        = label_tag "components[#{key}]", t('workarea.admin.create_catalog_product_kits.variants.create.option_selection_heading'), class: 'property__name'
+        - if bundled_product.variant_details?
+          = label_tag "components[#{key}]", t('workarea.admin.create_catalog_product_kits.variants.create.option_selection_heading'), class: 'property__name'
 
-        .grid
-          - bundled_product.variant_details.each do |detail, values|
-            .grid__cell.grid__cell--25.component-sku-table{ data: { kit_variant_option_set: '' } }
-              %table
-                %thead
-                  %tr
-                    %th= check_box_tag "select_all_#{detail.optionize}", true, false, id: nil, data: { kit_variant_option_select_all: '' }
-                    %th= detail.titleize
-                %tbody
-                  - values.each do |value|
-                    %tr{ data: { filterable: { group: "product_#{optionized_id}", value: "#{value.downcase} #{detail.downcase}" }.to_json } }
-                      %td= check_box_tag "components[#{key}][details][#{detail}][values][]", value, false, id: "components_#{key}_#{detail.optionize}_#{value.optionize}_checkbox", data: { kit_variant_option: '' }
-                      %td= value
+
+          .grid
+            - bundled_product.variant_details.each do |detail, values|
+              .grid__cell.grid__cell--25.component-sku-table{ data: { kit_variant_option_set: '' } }
+                %table
+                  %thead
+                    %tr
+                      %th= check_box_tag "select_all_#{detail.optionize}", true, false, id: nil, data: { kit_variant_option_select_all: '' }
+                      %th= detail.titleize
+                  %tbody
+                    - values.each do |value|
+                      %tr{ data: { filterable: { group: "product_#{optionized_id}", value: "#{value.downcase} #{detail.downcase}" }.to_json } }
+                        %td= check_box_tag "components[#{key}][details][#{detail}][values][]", value, false, id: "components_#{key}_#{detail.optionize}_#{value.optionize}_checkbox", data: { kit_variant_option: '' }
+                        %td= value
+        - else
+          = label_tag "components[#{key}]", t('workarea.admin.create_catalog_product_kits.variants.create.sku_selection_heading'), class: 'property__name'
+
+          .grid__cell.grid__cell--25.component-sku-table{ data: { kit_variant_option_set: '' } }
+            %table
+              %thead
+                %tr
+                  %th= check_box_tag "select_all_skus", true, false, id: nil, data: { kit_variant_option_select_all: '' }
+                  %th= t('workarea.admin.fields.sku')
+              %tbody
+                - bundled_product.skus.each do |sku|
+                  %tr{ data: { filterable: { group: "product_#{optionized_id}", value: sku }.to_json } }
+                    %td= check_box_tag "components[#{key}][skus][]", sku, false, id: "components_#{key}_#{sku.optionize}_sku_checkbox", data: { kit_variant_option: '' }
+                    %td= sku
