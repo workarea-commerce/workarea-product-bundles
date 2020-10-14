@@ -1,3 +1,213 @@
+Workarea Product Bundles 1.0.0 (2020-10-14)
+--------------------------------------------------------------------------------
+
+*   Allow SKU selection for products with optionless variants
+
+    BUNDLES-23
+
+    Matt Duffy
+
+*   Update dependency to match base system requirements
+
+
+    Ben Crouse
+
+*   Rework UX of kit variant creation
+
+    BUNDLES-21
+
+    Matt Duffy
+
+*   Apply suggestions from code review
+
+    Co-authored-by: Ben Crouse <bcrouse@workarea.com>
+
+    Matt Duffy
+
+*   Add more documentation on bundles to README
+
+    BUNDLES-3
+
+    Matt Duffy
+
+*   Rename bundle fulfillment policy 'skip'
+
+    BUNDLES-22
+
+    Matt Duffy
+
+*   Don't allow kit to be purchased if bundled products are not purchasable
+
+    BUNDLES-17
+
+    Matt Duffy
+
+*   Remove CSV Messaging For Options Fields
+
+    When workarea-commerce/workarea#497 is merged, this will ensure that the
+    product bundles plugin is not attempting to use a translation that is no
+    longer there. It also brings the plugin to parity with the core
+    functionality of editing options.
+
+    WORKAREA-266
+
+    Tom Scott
+
+*   Optimize kit variant creation
+
+
+    Matt Duffy
+
+*   Handle missing pricing skus when calculating kit variant prices
+
+    BUNDLES-17
+
+    Matt Duffy
+
+*   Fix detail step views for bundle workflows to prevent type filter
+
+    BUNDLES-20
+
+    Matt Duffy
+
+*   Remove storefront link from new variants step of kit workflow
+
+    BUNDLES-18
+
+    Matt Duffy
+
+*   Bump lodash from 4.17.15 to 4.17.20
+
+    Bumps [lodash](https://github.com/lodash/lodash) from 4.17.15 to 4.17.20.
+    - [Release notes](https://github.com/lodash/lodash/releases)
+    - [Commits](https://github.com/lodash/lodash/compare/4.17.15...4.17.20)
+
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+    dependabot[bot]
+
+*   fix js style
+
+
+    Matt Duffy
+
+*   Refine kit variant creation preview data
+
+    BUNDLES-16
+
+    Matt Duffy
+
+*   Fix sku select filtering when selecting products for components
+
+    BUNDLES-11
+
+    Matt Duffy
+
+*   Remove csv tooltip from value column of variant options
+
+
+    Matt Duffy
+
+*   Add options column to components table when editing variants
+
+    BUNDLES-14
+
+    Matt Duffy
+
+*   Update Copy options label
+
+    BUNDLES-15
+
+    Matt Duffy
+
+*   Automatically set fulfillment policy for new kit variants
+
+    BUNDLES-12
+
+    Matt Duffy
+
+*   Defer fulfillment policy checking to bundled items for bundle in order
+
+    BUNDLES-13
+
+    Matt Duffy
+
+*   Respect product product_ids order when rendering variant components
+
+    BUNDLES-5
+
+    Matt Duffy
+
+*   Correct inventory messaging in featured products UI for discrete bundles
+
+    BUNDLES-4
+
+    Matt Duffy
+
+*   fix missing tooltip
+
+    BUNDLES-8
+
+    Matt Duffy
+
+*   Apply suggestions from code review
+
+    Co-authored-by: Ben Crouse <bcrouse@workarea.com>
+
+    Matt Duffy
+
+*   PR cleanup
+
+
+    Matt Duffy
+
+*   Add admin kit workflow creation
+
+    BUNDLES-2
+
+    Matt Duffy
+
+*   Add better seed data
+
+    BUNDLES-1
+
+    Matt Duffy
+
+*   Rename plugin workarea-product_bundles
+
+
+    Matt Duffy
+
+*   Add kit functionality, update overall bundle behavior
+
+    * Introduce concept of a bundle, which is any of package, family, or kit
+    * Rework package and family product detail pages for better UX
+    * Add kit to allow bundled products displayed as a "normal" product through checkout
+
+    BUNDLES-1
+
+    Matt Duffy
+
+*   Use patched HashUpdate for localized hash fields
+
+    Fixes an infinite loop when installed with other plugins.
+
+    Ben Crouse
+
+*   Fix activeness to accommodate v3.5 logic
+
+    This also only allows a package to be active if at least one of it's
+    children products are active.
+
+    Ben Crouse
+
+*   Initial commit on master
+
+
+    Curt Howard
+
+
+
 Workarea Package Products 3.4.1 (2020-04-20)
 --------------------------------------------------------------------------------
 
