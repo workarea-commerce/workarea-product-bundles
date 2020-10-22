@@ -1,5 +1,11 @@
 module Workarea
   class ProductBundleSeeds
+    delegate :find_random_image, to: :@products_seeds
+
+    def initialize
+      @products_seeds = ProductsSeeds.new
+    end
+
     def perform
       puts 'Adding product bundles...'
 
@@ -52,6 +58,10 @@ module Workarea
           fulfillment_data.each do |sku, fdata|
             Fulfillment::Sku.create!(fdata.merge(id: sku))
           end
+        end
+
+        if (sample_image = find_random_image).present?
+          product.images.create!(image: sample_image)
         end
 
         product
