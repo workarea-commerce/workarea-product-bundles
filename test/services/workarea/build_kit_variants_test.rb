@@ -263,5 +263,21 @@ module Workarea
       refute(summary.duplicate_details?)
       assert(summary.invalid_details?)
     end
+
+    def test_component_groups
+      kit = create_product(
+        name: 'Test Kit',
+        variants: [],
+        product_ids: %w(PROD1 PROD2)
+      )
+      build = BuildKitVariants.new(kit, params)
+
+      refute_empty(build.component_groups)
+      assert_kind_of(Hash, build.component_groups.first.first)
+
+      build = BuildKitVariants.new(kit, params.merge(components: { '1' => {} }))
+
+      assert_empty(build.component_groups)
+    end
   end
 end
