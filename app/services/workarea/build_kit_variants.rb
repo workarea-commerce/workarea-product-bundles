@@ -38,6 +38,7 @@ module Workarea
     def component_groups
       return @component_groups if defined?(@component_groups)
       pieces = params.components
+      return [] unless pieces.present?
       @component_groups = pieces.shift.product(*pieces)
     end
 
