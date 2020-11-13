@@ -1,3 +1,30 @@
+Workarea Product Bundles 1.0.1 (2020-11-13)
+--------------------------------------------------------------------------------
+
+*   Fix Error on Missing Components Params
+
+    The `:components` param sent into `BuildKitVariants` can point to empty
+    hashes. If this is the case, ensure that `#component_groups` does not
+    throw an error, but rather returns an empty Array so downstream
+    consumers can handle the situation gracefully.
+
+    BUNDLES-25
+
+    Tom Scott
+
+*   Add Sample Images To Seeds
+
+    Using the logic in `Workarea::ProductsSeeds`, apply random images from
+    the sample images cache to the products in `ProductBundleSeeds`. This
+    makes product bundles look like any other product when seeding the
+    database.
+
+    BUNDLES-24
+
+    Tom Scott
+
+
+
 Workarea Product Bundles 1.0.0 (2020-10-14)
 --------------------------------------------------------------------------------
 
