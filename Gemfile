@@ -14,4 +14,4 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 #
 
-gem 'workarea', github: 'workarea-commerce/workarea', branch: 'v3.5-stable'
+gem 'workarea', github: 'workarea-commerce/workarea', branch: 'next', branch: 'v3.5-stable'
